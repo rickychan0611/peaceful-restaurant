@@ -32,7 +32,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/i18n.json ./i18n.json
 COPY --from=builder /app/locales ./locales
-COPY --from=build-stage /app/translateSrc .
+COPY --from=builder /app/translateSrc .
 # COPY --from=build-stage /app/pages .
 
 USER nextjs
