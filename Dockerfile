@@ -12,6 +12,8 @@ WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
+# Workaround part 1: Create empty files and folders to replicate the structure of the pages in the app
+RUN find ./pages \( -type d -exec mkdir -p "/app/translateSrc/{}" \; -o -type f -exec touch "/app/translateSrc/{}" \; \)
 
 # Production image, copy all the files and run next
 FROM node:14-alpine AS runner
@@ -23,13 +25,15 @@ RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
 # You only need to copy next.config.js if you are NOT using the default configuration
-COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/next.config.js ./next.config.js
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/i18n.json ./i18n.json
 COPY --from=builder /app/locales ./locales
+COPY --from=build-stage /app/translateSrc .
+# COPY --from=build-stage /app/pages .
 
 USER nextjs
 
