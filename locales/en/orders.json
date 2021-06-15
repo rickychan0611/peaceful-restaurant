@@ -1,16 +1,5 @@
 {
-  "YourOrders": "Your Orders",
-  "PastOrders": "Past Orders (Click to see details)",
-  "ViewReceipt": "View Receipt",
-  "Order placed": "Order placed",
-  "Paid": "Paid",
-  "Out for delivery": "Out for delivery",
-  "Order received": "Order received",
-  "Reviewed": "Reviewed",
-  "Cancel requested": "Cancel requested",
-  "Cancel denied. You may try again": "Cancel denied. You may try again",
-  "Cancel denied permanently": "Cancel denied permanently",
-  "Cancel accepted. Refund pending": "Cancel accepted. Refund pending",
-  "Refunded": "Refunded",
-  "Cancelled": "Cancelled"
+    "YourOrders" : "Your Orders",
+    "PastOrders" : "Past Orders",
+    "ViewReceipt" : "View Receipt"
 }

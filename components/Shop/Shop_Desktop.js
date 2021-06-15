@@ -33,7 +33,7 @@ const Shop_Desktop = () => {
         </Grid.Column>
 
         <Grid.Column width={12} style={{ padding: '0 20px' }}>
-          <div>
+          <div  style={{ padding: '0 20px' }}>
             <Wrapper>
               {currentShop.logo ? (
                 <Avatar src={HOST_URL + '/storage/' + currentShop.logo} />

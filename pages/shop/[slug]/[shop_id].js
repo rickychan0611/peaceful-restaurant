@@ -38,18 +38,8 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   return (
     <div>
       <Head>
-        <title>{currentShop && currentShop.name} - Peaceful Mall Restaurants</title>
+        <title>{currentShop && currentShop.name}</title>
       </Head>
-      {currentShop && !isMobile ? (
-        <SearchBannerWrapper>
-          <SearchBanner />
-        </SearchBannerWrapper>
-      ) : (
-        <SearchBannerWrapper>
-          <SearchBanner />
-          {/* <BackButton /> */}
-        </SearchBannerWrapper>
-      )}
       <Container
         style={{
           marginTop: isMobile ? '85px' : isTablet ? '85px' : '85px'

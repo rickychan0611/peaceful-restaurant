@@ -10,6 +10,11 @@ export const selections = atom({
   default: {cuisine: "all", category: "", restaurant: ""}
 });
 
+export const selectedLocation = atom({
+  key: 'selectedLocation',
+  default: null
+});
+
 export const openSideMenu = atom({
   key: 'openSideMenu',
   default: false

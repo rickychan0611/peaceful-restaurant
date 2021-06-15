@@ -33,29 +33,35 @@ const TopBar = () => {
   const { t } = useTranslation('home');
 
   return (
-    <Container>
-      <SpaceBetween>
-        {!isDesktop ? (
-          <TopBar_Mobile t={t} changeLocale={changeLocale} locales={locales} />
-        ) : (
-          <TopBar_Desktop t={t} changeLocale={changeLocale} locales={locales} />
-        )}
-      </SpaceBetween>
-    </Container>
+    <>
+      <Container>
+        <SpaceBetween>
+          {!isDesktop ? (
+            <TopBar_Mobile t={t} changeLocale={changeLocale} locales={locales} />
+          ) : (
+            <TopBar_Desktop t={t} changeLocale={changeLocale} locales={locales} />
+          )}
+        </SpaceBetween>
+      <Bar />
+      </Container>
+    </>
   );
 };
 
 const Container = styled.div`
   border-radius: 0;
   position: fixed;
-  display: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
   z-index: 1000;
-  background-color: white;
+  background-color: #9c0404;
   width: 100%;
-  height: 63px;
+  /* height: 85px; */
   top: 0;
-  box-shadow: 0 0 10px rgba(0,0,0,.2);
-`;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  `;
 const SpaceBetween = styled.div`
   display: flex;
   flex-direction: row;
@@ -63,7 +69,24 @@ const SpaceBetween = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px;
+  padding-right: 15px;
+`;
+const Bar = styled.div`
+  display: flex;
+  align-items: center;
+  /* z-index: 100; */
+  background-color: #9c0404;
+  width: 100%;
+  height: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  border-style: solid;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-width: 4px;
+  /* padding-top: 4px; */
+  margin-top: -3px;
+  border-image: linear-gradient(45deg,yellow, #a59502, yellow, #a59502, yellow) 1;
 `;
 
 export default TopBar;
