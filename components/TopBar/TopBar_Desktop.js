@@ -17,13 +17,13 @@ import { useCookies } from 'react-cookie';
 
 const locations = [
   { id: 1, name: 'Broadway' },
-  { id: 2, name: 'Mount Pleasant' },
-  { id: 3, name: 'Kitsilano' },
-  { id: 4, name: 'Seymour' },
-  { id: 5, name: 'Newton' },
-  { id: 6, name: 'Kingsway' },
-  { id: 7, name: 'Port Coquitlam' },
-  { id: 8, name: 'Richmond' }
+  { id: 2, name: 'Kitsilano' },
+  { id: 3, name: 'Richmond' },
+  { id: 4, name: 'Port Coquitlam' },
+  { id: 5, name: 'Kingsway' },
+  { id: 6, name: 'Seymour' },
+  { id: 7, name: 'Newton' },
+  { id: 8, name: 'Mount Pleasant' }
 ];
 
 const TopBar_Desktop = ({ locales, changeLocale }) => {

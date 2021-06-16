@@ -149,7 +149,7 @@ function MyApp({ Component, pageProps }) {
             />
           </Head>
           <TopBar />
-          <div className="contents" style={{ paddingTop: 60, width: '100vw' }}>
+          <div className="contents" style={{ paddingTop: 0, width: '100vw' }}>
             <SideMenu>
               <CheckOutListPusher>
                 <Component {...pageProps} />

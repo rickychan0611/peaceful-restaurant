@@ -33,7 +33,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
     console.log("Single shop" , getSingleShop)
-  }, []);
+  }, [getSingleShop]);
 
   return (
     <div>
@@ -42,7 +42,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
       </Head>
       <Container
         style={{
-          marginTop: isMobile ? '85px' : isTablet ? '85px' : '85px'
+          paddingTop: isMobile ? '85px' : isTablet ? '85px' : '0'
         }}>
         {!currentShop || currentShop === 'not found' ? (
           <div style={{ height: '80vh' }}>
@@ -58,7 +58,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
           </>
         )}
       </Container>
-      {currentShop && <Footer />}
+      {/* {currentShop && <Footer />} */}
     </div>
   );
 };
