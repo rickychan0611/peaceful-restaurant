@@ -12,6 +12,7 @@ import {
   defaultAddress as defaultAddressAtom,
   addresses as addressAtom,
   currentShop as currentShopAtom,
+  loginPending as loginPendingAtom
 } from '../data/atoms';
 import { user as userAtom } from '../data/userAtom';
 import { HOST_URL } from '../env';
@@ -43,6 +44,7 @@ const checkout = () => {
   const [reload, setReload] = useState(0);
   const [tips_amount, setTips_amount] = useState({ tips: 0 });
   const [pickUpInfo, setPickupInfo] = useState({ name: '', phone: '' });
+  const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
 
   useEffect(() => {
     user &&
@@ -104,6 +106,11 @@ const checkout = () => {
     console.log('placeOrderQuery', orderDetails);
     console.log('defaultAddress', defaultAddress);
     try {
+      if (!user) {
+        setLoginPending(true)
+        router.push('/sign-in')
+        throw new Error ("Please login")
+      }
       if (orderDetails.shippingMethod.id !== 1 && !defaultAddress) {
         throw new Error('Missing address. Please add an address');
       }
@@ -308,15 +315,24 @@ const checkout = () => {
                 </H4>
                 <Form>
                   <Form.Group widths="equal">
-                    <InputMask
-                      mask="999-999-9999"
-                      maskChar="_"
-                      alwaysShowMask
-                      placeholder="Phone Number"
+                    <Form.Input
+                      fluid
+                      required
+                      label="Your phone number"
+                      error={err && err.phone}
                       value={pickUpInfo.phone}
-                      onChange={(e) => {
-                        handlePickupChange(e.target.value, 'phone');
-                      }}
+                      children={
+                        <InputMask
+                          mask="999-999-9999"
+                          maskChar="_"
+                          alwaysShowMask
+                          placeholder="Your phone number"
+                          value={pickUpInfo.phone}
+                          onChange={(e) => {
+                            handlePickupChange(e.target.value, 'phone');
+                          }}
+                        />
+                      }
                     />
                     <Form.Input
                       required
@@ -413,8 +429,8 @@ const checkout = () => {
               tips_amount={tips_amount}
             />
             <Divider />
-            <Header>Payment method</Header>
-            <Divider />
+            {/* <Header>Payment method</Header>
+            <Divider /> */}
             <CheckoutButton
               onClick={() => {
                 !loading && createOrderQuery();
@@ -444,7 +460,7 @@ const OrdersContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  padding: 20px 0px;
+  padding: 20px 0px 60px 0px;
 `;
 const H4 = styled.h4`
   margin: 0 0 10px 0;
@@ -464,6 +480,7 @@ const CheckoutButton = styled.div`
   justify-content: space-between;
   font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 `;
 const PickupContainer = styled.div`
   display: flex;

@@ -78,15 +78,13 @@ const ItemDetailsContext = ({
               {currentShop && currentShop.name}
             </StoreHeader>
             <h2>{item.name}</h2>
-
             {item.images && item.images[0] ? (
               <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
             ) : (
               <Img src="/no-image.png" />
             )}
-
-            <Description>{item.description}</Description>
-            <h4>Choose your options</h4>
+            <h4>Description</h4><Description>{item.description}</Description>
+            {item.attributes && item.attributes[0] && <h4>Choose your options</h4>}
             <Form>
               <Form.Field></Form.Field>
               {item.attributes &&

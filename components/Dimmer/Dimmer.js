@@ -15,7 +15,7 @@ const Dimmer = ({ state, close }) => {
 
 const Container = styled.div`
   position: fixed;
-  top: 60px;
+  top: 82px;
   width: 100vw;
   height: 100vh;
   background-color: ${(p) => (p.state ? 'rgba(0,0,0,0.1)' : 'none')}; 

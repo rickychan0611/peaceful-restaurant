@@ -33,26 +33,16 @@ const shop = ({ getSingleShop, getShopProducts }) => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
     console.log("Single shop" , getSingleShop)
-  }, []);
+  }, [getSingleShop]);
 
   return (
     <div>
       <Head>
-        <title>{currentShop && currentShop.name} - Peaceful Mall Restaurants</title>
+        <title>{currentShop && currentShop.name}</title>
       </Head>
-      {currentShop && !isMobile ? (
-        <SearchBannerWrapper>
-          <SearchBanner />
-        </SearchBannerWrapper>
-      ) : (
-        <SearchBannerWrapper>
-          <SearchBanner />
-          {/* <BackButton /> */}
-        </SearchBannerWrapper>
-      )}
       <Container
         style={{
-          marginTop: isMobile ? '85px' : isTablet ? '85px' : '85px'
+          paddingTop: isMobile ? '85px' : isTablet ? '85px' : '0'
         }}>
         {!currentShop || currentShop === 'not found' ? (
           <div style={{ height: '80vh' }}>
@@ -68,7 +58,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
           </>
         )}
       </Container>
-      {currentShop && <Footer />}
+      {/* {currentShop && <Footer />} */}
     </div>
   );
 };

@@ -3,11 +3,15 @@ import styled from 'styled-components';
 import { Sidebar, Icon } from 'semantic-ui-react';
 
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { openCheckOutList as openCheckOutListAtom } from '../../data/atoms.js';
+import {
+  openCheckOutList as openCheckOutListAtom,
+  loginPending as loginPendingAtom
+} from '../../data/atoms.js';
 import {
   orderItems as orderItemsAtom,
   orderDetails as orderDetailsAtom
 } from '../../data/orderAtoms.js';
+import { user as userAtom } from '../../data/userAtom';
 
 import OrderItem from '../OrderItem';
 
@@ -16,6 +20,8 @@ const CheckOutList = () => {
   const [openCheckOutList, setOpenCheckOutList] = useRecoilState(openCheckOutListAtom);
   const orderDetails = useRecoilValue(orderDetailsAtom);
   const [orderItems] = useRecoilState(orderItemsAtom);
+  const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
+  const user = useRecoilValue(userAtom);
 
   return (
     <SidebarContainer
@@ -27,7 +33,7 @@ const CheckOutList = () => {
       <Icon
         name="close"
         size="large"
-        style={{ marginTop: 80, marginLeft: 10, marginBottom: 20, cursor: 'pointer' }}
+        style={{ marginTop: 100, marginLeft: 10, marginBottom: 20, cursor: 'pointer' }}
         onClick={() => setOpenCheckOutList(false)}
       />
       {orderItems && orderItems[0] ? (
@@ -43,7 +49,11 @@ const CheckOutList = () => {
           </H4>
           <CheckoutButton
             onClick={() => {
-              router.push('/checkout');
+              if (!user) {
+                setLoginPending(true);
+                router.push('/sign-in');
+              }
+              else router.push('/checkout');
               setOpenCheckOutList(!openCheckOutList);
             }}>
             <H4>Checkout</H4>

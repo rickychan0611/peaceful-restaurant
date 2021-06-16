@@ -21,7 +21,7 @@ import InputMask from 'react-input-mask';
 
 import { useRecoilState } from 'recoil';
 import { user as userAtom, userdata } from '../../data/userAtom';
-import { addresses as addressAtom } from '../../data/atoms';
+import { addresses as addressAtom, loginPending as loginPendingAtom } from '../../data/atoms';
 import useTranslation from 'next-translate/useTranslation';
 
 const SigningForms = ({ signUp }) => {
@@ -33,6 +33,7 @@ const SigningForms = ({ signUp }) => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const { t } = useTranslation('home');
   const [addresses, setAddresses] = useRecoilState(addressAtom);
+  const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
 
   const [inputs, setInputs] = useState({
     // confirmPassword: 'Ricric61',
@@ -54,11 +55,16 @@ const SigningForms = ({ signUp }) => {
         const getUser = await axios.get(HOST_URL + '/api/user/info', {
           headers: { Authorization: response.data.data }
         });
-        console.log("getUser.data.data", getUser.data.data);
+        console.log('getUser.data.data', getUser.data.data);
         localStorage.setItem('user', JSON.stringify(getUser.data.data));
         setUser(getUser.data.data);
         setAddresses(getUser.data.data.addresses);
-        router.push('/');
+        if (loginPending) {
+          setLoginPending(false)
+          router.push('/checkout');
+        } else {
+          router.push('/');
+        }
         setLoading(false);
       } else throw response.data;
     } catch (err) {
@@ -86,9 +92,14 @@ const SigningForms = ({ signUp }) => {
         });
         localStorage.setItem('user', JSON.stringify(getUser.data.data));
         setUser(getUser.data.data);
-        console.log("getUser.data.data", getUser.data.data);
+        console.log('getUser.data.data', getUser.data.data);
         setAddresses(getUser.data.data.addresses);
-        router.push('/');
+        if (loginPending) {
+          setLoginPending(false)
+          router.push('/checkout');
+        } else {
+          router.push('/');
+        }
         setLoading(false);
       } else throw response.data;
     } catch (err) {
@@ -163,7 +174,7 @@ const SigningForms = ({ signUp }) => {
             {signUp && (
               <Form.Input
                 fluid
-                iconPosition='left'
+                iconPosition="left"
                 required
                 error={err.phone}
                 children={

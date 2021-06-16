@@ -1,16 +1,5 @@
 {
     "YourOrders" : "您的订单",
-    "PastOrders" : "过去的订单 (按看详细收据)",
-    "ViewReceipt" : "查看收据",
-    "Order placed": "已下单",
-    "Paid": "已支付",
-    "Out for delivery": "已发货",
-    "Order received": "已确认收货",
-    "Reviewed": "已评价，订单完成",
-    "Cancel requested": "正在申请取消",
-    "Cancel denied. You may try again": "取消被拒绝，可再次申请",
-    "Cancel denied permanently": "取消被永久拒绝",
-    "Cancel accepted. Refund pending": "取消被接受，未退款",
-    "Refunded": "取消已退款",
-    "Cancelled": "取消完成"
+    "PastOrders" : "过去的订单",
+    "ViewReceipt" : "查看收据"
 }
