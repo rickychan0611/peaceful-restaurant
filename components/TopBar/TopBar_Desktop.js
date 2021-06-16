@@ -131,7 +131,7 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
                     <MenuItem
                       className="front"
                       onClick={() => {
-                        router.push('/consumer/edit-profile');
+                        router.push('/consumer/orders');
                         setOpenDropdownMenu(false);
                       }}>
                       My Orders

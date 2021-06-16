@@ -64,7 +64,7 @@ const Shop_Desktop = () => {
 const Container = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-top: 100px;
+  /* margin-top: -100px; */
 `;
 const Left = styled.div`
   flex: 2;

@@ -5,5 +5,7 @@
       "*": ["home"],
       "rgx:^/shop" : ["shop"],
       "rgx:^/consumer" : ["orders"],
-      "rgx:^/consumer/edit-profile" : ["profile"]    }
+      "rgx:^/consumer/edit-profile" : ["profile"],
+      "rgx:^/checkout" : ["profile"]
+    }
   }
