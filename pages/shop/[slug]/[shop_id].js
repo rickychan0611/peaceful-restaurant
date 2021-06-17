@@ -108,14 +108,22 @@ export const getStaticPaths = async () => {
   return {
     paths:
       [
-        { params: { shop_id: '1', slug: "Broadway" } },
-        { params: { shop_id: '2', slug: "Kitsilano" } },
-        { params: { shop_id: '3', slug: "Richmond" } },
-        { params: { shop_id: '4', slug: "Port Coquitlam" } },
-        { params: { shop_id: '5', slug: "Kingsway" } },
-        { params: { shop_id: '6', slug: "Seymour" } },
-        { params: { shop_id: '7', slug: "Newton" } },
-        { params: { shop_id: '8', slug: "Mount Pleasant" } },
+        { params: { shop_id: '1', slug: "Broadway" }, locale: "en" },
+        { params: { shop_id: '2', slug: "Kitsilano" }, locale: "en"  },
+        { params: { shop_id: '3', slug: "Richmond" }, locale: "en"  },
+        { params: { shop_id: '4', slug: "Port Coquitlam" }, locale: "en"  },
+        { params: { shop_id: '5', slug: "Kingsway" }, locale: "en"  },
+        { params: { shop_id: '6', slug: "Seymour" }, locale: "en"  },
+        { params: { shop_id: '7', slug: "Newton" }, locale: "en"  },
+        { params: { shop_id: '8', slug: "Mount Pleasant" }, locale: "en"  },
+        { params: { shop_id: '1', slug: "Broadway" }, locale: "zh-CN" },
+        { params: { shop_id: '2', slug: "Kitsilano" }, locale: "zh-CN"  },
+        { params: { shop_id: '3', slug: "Richmond" }, locale: "zh-CN"  },
+        { params: { shop_id: '4', slug: "Port Coquitlam" }, locale: "zh-CN"  },
+        { params: { shop_id: '5', slug: "Kingsway" }, locale: "zh-CN"  },
+        { params: { shop_id: '6', slug: "Seymour" }, locale: "zh-CN"  },
+        { params: { shop_id: '7', slug: "Newton" }, locale: "zh-CN"  },
+        { params: { shop_id: '8', slug: "Mount Pleasant" }, locale: "zh-CN"  },
       ],
     fallback: false
   }
