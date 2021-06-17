@@ -58,11 +58,11 @@ const RestaurantMenu = ({ contextRef, t }) => {
                         onClick={() => {
                           router.push(
                             '/shop/' +
-                              router.query.slug +
-                              '/' +
-                              router.query.shop_id +
-                              '#' +
-                              item.id
+                            router.query.slug +
+                            '/' +
+                            router.query.shop_id +
+                            '#' +
+                            item.id
                           );
                         }}>
                         {item.category_name}
@@ -86,9 +86,10 @@ const RestaurantMenu = ({ contextRef, t }) => {
               <MenuContainer key={i}>
 
                 {/* Anchor point for desktop and non desktop */}
-                {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>}
-                {!isDesktop && <div id={cat.id} style={{ paddingTop: 150, marginTop: -150 }}></div>}
-                
+                {/* {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>} */}
+                {isDesktop ? <div id={cat.id} style={{ paddingTop: 10, marginTop: -10 }} /> :
+                  <div id={cat.id} style={{ paddingTop: 150, marginTop: -150 }} />}
+
                 <CatTitle isMobile={isMobile}>
                   <div className="jumptarget">{cat.category_name}</div>
                 </CatTitle>
@@ -122,10 +123,10 @@ const CardContainer = styled.div`
 const Anchor = styled.div`
   display: block;
   position: relative;
-  top: 500;
+  top: 520;
   visibility: hidden;
-  margin-top: -500;
-  padding: 500;
+  margin-top: -520;
+  padding: 520;
 `;
 const MenuContainer = styled.div`
   margin-bottom: 30px;

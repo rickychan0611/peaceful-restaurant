@@ -32,7 +32,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   useEffect(async () => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
-    console.log("Single shop" , getSingleShop)
+    console.log("Single shop", getSingleShop)
   }, [getSingleShop]);
 
   return (
@@ -60,8 +60,30 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
-  context.res.setHeader('Cache-Control', 's-maxage=86400');
+// export const getServerSideProps = async (context) => {
+//   context.res.setHeader('Cache-Control', 's-maxage=86400');
+
+//   const getSingleShop = await axios.get(HOST_URL + '/api/singleshop', {
+//     params: { shop_id: context.params.shop_id }
+//   });
+
+//   const getShopProducts = await axios.get(HOST_URL + '/api/shopproducts', {
+//     params: {
+//       shop_id: context.params.shop_id,
+//       category_id: 'all'
+//     }
+//   });
+
+//   return {
+//     props: {
+//       getSingleShop: getSingleShop.data.data,
+//       getShopProducts: getShopProducts.data.data,
+//     }
+//   }
+// }
+
+
+export const getStaticProps = async (context) => {
 
   const getSingleShop = await axios.get(HOST_URL + '/api/singleshop', {
     params: { shop_id: context.params.shop_id }
@@ -82,18 +104,21 @@ export const getServerSideProps = async (context) => {
   }
 }
 
-const SearchBannerWrapper = styled.div`
-  z-index: 1000;
-  position: fixed;
-  top: 62px;
-  .active {
-    visibility: visible;
-    transition: all 200ms ease-in;
+export const getStaticPaths = async () => {
+  return {
+    paths:
+      [
+        { params: { shop_id: '1', slug: "Broadway" } },
+        { params: { shop_id: '2', slug: "Kitsilano" } },
+        { params: { shop_id: '3', slug: "Richmond" } },
+        { params: { shop_id: '4', slug: "Port Coquitlam" } },
+        { params: { shop_id: '5', slug: "Kingsway" } },
+        { params: { shop_id: '6', slug: "Seymour" } },
+        { params: { shop_id: '7', slug: "Newton" } },
+        { params: { shop_id: '8', slug: "Mount Pleasant" } },
+      ],
+    fallback: false
   }
-  .hidden {
-    visibility: hidden;
-    transition: all 200ms ease-out;
-    transform: translate(0, -100%);
-  }
-`;
+}
+
 export default shop;
