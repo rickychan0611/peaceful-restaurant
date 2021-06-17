@@ -22,7 +22,7 @@ import { useEffect } from 'react';
 import { uid } from 'react-uid';
 import { Button, Modal } from 'semantic-ui-react';
 
-const ItemDetails = ({ getProduct, setOpen, fromRestaurantPage }) => {
+const ItemDetails = ({ setOpen, fromRestaurantPage }) => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const [orderItems, setOrderItems] = useRecoilState(orderItemsAtom);

@@ -12,27 +12,25 @@ import { useRouter } from 'next/router';
 const item = () => {
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
 
-  const [getProduct, setGetProduct] = useState();
+  // const [getProduct, setGetProduct] = useState();
   const router = useRouter();
 
   useEffect(async () => {
     let product;
-    if (currentItem) {
-      setGetProduct(currentItem);
-    }
-    else {
+    if (!currentItem) {
       product = await axios.get(HOST_URL + '/api/singleproduct?product_id=' + router.query.item_id);
-      setGetProduct(product.data.data);
+      console.log("product.data.data", product.data.data)
+      setCurrentItem(product.data.data);
     }
   }, [router])
 
   return (
     <>
-      {getProduct && <div>
+      {currentItem && <div>
         <Head>
-          <title>{getProduct.name}</title>
+          <title>{currentItem.name}</title>
         </Head>
-        <ItemDetails getProduct={getProduct} />
+        <ItemDetails />
       </div>}
     </>
   );
