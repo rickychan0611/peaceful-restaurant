@@ -33,6 +33,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
     console.log("Single shop", getSingleShop)
+    console.log("getShopProducts", getShopProducts)
   }, [getSingleShop]);
 
   return (

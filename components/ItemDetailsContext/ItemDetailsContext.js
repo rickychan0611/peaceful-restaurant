@@ -60,24 +60,7 @@ const ItemDetailsContext = ({
       {item && (
         <Wrapper>
           <Container>
-            <StoreHeader
-              onClick={() => {
-                // router.push('/store/' + toSlug(selectedStore.name) + '/' + selectedStore.id + '#top');
-                // handleClose();
-              }}>
-              <Image
-                src={
-                  currentShop && currentShop.logo
-                    ? HOST_URL + '/storage/' + currentShop.logo
-                    : '/avatar-placeholder.png'
-                }
-                avatar
-                size="mini"
-              />
-              &nbsp;&nbsp;
-              {currentShop && currentShop.name}
-            </StoreHeader>
-            <h2>{item.name}</h2>
+             <h2>{item.name}</h2>
             {item.images && item.images[0] ? (
               <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
             ) : (

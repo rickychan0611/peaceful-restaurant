@@ -136,7 +136,7 @@ const Home = () => {
             <Row>
               {addresses.map((item) => {
                 return (
-                  <AddressContainer>
+                  <AddressContainer isMobile={isMobile}>
                     <AddressHeader>{item.name}</AddressHeader>
                     <P>
                       {item.address} <br />
@@ -249,6 +249,7 @@ const BackgroundImage = styled.img`
   /* position: fixed; */
   width: 100vw;
   min-height: 200px;
+  max-height: 530px;
   object-fit: cover;
 `;
 const FoodImage = styled.img`
@@ -298,7 +299,7 @@ const AddressContainer = styled.div`
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  width: 150px;
+  width: ${p => p.isMobile ? "150px" : "200px"};
   margin-bottom: 60px;
 `;
 

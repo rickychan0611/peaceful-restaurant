@@ -64,6 +64,7 @@ const Shop_Desktop = () => {
 const Container = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  padding-top: 30px;
   /* margin-top: -100px; */
 `;
 const Left = styled.div`
