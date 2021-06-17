@@ -70,6 +70,7 @@ const SpaceBetween = styled.div`
   align-items: center;
   width: 100%;
   padding-right: 15px;
+  min-height: 72px;
 `;
 const Bar = styled.div`
   display: flex;

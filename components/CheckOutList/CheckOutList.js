@@ -5,7 +5,8 @@ import { Sidebar, Icon } from 'semantic-ui-react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   openCheckOutList as openCheckOutListAtom,
-  loginPending as loginPendingAtom
+  loginPending as loginPendingAtom,
+  openSideMenu as openSideMenuAtom
 } from '../../data/atoms.js';
 import {
   orderItems as orderItemsAtom,
@@ -22,6 +23,7 @@ const CheckOutList = () => {
   const [orderItems] = useRecoilState(orderItemsAtom);
   const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
   const user = useRecoilValue(userAtom);
+  const [openSideMenu, setOpenSideMenu] = useRecoilState(openSideMenuAtom);
 
   return (
     <SidebarContainer
@@ -30,12 +32,25 @@ const CheckOutList = () => {
       // onHide={() => setOpenCheckOutList(false)}
       width="wide"
       visible={openCheckOutList}>
-      <Icon
-        name="close"
-        size="large"
-        style={{ marginTop: 100, marginLeft: 10, marginBottom: 20, cursor: 'pointer' }}
-        onClick={() => setOpenCheckOutList(false)}
-      />
+      <Row>
+        <div>
+          <Icon
+            name="close"
+            size="large"
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              setOpenCheckOutList(false);
+            }}
+          />
+        </div>
+        <a
+          onClick={() => {
+            setOpenCheckOutList(false);
+            setOpenSideMenu(true);
+          }}>
+          Switch Location
+        </a>
+      </Row>
       {orderItems && orderItems[0] ? (
         <OrdersContainer>
           <H4>You are ordering from: </H4>
@@ -52,8 +67,7 @@ const CheckOutList = () => {
               if (!user) {
                 setLoginPending(true);
                 router.push('/sign-in');
-              }
-              else router.push('/checkout');
+              } else router.push('/checkout');
               setOpenCheckOutList(!openCheckOutList);
             }}>
             <H4>Checkout</H4>
@@ -80,6 +94,15 @@ const CheckOutList = () => {
   );
 };
 
+const Row = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 80px;
+  padding: 15px;
+`;
 const SidebarContainer = styled(Sidebar)`
   background-color: white;
   position: fixed !important;

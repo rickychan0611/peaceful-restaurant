@@ -161,7 +161,7 @@ const Name = styled.div`
 
 
 export const getServerSideProps = async (context) => {
-  context.res.setHeader('Cache-Control', 's-maxage=3600');
+  context.res.setHeader('Cache-Control', 's-maxage=86400');
 
   const getplatcat = await axios.get(HOST_URL + '/api/getplatcat');
 

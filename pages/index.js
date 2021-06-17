@@ -1,17 +1,12 @@
 import { createRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { useIsDesktop } from '../util/useScreenSize';
 import { useIsMobile } from '../util/useScreenSize';
 import useTranslation from 'next-translate/useTranslation';
 
 import { Modal, Icon, Visibility } from 'semantic-ui-react';
-import CuisineSlider from '../components/CuisineSlider';
-import DishCards from '../components/DishCards';
-import ShopCards from '../components/ShopCards';
-import SearchBanner from '../components/SearchBanner';
 import Footer from '../components/Footer';
-import Slider from '../components/Slider';
-import ReviewCards from '../components/ReviewCards';
 import CheckOutListPusher from '../components/CheckOutListPusher';
 import CurrentAddress from '../components/CurrentAddress';
 
@@ -89,29 +84,31 @@ const Home = () => {
   const { t } = useTranslation('home');
   const [open, setOpen] = useState(false);
   const [cal, setCal] = useState({});
-
-  const handleUpdate = (e, { calculations }) => {
-    console.log(calculations.pixelsPassed);
-    setCal(calculations.pixelsPassed);
-  };
+  const isDesktop = useIsDesktop();
+  const isMobile = useIsMobile();
 
   return (
     <>
-      <BackgroundImage src="/Chinese-Dishes.jpg" style={{ top: cal / -3 + 75 }} />
       <MapModal open={open} setOpen={setOpen} />
       <CheckOutListPusher>
-        <Visibility onUpdate={handleUpdate}>
-          <div style={{ height: 470 }}></div>
-        </Visibility>
+        <BackgroundImage src="/Chinese-Dishes.jpg" style={{ top: cal / -3 + 75 }} />
+        {/* <Visibility onUpdate={handleUpdate}>
+          <div style={{ height: 470  }}></div>
+        </Visibility> */}
         <Bar />
         <div style={{ backgroundColor: 'white' }}>
           <Container>
-            <div style={{ height: 60 }}></div>
+            {/* <div style={{ height: 60 }}></div> */}
 
-            <Header locale={router.locale} style={{ fontSize: 60, margin: 0 }}>{t`PEACEFUL RESTAURANT`}</Header>
-            <Header style={{ margin: 0 }}>{t`Serving`}</Header>
+            <Header
+              locale={router.locale}
+              style={{
+                fontSize: isMobile ? 45 : 60,
+                margin: isMobile ? 10 : 0
+              }}>{t`PEACEFUL RESTAURANT`}</Header>
+            <Header isMobile={isMobile} style={{ margin: 0 }}>{t`Serving`}</Header>
             <div style={{ height: 40 }}></div>
-            <P style={{ fontSize: 20 }}>
+            <P style={{ fontSize: 20, textAlign: isMobile && 'left' }}>
               {t`intro-1`} <br />
               {t`intro-1-1`}
               <br />
@@ -119,18 +116,21 @@ const Home = () => {
               {t`intro-2`}
             </P>
 
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
+
             <hr />
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
+
             <Row>
-              <FoodImage src="/p1.jpg" />
-              <FoodImage src="/p3.jpg" />
-              <FoodImage src="/p4.jpg" />
+              <FoodImage isMobile={isMobile} src="/p1.jpg" />
+              <FoodImage isMobile={isMobile} src="/p3.jpg" />
+              <FoodImage isMobile={isMobile} src="/p4.jpg" />
             </Row>
 
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
+
             <hr />
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
 
             <Header>{t`8 Locations`}</Header>
             <Row>
@@ -146,23 +146,26 @@ const Home = () => {
                   </AddressContainer>
                 );
               })}
-              <Button onClick={() => setOpen(true)}>
+              {/* <Button onClick={() => setOpen(true)}>
                 <Icon name="marker" />
                 {t`View Map`}
-              </Button>
+              </Button> */}
             </Row>
-            <div style={{ height: 70 }}></div>
+            {/* <div style={{ height: isMobile ? 20 : 70 }}></div> */}
+
             <hr />
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
+
             <Row>
-              <FoodImage src="/p5.jpg" />
-              <FoodImage src="/p6.jpg" />
-              <FoodImage src="/p7.jpg" />
+              <FoodImage isMobile={isMobile}  src="/p5.jpg" />
+              <FoodImage isMobile={isMobile}  src="/p6.jpg" />
+              <FoodImage isMobile={isMobile}  src="/p7.jpg" />
             </Row>
 
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
+
             <hr />
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
 
             <Header>{t`AWARD`}</Header>
             <Article>
@@ -186,77 +189,79 @@ const Home = () => {
                   </ul>
                 </P>
               </div>
-              <FoodImage src="/storefront.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage isMobile={isMobile}  src="/storefront.jpg" style={{ width: 400, height: '100%' }} />
             </Article>
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
             <Row style={{ justifyContent: 'space-around' }}>
-              <AwardImg src="/award-1.png" />
-              <AwardImg src="/award-2.png" />
-              <AwardImg src="/award-3.png" />
-              <AwardImg src="/award-4.png" />
+              <AwardImg  isMobile={isMobile} src="/award-1.png" />
+              <AwardImg isMobile={isMobile} src="/award-2.png" />
+              <AwardImg isMobile={isMobile} src="/award-3.png" />
+              <AwardImg isMobile={isMobile} src="/award-4.png" />
               {/* <AwardImg src="/award-5.png" />
               <AwardImg src="/award-6.jpg" style={{ width: 140 }} /> */}
             </Row>
 
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
             <hr />
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
 
             <Header>{t`MISSION`}</Header>
             <Article>
-              <FoodImage src="/p5.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage isMobile={isMobile}  src="/p5.jpg" style={{ width: 400, height: '100%' }} />
               <div style={{ maxWidth: 500 }}>
                 <P style={{ fontSize: 20, textAlign: 'left' }}>{t`MISSION-1`}</P>
               </div>
             </Article>
 
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
             <hr />
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
 
             <Header>{t`HISTORY`}</Header>
             <Article>
               <div style={{ maxWidth: 500 }}>
                 <P style={{ fontSize: 20, textAlign: 'left' }}>{t`HISTORY-1`}</P>
               </div>
-              <FoodImage src="/p6.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage isMobile={isMobile}  src="/p6.jpg" style={{ width: 400, height: '100%' }} />
             </Article>
 
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
             <hr />
-            <div style={{ height: 70 }}></div>
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
 
             <Header>{t`Parnter`}</Header>
             <Article>
-              <FoodImage src="/p7.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage isMobile={isMobile}  src="/p7.jpg" style={{ width: 400, height: '100%' }} />
               <div style={{ maxWidth: 500 }}>
-                <P style={{ fontSize: 20, textAlign: 'left' }}>
-                {t`Parnter-1`}
-                </P>
+                <P style={{ fontSize: 20, textAlign: 'left' }}>{t`Parnter-1`}</P>
               </div>
             </Article>
             <div style={{ height: 110 }}></div>
           </Container>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </CheckOutListPusher>
     </>
   );
 };
 
 const BackgroundImage = styled.img`
-  position: fixed;
+  /* position: fixed; */
   width: 100vw;
+  min-height: 200px;
+  object-fit: cover;
 `;
 const FoodImage = styled.img`
-  width: 300px;
-  height: 200px;
+  width: ${(p) => (p.isMobile ? '100%' : '300px')};
+  height: ${(p) => (p.isMobile ? '300px' : '200px')};
   object-fit: cover;
+  margin: 5px;
 `;
 const AwardImg = styled.img`
   width: 100px;
   height: 100px;
   object-fit: contain;
+  margin: ${p => p.isMobile ? "10px" : 0}
 `;
 const Row = styled.div`
   display: flex;
@@ -293,19 +298,19 @@ const AddressContainer = styled.div`
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  width: 250px;
+  width: 150px;
   margin-bottom: 60px;
 `;
 
 const Container = styled.div`
   text-align: center;
-  padding-top: 40px;
+  padding: 40px 15px 40px 15px;
   max-width: 1000px;
   margin: 0 auto;
 `;
 const Header = styled.h1`
-  font-family: ${p => !p.locale === "eng" ? "'Spectral', serif" : "'Noto Serif SC', serif" };
-  font-size: 40px;
+  font-family: ${(p) => (!p.locale === 'eng' ? "'Spectral', serif" : "'Noto Serif SC', serif")};
+  font-size: ${(p) => (p.isMobile ? 30 : 40)};
   font-weight: 600;
   margin: 0 0 50px 0;
   color: #810707;
@@ -332,7 +337,7 @@ const Bar = styled.div`
   z-index: 1000;
   background-color: #9c0404;
   width: 100%;
-  height: 25px;
+  height: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-style: solid;
   border-bottom: 0px;

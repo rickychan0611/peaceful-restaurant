@@ -88,6 +88,7 @@ const Card = styled.div`
   width: 100%;
   /* max-width: 200px; */
   cursor: pointer;
+  margin-bottom: 20px;
 `;
 const Img = styled.img`
   width: 100%;

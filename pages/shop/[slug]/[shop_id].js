@@ -40,10 +40,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
       <Head>
         <title>{currentShop && currentShop.name}</title>
       </Head>
-      <Container
-        style={{
-          paddingTop: isMobile ? '85px' : isTablet ? '85px' : '0'
-        }}>
+      <Container>
         {!currentShop || currentShop === 'not found' ? (
           <div style={{ height: '80vh' }}>
             <Dimmer inverted active={!currentShop}>
@@ -64,7 +61,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  context.res.setHeader('Cache-Control', 's-maxage=3600');
+  context.res.setHeader('Cache-Control', 's-maxage=86400');
 
   const getSingleShop = await axios.get(HOST_URL + '/api/singleshop', {
     params: { shop_id: context.params.shop_id }

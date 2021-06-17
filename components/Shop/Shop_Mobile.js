@@ -26,16 +26,17 @@ const Shop_Mobile = () => {
   const { t } = useTranslation('shop');
 
   return (
-    <div style={{ marginTop: -100 }}>
-      <Section id="shopTop" style={{ height: 100 }}></Section>
-
+    <div style={{ marginTop:20  }}>
+          <Title>{currentShop.name}</Title>
+      {/* <Section id="shopTop" style={{ height: 100 }}></Section> */}
+{/* 
       {currentShop.images && currentShop.images[0] ? (
         <Img src={HOST_URL + '/storage/' + JSON.parse(currentShop.images)[0]} />
       ) : (
         <Img src="/no-image.png" />
-      )}
+      )} */}
 
-      <Wrapper>
+      {/* <Wrapper>
         {currentShop.logo ? (
           <Avatar src={HOST_URL + '/storage/' + currentShop.logo} />
         ) : (
@@ -61,11 +62,11 @@ const Shop_Mobile = () => {
         )}
       </Slider>
       <hr />
-      <br />
+      <br /> */}
       <Ref innerRef={contextRef}>
-        <Section id="fullMenu">
+        <div id="fullMenu">
           <RestaurantMenu t={t} contextRef={contextRef} />
-        </Section>
+        </div>
       </Ref>
       <br />
       <hr />
@@ -76,7 +77,7 @@ const Shop_Mobile = () => {
       {/* <br />
       <hr />
       <br /> */}
-      <Section id="reviews">
+      {/* <Section id="reviews">
       <Title style={{fontSize: 28}}>{t`Reviews`}</Title>
         <ReviewFeed />
       </Section>
@@ -89,7 +90,7 @@ const Shop_Mobile = () => {
       <br />
       <hr />
       <br />
-      <BottomNavBar />
+      <BottomNavBar /> */}
     </div>
   );
 };

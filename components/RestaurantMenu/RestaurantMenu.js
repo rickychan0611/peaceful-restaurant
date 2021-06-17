@@ -35,7 +35,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
     <div style={{ position: 'relative' }}>
       {/* Menu cat slider*/}
       {!isDesktop && (
-        <Sticky offset={isMobile ? 70 : 70} context={contextRef}>
+        <Sticky offset={isMobile ? 80 : 70} context={contextRef}>
           <Slider topic={t && t`FullMenu`} hideViewAll>
             <CatWrapper>
               {currentShop &&
@@ -49,9 +49,11 @@ const RestaurantMenu = ({ contextRef, t }) => {
                         key={item.id}
                         style={{
                           margin: 5,
-                          padding: '10px 15px 10px 15px',
+                          padding: '5px 10px 5px 10px',
                           cursor: 'pointer',
-                          textAlign: 'left'
+                          textAlign: 'left',
+                          borderRadius: 25,
+                          fontSize: 11,
                         }}
                         onClick={() => {
                           router.push(
@@ -82,7 +84,11 @@ const RestaurantMenu = ({ contextRef, t }) => {
           if (cat.category_name !== 'Popular Items') {
             return (
               <MenuContainer key={i}>
-                <Anchor id={cat.id}></Anchor>
+
+                {/* Anchor point for desktop and non desktop */}
+                {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>}
+                {!isDesktop && <div id={cat.id} style={{ paddingTop: 150, marginTop: -150 }}></div>}
+                
                 <CatTitle isMobile={isMobile}>
                   <div className="jumptarget">{cat.category_name}</div>
                 </CatTitle>
@@ -118,6 +124,8 @@ const Anchor = styled.div`
   position: relative;
   top: 500;
   visibility: hidden;
+  margin-top: -500;
+  padding: 500;
 `;
 const MenuContainer = styled.div`
   margin-bottom: 30px;
@@ -137,6 +145,6 @@ const CatTitle = styled.div`
   /* scroll-margin-top: 160px;
   scroll-snap-margin-top: 160px; */
   padding-bottom: 10px;
-  padding-top: 30px;
+  margin-top: 30px;
 `;
 export default RestaurantMenu;

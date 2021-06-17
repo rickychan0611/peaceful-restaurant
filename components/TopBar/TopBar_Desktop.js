@@ -14,17 +14,7 @@ import { orderItems as orderItemsAtom } from '../../data/orderAtoms.js';
 import useTranslation from 'next-translate/useTranslation';
 import Dimmer from '../Dimmer';
 import { useCookies } from 'react-cookie';
-
-const locations = [
-  { id: 1, name: 'Broadway' },
-  { id: 2, name: 'Kitsilano' },
-  { id: 3, name: 'Richmond' },
-  { id: 4, name: 'Port Coquitlam' },
-  { id: 5, name: 'Kingsway' },
-  { id: 6, name: 'Seymour' },
-  { id: 7, name: 'Newton' },
-  { id: 8, name: 'Mount Pleasant' }
-];
+import LocationDropDownMenu from '../LocationDropDownMenu';
 
 const TopBar_Desktop = ({ locales, changeLocale }) => {
   const router = useRouter();
@@ -74,25 +64,7 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
             <H4>{t('Menu')}</H4>
           </Item>
           {openDropdownMenu === 'menu' && (
-            <DropDownContainer>
-              <DropDownMenu>
-                {locations.map((item, i) => {
-                  return (
-                    <MenuItem
-                      selected={selectedLocation && selectedLocation.id === item.id}
-                      last={i === locations.length - 1}
-                      className={i === locations.length - 1 ? 'last' : 'front'}
-                      onClick={() => {
-                        router.push('/shop/' + item.name + '/' + item.id);
-                        setOpenDropdownMenu(false);
-                        setSelectedLocation(item);
-                      }}>
-                      {item.name}
-                    </MenuItem>
-                  );
-                })}
-              </DropDownMenu>
-            </DropDownContainer>
+            <LocationDropDownMenu setOpenDropdownMenu={setOpenDropdownMenu}/>
           )}
         </div>
 
