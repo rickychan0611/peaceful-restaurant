@@ -15,7 +15,7 @@ import {
 import { orderItems as orderItemsAtom } from '../../data/orderAtoms.js';
 
 import BottomAddBar from '../BottomAddBar';
-import BackButton from '../BackButton';
+import BacktoShopButtom from '../BackToShopButton';
 import ItemDetailsContext from '../ItemDetailsContext';
 import _ from 'lodash';
 import { useEffect } from 'react';
@@ -105,7 +105,6 @@ const ItemDetails = ({ setOpen, fromRestaurantPage }) => {
         <Loader loading={loading} />
       ) : (
         <>
-          <BackButton />
           <ItemDetailsContext attributes={attributes} setAttributes={setAttributes} />
           <BottomAddBar
             attributeTotal={attributeTotal}

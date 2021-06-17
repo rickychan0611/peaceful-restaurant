@@ -23,8 +23,7 @@ const ShopDishCards = ({ item }) => {
         onClick={() => {
           // when click, save item in selectedItem Atom and selectedStore Atom.
           // then open item's page by using item's id
-          // setCurrentItem(item);
-          // setCurrentShop(item.shop);
+          setCurrentItem(item);
           console.log("ShopDishCards currentItem", currentItem)
           console.log("ShopDishCards currentShop", currentShop)
           router.push('/item/' + item.id);

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import { useRecoilState } from 'recoil';
 import {
-  currentShop as currentShopAtom,
+  currentItem as currentItemAtom,
 } from '../../data/atoms.js';
 
 const locations = [
@@ -17,16 +17,16 @@ const locations = [
   { id: 8, name: 'Mount Pleasant' }
 ];
 
-const BacktoShopButtom = () => {
+const BackToShopButton = () => {
   const router = useRouter();
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
+  const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
 
   return (
     <Container
       onClick={() => {
-        router.push('/shop/' + locations[currentShop.id-1].name + currentShop.id);
+        router.push('/shop/' + locations[currentItem.shop.id-1].name + '/' + currentItem.shop.id);
       }}>
-      <Icon name="arrow left" /> Back
+      <Icon name="arrow left" /> Back to menu
     </Container>
   );
 };
@@ -42,4 +42,4 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
-export default BacktoShopButtom;
+export default BackToShopButton;

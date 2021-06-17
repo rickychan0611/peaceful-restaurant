@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import BackToShopButton from '../../components/BackToShopButton';
+import BackButton from '../../components/BackButton';
 import ItemDetails from '../../components/ItemDetails';
 import { HOST_URL } from '../../env';
 import axios from 'axios';
@@ -11,10 +13,9 @@ import { useRouter } from 'next/router';
 
 const item = () => {
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-
-  // const [getProduct, setGetProduct] = useState();
+  const [freshLoaded, setFreshLoaded] = useState(false);
   const router = useRouter();
-
+ 
   useEffect(async () => {
     let product;
     if (!currentItem) {
@@ -22,7 +23,13 @@ const item = () => {
       console.log("product.data.data", product.data.data)
       setCurrentItem(product.data.data);
     }
-  }, [router])
+  }, [router]);
+
+  useEffect(async () => {
+    if (!currentItem) {
+      setFreshLoaded(true)
+    }
+  }, []);
 
   return (
     <>
@@ -30,6 +37,7 @@ const item = () => {
         <Head>
           <title>{currentItem.name}</title>
         </Head>
+       {freshLoaded ? <BackToShopButton />: <BackButton />}
         <ItemDetails />
       </div>}
     </>
