@@ -1,63 +1,87 @@
-import { createRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import axios from 'axios';
+import { HOST_URL } from '../env';
 import { useIsDesktop } from '../util/useScreenSize';
 import { useIsMobile } from '../util/useScreenSize';
 import useTranslation from 'next-translate/useTranslation';
-
 import { Modal, Icon, Visibility } from 'semantic-ui-react';
-import Footer from '../components/Footer';
 import CheckOutListPusher from '../components/CheckOutListPusher';
-import CurrentAddress from '../components/CurrentAddress';
+import Map from '../components/Map';
 
 const addresses = [
   {
     name: 'Broadway',
     address: '532 W. Broadway',
     city: 'Vancouver',
-    phone: '604-879-987'
+    phone: '604-879-987',
+    id: 1,
+    lat: 49.2629367,
+    lng: -123.1182306
   },
   {
     name: 'Mount Pleasant',
     address: '43 E. 5th Avenue',
     city: 'Vancouver',
-    phone: '604-559-9511'
+    phone: '604-559-9511',
+    id: 8,
+    lat: 49.266710,
+    lng: -123.103690
   },
   {
     name: 'Kitsilano',
     address: '2394 W. 4th Avenue',
     city: 'Vancouver',
-    phone: '604-559-9533'
+    phone: '604-559-9533',
+    id: 2,
+    lat: 49.2680246,
+    lng: -123.1618086
   },
   {
     name: 'Seymour',
     address: '602 Seymour St.',
     city: 'Vancouver',
-    phone: '604-313-1333'
+    phone: '604-313-1333',
+    id: 6,
+    lat: 49.2828235,
+    lng: -123.1175973
   },
   {
     name: 'Newton',
     address: '#107-7320 King George Blvd.',
     city: 'Surrey',
-    phone: '604-503-3833'
+    phone: '604-503-3833',
+    id: 7,
+    lat: 49.1346551,
+    lng: -122.8452272
   },
   {
     name: 'Kingsway',
     address: '3320 Kingsway',
     city: 'Vancouver',
-    phone: '604-428-1168'
+    phone: '604-428-1168',
+    id: 5,
+    lat: 49.2333749,
+    lng: -123.036679
   },
   {
     name: 'Port Coquitlam',
     address: '3610 Westwood St.',
     city: 'Port Coquitlam',
-    phone: '778-285-3367'
+    phone: '778-285-3367',
+    id: 4,
+    lat: 49.276555,
+    lng: -122.7923259
   },
   {
     name: 'Richmond',
     address: '110D – 2188 No.5 Rd.',
     city: 'Vancouver',
-    phone: '604-1230-4567'
+    phone: '604-1230-4567',
+    id: 3,
+    lat: 49.1953273,
+    lng: -123.093141
   }
 ];
 
@@ -65,27 +89,22 @@ const MapModal = ({ open, setOpen }) => {
   const { t } = useTranslation('home');
   return (
     <Modal open={open} closeIcon onClose={() => setOpen(false)}>
-      <Modal.Header>{t`PEACEFUL RESTAURANT`}</Modal.Header>
-      <Modal.Content scrolling style={{ maxHeight: '80vh', padding: 0 }}>
-        <iframe
-          width="100%"
-          height="450"
-          style={{ border: 10 }}
-          loading="lazy"
-          allowFullScreen
-          src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBugBL6F0x-jyq_4l-6OS1i8Du6yv9bH-s&q=peaceful resturant`}></iframe>
-      </Modal.Content>
+      <Map addresses={addresses}/>
     </Modal>
   );
 };
 
-const Home = () => {
+const Home = ({ allshops }) => {
   const router = useRouter();
   const { t } = useTranslation('home');
   const [open, setOpen] = useState(false);
   const [cal, setCal] = useState({});
   const isDesktop = useIsDesktop();
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    console.log('allshops', allshops);
+  }, []);
 
   return (
     <>
@@ -117,7 +136,6 @@ const Home = () => {
             </P>
 
             <div style={{ height: isMobile ? 20 : 70 }}></div>
-
             <hr />
             <div style={{ height: isMobile ? 20 : 70 }}></div>
 
@@ -132,7 +150,7 @@ const Home = () => {
             <hr />
             <div style={{ height: isMobile ? 20 : 70 }}></div>
 
-            <Header>{t`8 Locations`}</Header>
+            <Header id="map">{t`8 Locations`}</Header>
             <Row>
               {addresses.map((item) => {
                 return (
@@ -146,20 +164,23 @@ const Home = () => {
                   </AddressContainer>
                 );
               })}
-              {/* <Button onClick={() => setOpen(true)}>
+            </Row>
+            <Row>
+              <Button onClick={() => setOpen(true)}>
                 <Icon name="marker" />
                 {t`View Map`}
-              </Button> */}
+              </Button>
             </Row>
-            {/* <div style={{ height: isMobile ? 20 : 70 }}></div> */}
+
+            <div style={{ height: isMobile ? 20 : 70 }}></div>
 
             <hr />
             <div style={{ height: isMobile ? 20 : 70 }}></div>
 
             <Row>
-              <FoodImage isMobile={isMobile}  src="/p5.jpg" />
-              <FoodImage isMobile={isMobile}  src="/p6.jpg" />
-              <FoodImage isMobile={isMobile}  src="/p7.jpg" />
+              <FoodImage isMobile={isMobile} src="/p5.jpg" />
+              <FoodImage isMobile={isMobile} src="/p6.jpg" />
+              <FoodImage isMobile={isMobile} src="/p7.jpg" />
             </Row>
 
             <div style={{ height: isMobile ? 20 : 70 }}></div>
@@ -189,11 +210,15 @@ const Home = () => {
                   </ul>
                 </P>
               </div>
-              <FoodImage isMobile={isMobile}  src="/storefront.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage
+                isMobile={isMobile}
+                src="/storefront.jpg"
+                style={{ width: 400, height: '100%' }}
+              />
             </Article>
             <div style={{ height: isMobile ? 20 : 70 }}></div>
             <Row style={{ justifyContent: 'space-around' }}>
-              <AwardImg  isMobile={isMobile} src="/award-1.png" />
+              <AwardImg isMobile={isMobile} src="/award-1.png" />
               <AwardImg isMobile={isMobile} src="/award-2.png" />
               <AwardImg isMobile={isMobile} src="/award-3.png" />
               <AwardImg isMobile={isMobile} src="/award-4.png" />
@@ -207,7 +232,7 @@ const Home = () => {
 
             <Header>{t`MISSION`}</Header>
             <Article>
-              <FoodImage isMobile={isMobile}  src="/p5.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage isMobile={isMobile} src="/p5.jpg" style={{ width: 400, height: '100%' }} />
               <div style={{ maxWidth: 500 }}>
                 <P style={{ fontSize: 20, textAlign: 'left' }}>{t`MISSION-1`}</P>
               </div>
@@ -222,7 +247,7 @@ const Home = () => {
               <div style={{ maxWidth: 500 }}>
                 <P style={{ fontSize: 20, textAlign: 'left' }}>{t`HISTORY-1`}</P>
               </div>
-              <FoodImage isMobile={isMobile}  src="/p6.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage isMobile={isMobile} src="/p6.jpg" style={{ width: 400, height: '100%' }} />
             </Article>
 
             <div style={{ height: isMobile ? 20 : 70 }}></div>
@@ -231,7 +256,7 @@ const Home = () => {
 
             <Header>{t`Parnter`}</Header>
             <Article>
-              <FoodImage isMobile={isMobile}  src="/p7.jpg" style={{ width: 400, height: '100%' }} />
+              <FoodImage isMobile={isMobile} src="/p7.jpg" style={{ width: 400, height: '100%' }} />
               <div style={{ maxWidth: 500 }}>
                 <P style={{ fontSize: 20, textAlign: 'left' }}>{t`Parnter-1`}</P>
               </div>
@@ -244,6 +269,60 @@ const Home = () => {
     </>
   );
 };
+
+export const getStaticProps = async (context) => {
+  const getSingleShop = (id) => {
+    return  new Promise(async (resolve) => {
+      const result = await axios.get(HOST_URL + '/api/singleshop', {
+        params: { shop_id: id }
+      });
+      // console.log('resultresult', result.data.data);
+      resolve(result.data.data);
+    });
+  };
+
+  const promises = [];
+
+  addresses.forEach((address, i) => {
+    promises.push(getSingleShop(address.id));
+  });
+  const p = Promise.all(promises).then((results) => {
+    console.log(results);
+    return results;
+  });
+
+  console.log('ppppppppppp', p);
+  return {
+    props: {
+      allShops: "p"
+    }
+  };
+};
+
+// export const getStaticPaths = async () => {
+//   return {
+//     paths:
+//       [
+//         { params: { shop_id: '1', slug: "Broadway" }, locale: "en" },
+//         { params: { shop_id: '2', slug: "Kitsilano" }, locale: "en"  },
+//         { params: { shop_id: '3', slug: "Richmond" }, locale: "en"  },
+//         { params: { shop_id: '4', slug: "Port Coquitlam" }, locale: "en"  },
+//         { params: { shop_id: '5', slug: "Kingsway" }, locale: "en"  },
+//         { params: { shop_id: '6', slug: "Seymour" }, locale: "en"  },
+//         { params: { shop_id: '7', slug: "Newton" }, locale: "en"  },
+//         { params: { shop_id: '8', slug: "Mount Pleasant" }, locale: "en"  },
+//         { params: { shop_id: '1', slug: "Broadway" }, locale: "zh-CN" },
+//         { params: { shop_id: '2', slug: "Kitsilano" }, locale: "zh-CN"  },
+//         { params: { shop_id: '3', slug: "Richmond" }, locale: "zh-CN"  },
+//         { params: { shop_id: '4', slug: "Port Coquitlam" }, locale: "zh-CN"  },
+//         { params: { shop_id: '5', slug: "Kingsway" }, locale: "zh-CN"  },
+//         { params: { shop_id: '6', slug: "Seymour" }, locale: "zh-CN"  },
+//         { params: { shop_id: '7', slug: "Newton" }, locale: "zh-CN"  },
+//         { params: { shop_id: '8', slug: "Mount Pleasant" }, locale: "zh-CN"  },
+//       ],
+//     fallback: false
+//   }
+// }
 
 const BackgroundImage = styled.img`
   /* position: fixed; */
@@ -262,7 +341,7 @@ const AwardImg = styled.img`
   width: 100px;
   height: 100px;
   object-fit: contain;
-  margin: ${p => p.isMobile ? "10px" : 0}
+  margin: ${(p) => (p.isMobile ? '10px' : 0)};
 `;
 const Row = styled.div`
   display: flex;
@@ -299,7 +378,7 @@ const AddressContainer = styled.div`
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  width: ${p => p.isMobile ? "150px" : "200px"};
+  width: ${(p) => (p.isMobile ? '150px' : '200px')};
   margin-bottom: 60px;
 `;
 

@@ -1,120 +1,67 @@
-import { useEffect, useState } from 'react';
-import {
-  GoogleMap,
-  LoadScript,
-  DirectionsService,
-  DirectionsRenderer,
-  useJsApiLoader,
-  Marker
-} from '@react-google-maps/api';
+import { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
+import { useRouter } from 'next/router'
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import Loader from '../../components/Loader';
 import { MAP_API } from '../../env';
+import router from 'next/router';
 
-export default function Map({
-  mapResponse,
-  setMapResponse,
-  children,
-  waypoints,
-  destination,
-  origin,
-  setShowList,
-  setLoading,
-  shipping,
-  runDirectionsService,
-  setRunDirectionsService
-}) {
+export default function Map({ addresses }) {
+  const router = useRouter();
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: MAP_API // ,
     // ...otherOptions
   });
 
-  function directionsCallback(response) {
-    if (response !== null) {
-      if (response.status === 'OK') {
-        console.log("directionsCallback", response)
-        setMapResponse(response);
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
+  const mapContainerStyle = {
+    height: '80vh',
+    width: '100%'
+  };
+
+  const center = {
+    lat: 49.21219277520741,
+    lng: -122.99914925688586
+  };
+
+  const mapRef = useRef();
+  const markerRef = useRef();
+
+  const getFitBounds = (map) => {
+    console.log("markerRef", markerRef)
+    let positions = mapRef.current.props.children
+    if (map) {
+      const bounds = new google.maps.LatLngBounds();
+
+      positions.forEach((position) => {
+        let bound = new google.maps.LatLng(position.props.position.lat, position.props.position.lng);
+        bounds.extend(bound);
+      });
+
+      map.fitBounds(bounds)
     }
-  }
+  };
 
   const RenderMap = () => {
-
-    // useEffect(() => {
-    //   console.log("!!!!!!1", destination)
-    //   if ('geolocation' in navigator) {
-    //     navigator.geolocation.getCurrentPosition(function (position) {
-    //       // setOrigin({ lat: position.coords.latitude, lng: position.coords.longitude });
-    //     });
-    //   } else {
-    //     console.log('Not Available');
-    //   }
-    // }, []);
-
     return (
       <>
         <GoogleMap
-          mapContainerStyle={{
-            id: 'direction',
-            width: '100%',
-            height: '300px'
-          }}
-          center={origin}
-          zoom={11}
-          // onLoad={onLoad}
-        >
-          {/* Child components, such as markers, info windows, etc. */}
-          <>
-            {runDirectionsService && destination && origin && shipping && (
-              <DirectionsService
-                // required
-                options={{
-                  // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                  destination,
-                  origin,
-                  waypoints,
-                  travelMode: 'DRIVING',
-                  optimizeWaypoints: true,
-                  provideRouteAlternatives: true
-                }}
-                // required
-                callback={directionsCallback}
-                // optional
-                onLoad={(directionsService) => {
-                  setRunDirectionsService(false);
-                  // console.log('DirectionsService onLoad directionsService: ', directionsService)
-                }}
-                // // optional
-                // onUnmount={directionsService => {
-                //   console.log('DirectionsService onUnmount directionsService: ', directionsService)
-                // }}
+          ref={mapRef}
+          id="marker-example"
+          mapContainerStyle={mapContainerStyle}
+          defaultZoom={11.3}
+          defaultCenter={center}
+          onLoad={getFitBounds}>
+          
+          {addresses.map((address, i) => {
+            return (
+            <Marker 
+            ref={markerRef}
+            position={{ lat: address.lat, lng: address.lng }} 
+            key={i} 
+            onClick={() => {router.push('/shop/' + address.name + "/" + address.id)}}
               />
-            )}
-
-            {!runDirectionsService && mapResponse && mapResponse.routes[0] && shipping && (
-              <DirectionsRenderer
-                // required
-                options={{
-                  // eslint-disable-line react-perf/jsx-no-new-object-as-prop
-                  directions: mapResponse
-                }}
-                // optional
-                // onLoad={directionsRenderer => {
-                //   console.log('DirectionsRenderer onLoad directionsRenderer: ', directionsRenderer)
-                // }}
-                // // optional
-                // onUnmount={directionsRenderer => {
-                //   console.log('DirectionsRenderer onUnmount directionsRenderer: ', directionsRenderer)
-                // }}
-              />
-            )}
-
-            {/* {shipping && <Marker position={destination} title="Your position" />} */}
-            {!shipping && <Marker position={origin} title="Shop" />}
-            {children}
-          </>
+            );
+          })}
         </GoogleMap>
       </>
     );
