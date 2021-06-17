@@ -23,7 +23,7 @@ import TotalAmountList from '../components/TotalAmountList/';
 import AddressBook from '../components/AddressBook';
 import { useIsDesktop } from '../util/useScreenSize';
 import useTranslation from 'next-translate/useTranslation';
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+// import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import InputMask from 'react-input-mask';
 
 const checkout = () => {
@@ -107,9 +107,9 @@ const checkout = () => {
     console.log('defaultAddress', defaultAddress);
     try {
       if (!user) {
-        setLoginPending(true)
-        router.push('/sign-in')
-        throw new Error ("Please login")
+        setLoginPending(true);
+        router.push('/sign-in');
+        throw new Error('Please login');
       }
       if (orderDetails.shippingMethod.id !== 1 && !defaultAddress) {
         throw new Error('Missing address. Please add an address');
@@ -180,49 +180,57 @@ const checkout = () => {
   const [orgin, setOrigin] = useState();
   const [runDirectionsService, setRunDirectionsService] = useState(false);
 
-  const LntLng = (address, name) => {
-    console.log('addressaddressaddress', address);
-    return geocodeByAddress(address)
-      .then((results) => {
-        return getLatLng(results[0]);
-      })
-      .then(({ lat, lng }) => {
-        name === 'origin' && setOrigin({ lat, lng });
-        name === 'defaultAddress' && setDestination({ lat, lng });
-        setRunDirectionsService(true);
-      })
-      .catch((error) => console.error(error));
-  };
+  // const LntLng = (address, name) => {
+  //   console.log('addressaddressaddress', address);
+  //   return geocodeByAddress(address)
+  //     .then((results) => {
+  //       return getLatLng(results[0]);
+  //     })
+  //     .then(({ lat, lng }) => {
+  //       name === 'origin' && setOrigin({ lat, lng });
+  //       name === 'defaultAddress' && setDestination({ lat, lng });
+  //       setRunDirectionsService(true);
+  //     })
+  //     .catch((error) => console.error(error));
+  // };
+
+  // useEffect(() => {
+  //   orderDetails &&
+  //     orderDetails.shop &&
+  //     LntLng(
+  //       `${orderDetails.shop.name},
+  //     ${orderDetails.shop.address_line},
+  //     ${orderDetails.shop.address_city},
+  //     ${orderDetails.shop.address_province},
+  //     ${orderDetails.shop.address_post_code}`,
+  //       'origin'
+  //     );
+  // }, [orderDetails]);
+
+  // useEffect(() => {
+  //   console.log('defaultAddress', defaultAddress);
+  //   console.log('destination', destination);
+  //   if (!orderDetails.shippingMethod.shipping_type === 2) {
+  //     setDestination();
+  //   } else {
+  //     defaultAddress &&
+  //       LntLng(
+  //         `${defaultAddress.detail_address},
+  //           ${defaultAddress.city},
+  //           ${defaultAddress.province},
+  //           ${defaultAddress.country}`,
+  //         'defaultAddress'
+  //       );
+  //   }
+  // }, [addresses]);
 
   useEffect(() => {
-    orderDetails &&
-      orderDetails.shop &&
-      LntLng(
-        `${orderDetails.shop.name},
-      ${orderDetails.shop.address_line},
-      ${orderDetails.shop.address_city},
-      ${orderDetails.shop.address_province},
-      ${orderDetails.shop.address_post_code}`,
-        'origin'
-      );
-  }, [orderDetails]);
-
-  useEffect(() => {
-    console.log('defaultAddress', defaultAddress);
-    console.log('destination', destination);
-    if (!orderDetails.shippingMethod.shipping_type === 2) {
-      setDestination();
-    } else {
-      defaultAddress &&
-        LntLng(
-          `${defaultAddress.detail_address}, 
-            ${defaultAddress.city},
-            ${defaultAddress.province},
-            ${defaultAddress.country}`,
-          'defaultAddress'
-        );
+    if (orderDetails.shippingMethod.id !== 1) {
+      if (orderDetails.subtotal <= 40) {
+        setErr("Attn: Shipping Method has been switched to self pick-up")
+        setShippingMethod({ id: 1, fee: 0 })};
     }
-  }, [addresses]);
+  }, [orderDetails]);
 
   return (
     <>
@@ -250,9 +258,11 @@ const checkout = () => {
         <Container>
           <OrdersContainer>
             <h4 style={{ margin: 0 }}>Order from</h4>
-            <h2 style={{ margin: 0 }}>{orderDetails.shop && orderDetails.shop.name}</h2>
+            <h2 style={{ margin: 0 }}>
+              Peaceful Restaurant @ {orderDetails.shop && orderDetails.shop.name}
+            </h2>
             <Divider />
-            <Map
+            {/* <Map
               setLoading={setLoading}
               origin={orgin}
               mapResponse={mapResponse}
@@ -262,14 +272,52 @@ const checkout = () => {
               runDirectionsService={runDirectionsService}
               setRunDirectionsService={setRunDirectionsService}
             />
-            <Divider />
+            <Divider /> */}
             <Header>
-              {orderDetails && orderDetails.shop && orderDetails.shop.shipping_methods
+              Delivery or Pick-up?
+              {/* {orderDetails.subtotal >= 40 && orderDetails.shop && orderDetails.shop.shipping_methods
                 ? 'Delivery or Pick-up?'
-                : 'Shipping method is not provided'}{' '}
+                : 'Shipping method is not provided'}{' '} */}
             </Header>
             <PickupContainer>
-              {orderDetails &&
+              <Row
+                onClick={() => {
+                  setErr();
+                  setShippingMethod({ id: 1, fee: 0 });
+                }}
+                style={{ marginRight: 10, marginBottom: 10 }}>
+                <RadioButton
+                  readOnly
+                  type="radio"
+                  // value={item.name}
+                  checked={orderDetails.shippingMethod.id === 1}
+                />
+                <Column>
+                  <H4>Self pick-up</H4>
+                </Column>
+              </Row>
+
+              <Row
+                onClick={() => {
+                  setErr();
+                  orderDetails.subtotal < 40 &&
+                    setErr('Sorry, your total amount is less than $40.');
+                  orderDetails.subtotal >= 40 && setShippingMethod({ id: 2, fee: 0 });
+                }}
+                style={{ marginRight: 10, marginBottom: 10 }}>
+                <RadioButton
+                  readOnly
+                  type="radio"
+                  // value={item.name}
+                  checked={orderDetails.shippingMethod.id === 2}
+                />
+                <Column>
+                  <H4>Free delivery for order over $40</H4>
+                </Column>
+              </Row>
+              <div style={{ color: 'red' }}>{err}</div>
+
+              {/* {orderDetails &&
                 orderDetails.shop &&
                 orderDetails.shop.shipping_methods &&
                 orderDetails.shop.shipping_methods.map((item, i) => {
@@ -289,30 +337,16 @@ const checkout = () => {
                       </Column>
                     </Row>
                   );
-                })}
+                })} */}
             </PickupContainer>
-            {orderDetails.shippingMethod.shipping_type !== 2 && (
+            {orderDetails.shippingMethod.id !== 2 && (
               <>
                 <H4>Pick Up Address:</H4>
-                <H4>
-                  <>
-                    {orderDetails.shop.name}
-                    <br />
-                    {orderDetails.shop.address_line ? (
-                      orderDetails.shop.address_line + orderDetails.shop.address_city &&
-                      ', ' + orderDetails.shop.address_city + orderDetails.shop.address_province &&
-                      ', ' +
-                        orderDetails.shop.address_province +
-                        orderDetails.shop.address_post_code &&
-                      ', ' + orderDetails.shop.address_post_code
-                    ) : (
-                      <>
-                        <Icon name="info circle" /> For more information, please call{' '}
-                        {orderDetails.shop.phone}
-                      </>
-                    )}
-                  </>
-                </H4>
+                {orderDetails.shop.address_line + ', ' + orderDetails.shop.address_city}
+                <br />
+                Tel: {orderDetails.shop.phone}
+                <br />
+                <br />
                 <Form>
                   <Form.Group widths="equal">
                     <Form.Input
@@ -347,7 +381,7 @@ const checkout = () => {
                 </Form>
               </>
             )}
-            {orderDetails.shippingMethod.shipping_type === 2 && (
+            {orderDetails.shippingMethod.id === 2 && (
               <>
                 <H4>
                   Delivery Address:{' '}

@@ -79,51 +79,51 @@ const InitApp = ({ children }) => {
   };
 
   const initialPosition = () => {
-    //check currentPosition localstorage
-    const localStoragePosition = localStorage.getItem('currentPosition');
-    setCurrentPosition(JSON.parse(localStoragePosition));
+    // //check currentPosition localstorage
+    // const localStoragePosition = localStorage.getItem('currentPosition');
+    // setCurrentPosition(JSON.parse(localStoragePosition));
 
-    //if currentPosition localstorage empty, get GPS position. 
-    if (!localStoragePosition) {
-      console.log('getting GPS location body');
+    // //if currentPosition localstorage empty, get GPS position. 
+    // if (!localStoragePosition) {
+    //   console.log('getting GPS location body');
 
-      function showPosition(position) {
-        console.log(
-          'Latitude: ' + position.coords.latitude + 'Longitude: ' + position.coords.longitude
-        );
+    //   function showPosition(position) {
+    //     console.log(
+    //       'Latitude: ' + position.coords.latitude + 'Longitude: ' + position.coords.longitude
+    //     );
 
-        geocodeByLatLng({ lat: position.coords.latitude, lng: position.coords.longitude })
-          .then(async (results) => {
-            console.log('GPS location: ', results);
+    //     geocodeByLatLng({ lat: position.coords.latitude, lng: position.coords.longitude })
+    //       .then(async (results) => {
+    //         console.log('GPS location: ', results);
 
-            const body = await validateAddress(results[0].address_components, user, true);
+    //         const body = await validateAddress(results[0].address_components, user, true);
 
-            // const body = {
-            //   detail_address: results[2].address_components[0].long_name,
-            //   city: results[2].address_components[1].long_name,
-            //   name: ""
-            // };
+    //         // const body = {
+    //         //   detail_address: results[2].address_components[0].long_name,
+    //         //   city: results[2].address_components[1].long_name,
+    //         //   name: ""
+    //         // };
 
-            console.log('GPS location body: ', body);
-            setCurrentPosition({...body, lat: position.coords.latitude, lng: position.coords.longitude});
-          })
-          .catch((error) => console.error(error));
-      }
+    //         console.log('GPS location body: ', body);
+    //         setCurrentPosition({...body, lat: position.coords.latitude, lng: position.coords.longitude});
+    //       })
+    //       .catch((error) => console.error(error));
+    //   }
 
-      function error(err) {
-        console.log(err);
-        alert(
-          'Please enable geolocation of your browser, so that we can find restaurants close to you :)'
-        );
-      }
+    //   function error(err) {
+    //     console.log(err);
+    //     alert(
+    //       'Please enable geolocation of your browser, so that we can find restaurants close to you :)'
+    //     );
+    //   }
 
-      //Get location from browser, then send to show Poistion function above to get lag lnt and geocode
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, error);
-      } else {
-        console.log('GPS access deined');
-      }
-    }
+    //   //Get location from browser, then send to show Poistion function above to get lag lnt and geocode
+    //   if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(showPosition, error);
+    //   } else {
+    //     console.log('GPS access deined');
+    //   }
+    // }
   };
 
   useEffect(async () => {

@@ -70,8 +70,8 @@ const orders = () => {
                       <Row>
                         <div key={order.id} style={{ width: '100%' }}>
                           <Row style={{ backgroundColor: '#eeeaea', padding: 5 }}>
-                            <StoreName>{order.shop.name}</StoreName>
-                            {order.reviews.length === 0 ? <StoreName
+                            <StoreName>Order location : {order.shop.name}</StoreName>
+                            {/* {order.reviews.length === 0 ? <StoreName
                               onClick={() => {
                                 router.push('/consumer/review');
                                 setCurrentOrder(order);
@@ -80,7 +80,7 @@ const orders = () => {
                                 <Icon name="edit" />
                                 Write a review
                               </a>
-                            </StoreName> : <StoreName>Review submitted</StoreName>}
+                            </StoreName> : <StoreName>Review submitted</StoreName>} */}
                           </Row>
                           <div
                             style={{ padding: 5 }}
