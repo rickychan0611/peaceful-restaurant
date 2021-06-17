@@ -52,55 +52,22 @@ const ItemDetails = ({ getProduct, setOpen, fromRestaurantPage }) => {
   //update orderItems and localstorage, and then redirect to store's page
   const addItem = () => {
     let updatedItems;
-    console.log('currentShop', currentShop);
-    console.log('orderItems', orderItems);
-    console.log('item.attributes!!!', item.attributes);
-    console.log('attributes!!!', attributes);
-    console.log("item.fromHomePage", item)
+    console.log('ItemDetails currentShop', currentShop);
+    console.log('ItemDetails orderItems', orderItems);
+    console.log('ItemDetails item.attributes!!!', item.attributes);
+    console.log('ItemDetails attributes!!!', attributes);
+    console.log("ItemDetails item.fromHomePage", item)
 
     //if a prev store's name is equal to the current store, update the object
     if (orderItems.length === 0 || (orderItems[0] && orderItems[0].shop.id) === currentShop.id) {
       setOrderItems((prev) => {
         return [{ ...item, attributeTotal, quantity, shop: currentShop, uid: uid(item) }, ...prev];
       });
-      item.fromHomePage ? router.push("/shop/" + item.shop.name + "/" + item.shop.id) : router.back();
+      item.fromHomePage ? router.push("/shop/" + currentShop.name + "/" + icurrentShop.id) : router.back();
     } else {
       setOpenWarning(true);
     }
   };
-
-  //If currentItem is empty, get the product by url id from server
-  //then, setCurrentItem and setCurrentShop
-  useEffect(async () => {
-    const product_id = router.query.item_id;
-    setLoading(true);
-    console.log('getProduct: ', getProduct);
-    console.log('currentItem ', item);
-    !item && setCurrentItem(getProduct);
-    setCurrentShop(getProduct.shop);
-    setLoading(false);
-
-    // if (!item && product_id) {
-    //   try {
-    //     const getProduct = await axios.get(HOST_URL + '/api/singleproduct', {
-    //       params: {
-    //         product_id
-    //       }
-    //     });
-    //     setCurrentItem(getProduct);
-    //     setCurrentShop(getProduct.shop);
-    //     setLoading(false);
-    //     console.log('NO product', getProduct.data.data);
-    //     console.log('NO currentShop', getProduct.data.data.shop);
-    //   } catch (err) {
-    //     console.log(err);
-    //     setLoading(false);
-    //     // router.push('/404');
-    //   }
-    // } else if (item && item.id !== +product_id) {
-    //   setLoading(false);
-    // }
-  }, [router.query.item_id]);
 
   useEffect(() => {
     let total = 0;
