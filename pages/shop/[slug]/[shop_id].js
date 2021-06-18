@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Dimmer, Loader } from 'semantic-ui-react';
+import { Container, Dimmer, Loader, Modal, Button, Header, Icon } from 'semantic-ui-react';
 import Head from 'next/head';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -28,16 +28,39 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   const isTablet = useIsTablet();
   const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
   const [, setCurrentShopProducts] = useRecoilState(currentShopProductsAtom);
+  const [open, setOpen] = useState(false);
 
   useEffect(async () => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
     console.log("Single shop", getSingleShop)
     console.log("getShopProducts", getShopProducts)
+    setOpen(true)
   }, [getSingleShop]);
 
   return (
+    <>
+     <Modal
+      basic
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      size='small'
+      trigger={<Button>Basic Modal</Button>}
+    >
+      <Header icon>
+        <Icon name='times' />
+        This location is closed.
+      </Header>
+     
+      <Modal.Actions>
+        <Button color='green' inverted onClick={() => setOpen(false)}>
+          <Icon name='checkmark' /> OK
+        </Button>
+      </Modal.Actions>
+    </Modal>
     <div>
+     
       <Head>
         <title>{currentShop && currentShop.name}</title>
       </Head>
@@ -58,6 +81,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
       </Container>
       {/* {currentShop && <Footer />} */}
     </div>
+    </>
   );
 };
 

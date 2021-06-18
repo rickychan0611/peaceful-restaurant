@@ -8,7 +8,7 @@ import {
   currentShopProducts as currentShopProductsAtom
 } from '../../data/atoms';
 
-import { Grid, Ref, Icon } from 'semantic-ui-react';
+import { Divider, Ref, Icon } from 'semantic-ui-react';
 import Slider from '../Slider';
 import PopularDishes from '../PopularDishes';
 import ShopSideBar from '../ShopSideBar';
@@ -28,6 +28,7 @@ const Shop_Desktop = () => {
   return (
     <div>
       <Title>{currentShop.name}</Title>
+      <Divider />
       <Container>
         <Left>
           <CatWrapper>
@@ -68,13 +69,13 @@ const Container = styled.div`
 `;
 const Left = styled.div`
   flex: 2;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 170px);
   overflow-y: auto;
   padding: 0 10px;
 `;
 const Right = styled.div`
   flex: 7;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 170px);
   overflow-y: auto;
   padding: 10px 10px;
 `;
@@ -131,8 +132,8 @@ const Title = styled.h1`
   font-size: 28px;
   margin: 0;
   padding-top: 20px;
-  padding-bottom: 10px;
   color: #9c0404;
+  padding-left: 10px;
 `;
 const Description = styled.div`
   font-size: 1rem;

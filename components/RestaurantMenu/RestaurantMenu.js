@@ -115,6 +115,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
 };
 
 const CardContainer = styled.div`
+  padding-bottom: 30px;
   display: grid;
   grid-gap: ${(p) => (p.isMobile && !p.toggle ? '10px' : '15px')};
   grid-template-columns: ${(p) =>
@@ -146,6 +147,6 @@ const CatTitle = styled.div`
   /* scroll-margin-top: 160px;
   scroll-snap-margin-top: 160px; */
   padding-bottom: 10px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 `;
 export default RestaurantMenu;
