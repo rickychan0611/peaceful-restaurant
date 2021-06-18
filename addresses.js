@@ -12,7 +12,7 @@ const address_linees = [
       tuesday: { open: '11:00am', close: '9:00pm' },
       wednesday: { open: '11:00am', close: '9:00pm' },
       thursday: { open: '11:00am', close: '9:00pm' },
-      friday: { open: '11:00am', close: '9:00pm' },
+      friday: { open: '11:00am', close: '2:00pm' },
       saturday: { open: '11:00am', close: '9:00pm' },
       sunday: { open: '11:00am', close: '9:00pm' }
     },

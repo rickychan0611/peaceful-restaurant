@@ -66,10 +66,10 @@ const shop = ({ getSingleShop, getShopProducts }) => {
       <div>
         {!isShopOpen && (
           <MessageContainer>
-            <Message>
+            <div>
               <Icon name="warning circle" />
               This store is now closed. Open hours: Mon - Sun, 11am - 9pm
-            </Message>
+            </div>
           </MessageContainer>
         )}
 
@@ -149,6 +149,7 @@ const MessageContainer = styled.div`
   align-items: center;
   width: 100vw;
   padding: 10px;
+  height: 40px;
 `;
-const Message = styled.div``;
+
 export default shop;

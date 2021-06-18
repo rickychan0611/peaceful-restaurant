@@ -36,6 +36,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
       {/* Menu cat slider*/}
       {!isDesktop && (
         <Sticky offset={isMobile ? 80 : 70} context={contextRef}>
+          <div>
           <Slider topic={t && t`FullMenu`} hideViewAll>
             <CatWrapper>
               {currentShop &&
@@ -72,6 +73,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
                 })}
             </CatWrapper>
           </Slider>
+          </div>
         </Sticky>
       )}
 
@@ -137,6 +139,7 @@ const CatWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
+  min-width: 100px; 
   background-color: white;
   padding: 10px 0;
   max-height: 104px;
