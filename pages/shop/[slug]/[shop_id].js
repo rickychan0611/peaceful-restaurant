@@ -26,13 +26,19 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   const router = useRouter();
   const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
   const isShopOpen = router && useIsShopOpen(addresses[index].open_hours);
+  const [shopStatus, setShopStatus] = useState(true);
 
   useEffect(async () => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
     console.log('Single shop', getSingleShop);
     console.log('getShopProducts', getShopProducts);
-    setOpen(true);
+
+    //update shop status
+    const getShop = await axios.get(HOST_URL + '/api/singleshop', {
+      params: { shop_id: getSingleShop.id }
+    });
+    setCurrentShop(getShop.data.data);
   }, [getSingleShop]);
 
   return (
@@ -61,7 +67,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
         {!isShopOpen && (
           <MessageContainer>
             <Message>
-              <Icon name="info" />
+              <Icon name="warning circle" />
               This store is now closed. Open hours: Mon - Sun, 11am - 9pm
             </Message>
           </MessageContainer>
