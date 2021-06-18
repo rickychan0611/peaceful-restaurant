@@ -9,20 +9,13 @@ import {
 } from '../../data/atoms';
 
 import { Divider, Ref, Icon } from 'semantic-ui-react';
-import Slider from '../Slider';
-import PopularDishes from '../PopularDishes';
-import ShopSideBar from '../ShopSideBar';
 import RestaurantMenu from '../RestaurantMenu';
-import ReviewFeed from '../ReviewFeed/index.js';
-import axios from 'axios';
-import { HOST_URL } from '../../env';
 import useTranslation from 'next-translate/useTranslation';
 
 const Shop_Desktop = () => {
   const { t } = useTranslation('shop');
   const router = useRouter();
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
-  const [currentShopProducts, setCurrentShopProducts] = useRecoilState(currentShopProductsAtom);
+  const [currentShop] = useRecoilState(currentShopAtom);
   const contextRef = useRef();
 
   return (
@@ -39,6 +32,7 @@ const Shop_Desktop = () => {
                 if (item.category_name !== 'Popular Items') {
                   return (
                     <CatName
+                    key={i}
                       onClick={() => {
                         router.push(
                           '/shop/' + router.query.slug + '/' + router.query.shop_id + '#' + item.id

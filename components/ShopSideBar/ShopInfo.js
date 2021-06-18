@@ -95,7 +95,7 @@ const ShopInfo = ({ shop }) => {
               </List.Content>
             </List.Item>
           </List>
-          <ButtonWrapper>
+          {shop.status !== 4 && <ButtonWrapper>
             <OrderButton
               onClick={() => {
                 router.push('/shop/' + shop.name + '/' + shop.id);
@@ -103,7 +103,7 @@ const ShopInfo = ({ shop }) => {
               <Icon name="food" />
               Order here now
             </OrderButton>
-          </ButtonWrapper>
+          </ButtonWrapper>}
         </>
       )}
     </ListContainer>

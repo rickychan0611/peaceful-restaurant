@@ -25,6 +25,8 @@ import { useIsDesktop } from '../util/useScreenSize';
 import useTranslation from 'next-translate/useTranslation';
 // import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import InputMask from 'react-input-mask';
+import useIsShopOpen from '../util/useIsShopOpen.js';
+import * as shopsAddresses from '../addresses';
 
 const checkout = () => {
   const router = useRouter();
@@ -45,6 +47,15 @@ const checkout = () => {
   const [tips_amount, setTips_amount] = useState({ tips: 0 });
   const [pickUpInfo, setPickupInfo] = useState({ name: '', phone: '' });
   const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
+
+  useEffect(() => {
+    //check if store open
+    if (orderDetails.shop) {
+      const index = shopsAddresses.default.findIndex((item) => +item.id === +orderDetails.shop.id);
+      let open = useIsShopOpen(shopsAddresses.default[index].open_hours);
+      if (!open) router.push('/');
+    }
+  }, [orderDetails]);
 
   useEffect(() => {
     user &&
@@ -227,8 +238,9 @@ const checkout = () => {
   useEffect(() => {
     if (orderDetails.shippingMethod.id !== 1) {
       if (orderDetails.subtotal <= 40) {
-        setErr("Attn: Shipping Method has been switched to self pick-up")
-        setShippingMethod({ id: 1, fee: 0 })};
+        setErr('Attn: Shipping Method has been switched to self pick-up');
+        setShippingMethod({ id: 1, fee: 0 });
+      }
     }
   }, [orderDetails]);
 

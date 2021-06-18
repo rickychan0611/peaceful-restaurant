@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Sidebar, Icon } from 'semantic-ui-react';
@@ -6,7 +7,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   openCheckOutList as openCheckOutListAtom,
   loginPending as loginPendingAtom,
-  openSideMenu as openSideMenuAtom
+  openSideMenu as openSideMenuAtom,
 } from '../../data/atoms.js';
 import {
   orderItems as orderItemsAtom,
@@ -15,6 +16,8 @@ import {
 import { user as userAtom } from '../../data/userAtom';
 
 import OrderItem from '../OrderItem';
+import useIsShopOpen from '../../util/useIsShopOpen.js';
+import addresses from '../../addresses';
 
 const CheckOutList = () => {
   const router = useRouter();
@@ -24,6 +27,16 @@ const CheckOutList = () => {
   const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
   const user = useRecoilValue(userAtom);
   const [openSideMenu, setOpenSideMenu] = useRecoilState(openSideMenuAtom);
+
+  const [isShopOpen, setIsShopOpen] = useState(false);
+
+  useEffect(() => {
+    if (orderDetails.shop) {
+      const index = addresses.findIndex((item) => +item.id === +orderDetails.shop.id);
+      const open = useIsShopOpen(addresses[index].open_hours)
+      setIsShopOpen(open)
+    }
+  }, [orderDetails])
 
   return (
     <SidebarContainer
@@ -62,7 +75,9 @@ const CheckOutList = () => {
             {orderDetails.shop && orderDetails.shop.name}
             <Icon name="linkify" />
           </H4>
-          <CheckoutButton
+
+         { isShopOpen ? 
+         <CheckoutButton
             onClick={() => {
               if (!user) {
                 setLoginPending(true);
@@ -72,7 +87,11 @@ const CheckOutList = () => {
             }}>
             <H4>Checkout</H4>
             <H4>${orderDetails.subtotal.toFixed(2)}</H4>
-          </CheckoutButton>
+          </CheckoutButton> 
+          :
+          <h5 style={{color: "red"}}><Icon name="warning circle" />
+          This Store is now closed. <br/>
+          Open hours: 11am - 9pm</h5>}
 
           {orderItems[0] &&
             orderItems.map((item, i) => {

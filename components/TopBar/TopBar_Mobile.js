@@ -7,7 +7,8 @@ import {
   openSideMenu as openSideMenuAtom,
   openCheckOutList as openCheckOutListAtom,
   showCheckoutButton as showCheckoutButtonAtom,
-  selectedLocation as selectedLocationAtom
+  selectedLocation as selectedLocationAtom,
+  currentShop as currentShopAtom
 } from '../../data/atoms.js';
 import { orderItems as orderItemsAtom } from '../../data/orderAtoms.js';
 import LocationDropDownMenu from '../LocationDropDownMenu';
@@ -18,6 +19,7 @@ const TopBar = () => {
   const showCheckoutButton = useRecoilValue(showCheckoutButtonAtom);
   const [openSideMenu, setOpenSideMenu] = useRecoilState(openSideMenuAtom);
   const [openCheckOutList, setOpenCheckOutList] = useRecoilState(openCheckOutListAtom);
+  const [currentShop] = useRecoilState(currentShopAtom);
   const [jiggle, setJiggle] = useState(false);
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
   const [showMenuButton, setshowMenuButton] = useState('/');
@@ -50,7 +52,7 @@ const TopBar = () => {
         <Image src="/peaceful-logo.png" style={{ margin: 4 }} />
       </Logo>
       <div>
-        {showMenuButton === '/' ? (
+        {showMenuButton === '/' || (currentShop && currentShop.status === 4) ? (
           <div style={{ position: 'relative' }}>
             <MenuIconContainer onClick={() => setOpenDropdownMenu(!openDropdownMenu)}>
               {/* <Icon name="file alternate" size="large" /> */}
