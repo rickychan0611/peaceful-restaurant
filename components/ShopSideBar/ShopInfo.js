@@ -12,6 +12,7 @@ const ShopInfo = ({ shop }) => {
   const { t } = useTranslation('shop');
   const isDesktop = useIsDesktop();
   const [mapLoaction, setMapLoaction] = useRecoilState(setMapLoactionAtom);
+  const open_hours = shop.open_hours;
 
   return (
     <ListContainer>
@@ -54,46 +55,54 @@ const ShopInfo = ({ shop }) => {
               <List.Content>
                 <List.Header as="h4">{t`Hours`}</List.Header>
                 <List.Description>
-                  <table style={{ marginLeft: -4 }}>
-                    <tbody>
-                      <tr>
-                        <td>{t`Monday`}</td>
-                        <td>11a.m.–9:.m.</td>
-                      </tr>
-                      <tr>
-                        <td>{t`Tuesday`}</td>
-                        <td>11a.m.–9:30p.m.</td>
-                      </tr>
-                      <tr>
-                        <td>{t`Wednesday`}</td>
-                        <td>11a.m.–9:30p.m.</td>
-                      </tr>
-                      <tr>
-                        <td>{t`Thursday`}</td>
-                        <td>11a.m.–9:30p.m.</td>
-                      </tr>
-                      <tr>
-                        <td>{t`Friday`}</td>
-                        <td>11a.m.–9:30p.m.</td>
-                      </tr>
-                      <tr>
-                        <td>{t`Saturday`}</td>
-                        <td>11a.m.–9:30p.m.</td>
-                      </tr>
-                      <tr>
-                        <td>{t`Sunday`}</td>
-                        <td>11a.m.–9:30p.m.</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  {shop.status === 4 ? (
+                    <h5 style={{color: "red"}}>Temporarily closed</h5>
+                  ) : (
+                    <table style={{ marginLeft: -4 }}>
+                      <tbody>
+                        <tr>
+                          <td>{t`Monday`}</td>
+                          <td>{open_hours.monday.open + ' - ' + open_hours.monday.close}</td>
+                        </tr>
+                        <tr>
+                          <td>{t`Tuesday`}</td>
+                          <td>{open_hours.tuesday.open + ' - ' + open_hours.tuesday.close}</td>
+                        </tr>
+                        <tr>
+                          <td>{t`Wednesday`}</td>
+                          <td>{open_hours.wednesday.open + ' - ' + open_hours.wednesday.close}</td>
+                        </tr>
+                        <tr>
+                          <td>{t`Thursday`}</td>
+                          <td>{open_hours.thursday.open + ' - ' + open_hours.thursday.close}</td>
+                        </tr>
+                        <tr>
+                          <td>{t`Friday`}</td>
+                          <td>{open_hours.friday.open + ' - ' + open_hours.friday.close}</td>
+                        </tr>
+                        <tr>
+                          <td>{t`Saturday`}</td>
+                          <td>{open_hours.saturday.open + ' - ' + open_hours.saturday.close}</td>
+                        </tr>
+                        <tr>
+                          <td>{t`Sunday`}</td>
+                          <td>{open_hours.sunday.open + ' - ' + open_hours.sunday.close}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  )}
                 </List.Description>
               </List.Content>
             </List.Item>
           </List>
           <ButtonWrapper>
-            <OrderButton onClick={()=>{
-              router.push('/shop/' + shop.name + "/" + shop.id)
-            }}><Icon name="food" />Order here now</OrderButton>
+            <OrderButton
+              onClick={() => {
+                router.push('/shop/' + shop.name + '/' + shop.id);
+              }}>
+              <Icon name="food" />
+              Order here now
+            </OrderButton>
           </ButtonWrapper>
         </>
       )}
