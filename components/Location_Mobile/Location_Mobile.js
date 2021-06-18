@@ -2,20 +2,30 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { Divider, Ref, Icon } from 'semantic-ui-react';
 import useTranslation from 'next-translate/useTranslation';
-import ShopInfo from '../components/ShopSideBar/ShopInfo';
-import addresses from '../addresses';
-import Map from '../components/Map';
-import { useIsDesktop } from '../util/useScreenSize';
-import Location_Desktop from '../components/Location_Desktop';
-import Location_Mobile from '../components/Location_Mobile';
+import ShopInfo from '../ShopSideBar/ShopInfo';
+import addresses from '../../addresses';
+import Map from '../Map';
 
-const Shop_Desktop = () => {
+const Location_Mobile = () => {
   const { t } = useTranslation('shop');
-  const router = useRouter();
-  const isDesktop = useIsDesktop();
 
   return (
-		<>{isDesktop ? <Location_Desktop /> : <Location_Mobile />}</>
+    <Wrapper>
+      <Title>{t('Loactions and open hours')}</Title>
+      <Divider />
+      <Container>
+        <Map addresses={addresses} />
+      </Container>
+      <InfoWrapper>
+        {addresses.map((shop, i) => {
+          return (
+            <>
+              <ShopInfo shop={shop} />
+            </>
+          );
+        })}
+      </InfoWrapper>
+    </Wrapper>
   );
 };
 
@@ -26,8 +36,8 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   display: flex;
-  flex-flow: row nowrap;
-	height: calc(100vh - 190px);
+  flex-flow: column nowrap;
+  height: 35vh;
 `;
 const Left = styled.div`
   flex: 4;
@@ -58,4 +68,4 @@ const Title = styled.h1`
   padding-left: 10px;
 `;
 
-export default Shop_Desktop;
+export default Location_Mobile;

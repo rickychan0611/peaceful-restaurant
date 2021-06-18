@@ -73,7 +73,8 @@ export default function Map({ addresses }) {
         <h5>
           <a onClick={() => {
             setMapLoaction()
-            setShowLocations(addresses)}}>SHOW ALL LOCATIONS</a>
+            setShowLocations(addresses)}
+            }>SHOW ALL LOCATIONS</a>
         </h5>
         <GoogleMap
           ref={mapRef}
