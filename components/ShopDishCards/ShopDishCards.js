@@ -61,7 +61,7 @@ const ShopDishCards = ({ item }) => {
             basic
             size="tiny"
             style={{
-              marginTop: 5,
+              marginTop: 20,
               padding: 10,
               backgroundColor: '#9c0404',
               color: 'white',

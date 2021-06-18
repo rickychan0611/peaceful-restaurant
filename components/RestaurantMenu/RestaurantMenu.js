@@ -87,7 +87,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
 
                 {/* Anchor point for desktop and non desktop */}
                 {/* {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>} */}
-                {isDesktop ? <div id={cat.id} style={{ paddingTop: 10, marginTop: -10 }} /> :
+                {isDesktop ? <div id={cat.id} style={{ paddingTop: 1}} /> :
                   <div id={cat.id} style={{ paddingTop: 150, marginTop: -150 }} />}
 
                 <CatTitle isMobile={isMobile}>
@@ -116,17 +116,17 @@ const RestaurantMenu = ({ contextRef, t }) => {
 
 const CardContainer = styled.div`
   display: grid;
-  grid-gap: ${(p) => (p.isMobile && !p.toggle ? '10px' : '20px')};
+  grid-gap: ${(p) => (p.isMobile && !p.toggle ? '10px' : '15px')};
   grid-template-columns: ${(p) =>
-    p.isMobile ? 'repeat(auto-fill, minmax(150px, 1fr))' : 'repeat(auto-fill, minmax(180px, 1fr))'};
+    p.isMobile ? 'repeat(auto-fill, minmax(150px, 1fr))' : 'repeat(auto-fill, minmax(200px, 1fr))'};
 `;
 const Anchor = styled.div`
   display: block;
   position: relative;
-  top: 520;
+  top: 500;
   visibility: hidden;
-  margin-top: -520;
-  padding: 520;
+  margin-top: -500;
+  padding: 500;
 `;
 const MenuContainer = styled.div`
   margin-bottom: 30px;

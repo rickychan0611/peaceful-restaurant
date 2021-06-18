@@ -27,6 +27,7 @@ const Shop_Desktop = () => {
 
   return (
     <div>
+      <Title>{currentShop.name}</Title>
       <Container>
         <Left>
           <CatWrapper>
@@ -52,7 +53,6 @@ const Shop_Desktop = () => {
         </Left>
 
         <Right>
-            <Title>{currentShop.name}</Title>
           <RestaurantMenu t={t} contextRef={contextRef} />
         </Right>
 
@@ -64,18 +64,17 @@ const Shop_Desktop = () => {
 const Container = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  padding-top: 30px;
   /* margin-top: -100px; */
 `;
 const Left = styled.div`
   flex: 2;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 150px);
   overflow-y: auto;
   padding: 0 10px;
 `;
 const Right = styled.div`
   flex: 7;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 150px);
   overflow-y: auto;
   padding: 10px 10px;
 `;
@@ -131,6 +130,9 @@ const Avatar = styled.img`
 const Title = styled.h1`
   font-size: 28px;
   margin: 0;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  color: #9c0404;
 `;
 const Description = styled.div`
   font-size: 1rem;
