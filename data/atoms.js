@@ -110,6 +110,12 @@ export const loginPending = atom({
   default: false
 });
 
+export const mapLoaction = atom({
+  key: 'mapLoaction',
+  default: null
+});
+
+
 export const defaultAddress = selector({
   key: 'defaultAddress',
   get: ({get}) => {

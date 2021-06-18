@@ -4,6 +4,7 @@
     "pages": {
       "*": ["home"],
       "rgx:^/shop" : ["shop"],
+      "rgx:^/location" : ["shop"],
       "rgx:^/consumer" : ["orders"],
       "rgx:^/consumer/edit-profile" : ["profile"],
       "rgx:^/checkout" : ["profile"]

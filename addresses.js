@@ -1,17 +1,17 @@
-const addresses = [
+const address_linees = [
     {
       name: 'Broadway',
-      address: '532 W. Broadway',
-      city: 'Vancouver',
+      address_line: '532 W. Broadway',
+      address_city: 'Vancouver',
       phone: '604-879-987',
       id: 1,
       lat: 49.2629367,
-      lng: -123.1182306
+      lng: -123.1182306,
     },
     {
       name: 'Mount Pleasant',
-      address: '43 E. 5th Avenue',
-      city: 'Vancouver',
+      address_line: '43 E. 5th Avenue',
+      address_city: 'Vancouver',
       phone: '604-559-9511',
       id: 8,
       lat: 49.266710,
@@ -19,8 +19,8 @@ const addresses = [
     },
     {
       name: 'Kitsilano',
-      address: '2394 W. 4th Avenue',
-      city: 'Vancouver',
+      address_line: '2394 W. 4th Avenue',
+      address_city: 'Vancouver',
       phone: '604-559-9533',
       id: 2,
       lat: 49.2680246,
@@ -28,8 +28,8 @@ const addresses = [
     },
     {
       name: 'Seymour',
-      address: '602 Seymour St.',
-      city: 'Vancouver',
+      address_line: '602 Seymour St.',
+      address_city: 'Vancouver',
       phone: '604-313-1333',
       id: 6,
       lat: 49.2828235,
@@ -37,8 +37,8 @@ const addresses = [
     },
     {
       name: 'Newton',
-      address: '#107-7320 King George Blvd.',
-      city: 'Surrey',
+      address_line: '#107-7320 King George Blvd.',
+      address_city: 'Surrey',
       phone: '604-503-3833',
       id: 7,
       lat: 49.1346551,
@@ -46,8 +46,8 @@ const addresses = [
     },
     {
       name: 'Kingsway',
-      address: '3320 Kingsway',
-      city: 'Vancouver',
+      address_line: '3320 Kingsway',
+      address_city: 'Vancouver',
       phone: '604-428-1168',
       id: 5,
       lat: 49.2333749,
@@ -55,8 +55,8 @@ const addresses = [
     },
     {
       name: 'Port Coquitlam',
-      address: '3610 Westwood St.',
-      city: 'Port Coquitlam',
+      address_line: '3610 Westwood St.',
+      address_city: 'Port Coquitlam',
       phone: '778-285-3367',
       id: 4,
       lat: 49.276555,
@@ -64,8 +64,8 @@ const addresses = [
     },
     {
       name: 'Richmond',
-      address: '110D – 2188 No.5 Rd.',
-      city: 'Vancouver',
+      address_line: '110D – 2188 No.5 Rd.',
+      address_city: 'Vancouver',
       phone: '604-1230-4567',
       id: 3,
       lat: 49.1953273,
@@ -73,4 +73,4 @@ const addresses = [
     }
   ];
 
-  export default addresses;
+  export default address_linees;

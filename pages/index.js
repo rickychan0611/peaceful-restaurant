@@ -20,7 +20,7 @@ const MapModal = ({ open, setOpen }) => {
   );
 };
 
-const Home = ({ allshops }) => {
+const Home = () => {
   const router = useRouter();
   const { t } = useTranslation('home');
   const [open, setOpen] = useState(false);
@@ -28,9 +28,28 @@ const Home = ({ allshops }) => {
   const isDesktop = useIsDesktop();
   const isMobile = useIsMobile();
 
-  useEffect(() => {
-    console.log('allshops', allshops);
-  }, []);
+  ////Get all shops at once
+  // useEffect(() => {
+  //     const getSingleShop = (id) => {
+  //       return  new Promise(async (resolve) => {
+  //         const result = await axios.get(HOST_URL + '/api/singleshop', {
+  //           params: { shop_id: id }
+  //         });
+  //         // console.log('resultresult', result.data.data);
+  //         resolve(result.data.data);
+  //       });
+  //     };
+    
+  //     const promises = [];
+    
+  //     addresses.forEach((address, i) => {
+  //       promises.push(getSingleShop(address.id));
+  //     });
+  //     const allShops = Promise.all(promises).then((results) => {
+  //       console.log(results);
+  //       return allShops;
+  //     });
+  // }, []);
 
   return (
     <>
@@ -83,7 +102,7 @@ const Home = ({ allshops }) => {
                   <AddressContainer isMobile={isMobile}>
                     <AddressHeader>{item.name}</AddressHeader>
                     <P>
-                      {item.address} <br />
+                      {item.address_line} <br />
                       {item.city} <br />
                       {item.phone}
                     </P>
@@ -196,59 +215,7 @@ const Home = ({ allshops }) => {
   );
 };
 
-export const getStaticProps = async (context) => {
-  const getSingleShop = (id) => {
-    return  new Promise(async (resolve) => {
-      const result = await axios.get(HOST_URL + '/api/singleshop', {
-        params: { shop_id: id }
-      });
-      // console.log('resultresult', result.data.data);
-      resolve(result.data.data);
-    });
-  };
 
-  const promises = [];
-
-  addresses.forEach((address, i) => {
-    promises.push(getSingleShop(address.id));
-  });
-  const p = Promise.all(promises).then((results) => {
-    console.log(results);
-    return results;
-  });
-
-  console.log('ppppppppppp', p);
-  return {
-    props: {
-      allShops: "p"
-    }
-  };
-};
-
-// export const getStaticPaths = async () => {
-//   return {
-//     paths:
-//       [
-//         { params: { shop_id: '1', slug: "Broadway" }, locale: "en" },
-//         { params: { shop_id: '2', slug: "Kitsilano" }, locale: "en"  },
-//         { params: { shop_id: '3', slug: "Richmond" }, locale: "en"  },
-//         { params: { shop_id: '4', slug: "Port Coquitlam" }, locale: "en"  },
-//         { params: { shop_id: '5', slug: "Kingsway" }, locale: "en"  },
-//         { params: { shop_id: '6', slug: "Seymour" }, locale: "en"  },
-//         { params: { shop_id: '7', slug: "Newton" }, locale: "en"  },
-//         { params: { shop_id: '8', slug: "Mount Pleasant" }, locale: "en"  },
-//         { params: { shop_id: '1', slug: "Broadway" }, locale: "zh-CN" },
-//         { params: { shop_id: '2', slug: "Kitsilano" }, locale: "zh-CN"  },
-//         { params: { shop_id: '3', slug: "Richmond" }, locale: "zh-CN"  },
-//         { params: { shop_id: '4', slug: "Port Coquitlam" }, locale: "zh-CN"  },
-//         { params: { shop_id: '5', slug: "Kingsway" }, locale: "zh-CN"  },
-//         { params: { shop_id: '6', slug: "Seymour" }, locale: "zh-CN"  },
-//         { params: { shop_id: '7', slug: "Newton" }, locale: "zh-CN"  },
-//         { params: { shop_id: '8', slug: "Mount Pleasant" }, locale: "zh-CN"  },
-//       ],
-//     fallback: false
-//   }
-// }
 
 const BackgroundImage = styled.img`
   /* position: fixed; */

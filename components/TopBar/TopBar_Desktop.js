@@ -53,6 +53,14 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
           <Icon name="home" size="large" />
           <H4>{t('home')}</H4>
         </Item>
+        <Item
+          onClick={() => {
+            setOpenDropdownMenu(null);
+            router.push('/location');
+          }}>
+          <Icon name="marker" size="large" />
+          <H4>{t('Our locations')}</H4>
+        </Item>
 
         {/* Menu */}
         <div style={{ position: 'relative' }}>

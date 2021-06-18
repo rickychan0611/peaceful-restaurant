@@ -40,6 +40,12 @@ const shop = ({ getSingleShop, getShopProducts }) => {
 
   return (
     <>
+     {/* <div style={{ height: '80vh' }}>
+            <Dimmer inverted active={!currentShop}>
+              <Loader active content="Loading" />
+            </Dimmer>
+          </div> */}
+
      <Modal
       basic
       onClose={() => setOpen(false)}
