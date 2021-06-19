@@ -11,5 +11,8 @@ module.exports = nextTranslate({
   },
   images: {
     domains: ['restaurantdem.com']
+  },
+  eslint: {
+    ignoreDuringBuilds: true
   }
 })

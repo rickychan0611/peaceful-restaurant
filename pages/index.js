@@ -163,7 +163,6 @@ const Home = () => {
                 width={700}
                 height={475}
                 quality={65}
-                unsized
               />
               </div>
               {/* <FoodImage
