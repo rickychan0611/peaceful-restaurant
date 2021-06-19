@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
@@ -12,16 +13,16 @@ import { Button, Label } from 'semantic-ui-react';
 
 import { HOST_URL } from '../../env';
 import { shimmer, toBase64 } from '../../util/imageBlur';
+import { useEffect } from 'react';
 
 const ShopDishCards = ({ item }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
   const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
   const { t } = useTranslation('home');
-  
-  const myLoader = ({ src, width, quality }) => {
-    return HOST_URL + '/storage/' +  src
-  }
+
+  const [imageIsLoaded, setImageIsLoaded] = useState(false)
+  const [opacity, setOpacity] = useState(0.1)
 
   return (
     <>
@@ -36,9 +37,9 @@ const ShopDishCards = ({ item }) => {
         }}>
         <SpaceBetween>
           <div>
-            {item.images && item.images[0] ? (
-              <Image src={JSON.parse(item.images)[0]}
-              loader={myLoader}
+            <>
+              <Image
+                src={`${HOST_URL}/storage/${JSON.parse(item.images)[0]}`}
                 layout="responsive"
                 width={3}
                 height={2}
@@ -46,9 +47,9 @@ const ShopDishCards = ({ item }) => {
                 blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
                 quality={65}
               />
-            ) : (
-              <Img src="/no-image.png" />
-            )}
+              {/* <Img src="/no-image.png" /> */}
+
+            </>
 
             <Name>{item.name}</Name>
             <Description>{item.description}</Description>

@@ -1,6 +1,11 @@
 export const shimmer = (w, h) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <rect width="${w}" height="${h}" fill="#e9e8e8" />
+<defs>
+<linearGradient id="g">
+  <stop stop-color="#ffffff" offset="20%" />
+</linearGradient>
+</defs>
+<rect width="${w}" height="${h}" fill="#f3f3f3" />
   <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
   <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
 </svg>`
