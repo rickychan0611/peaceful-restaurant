@@ -147,6 +147,10 @@ function MyApp({ Component, pageProps }) {
               type="text/javascript"
               src={'https://maps.googleapis.com/maps/api/js?key=' + MAP_API + '&libraries=places'}
             />
+            <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+            <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@900&display=swap" rel="stylesheet"></link>
+            <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;400&display=swap" rel="stylesheet"></link>
+            <link href='https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;600;700&display=swap' rel="stylesheet"></link>
           </Head>
           <TopBar />
           <div className="contents" style={{ paddingTop: 80, width: '100vw' }}>
