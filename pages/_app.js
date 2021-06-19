@@ -143,10 +143,6 @@ function MyApp({ Component, pageProps }) {
           <Head>
             <title>Peaceful Mall Restaurant</title>
             <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-            <script
-              type="text/javascript"
-              src={'https://maps.googleapis.com/maps/api/js?key=' + MAP_API + '&libraries=places'}
-            />
             <link rel="preconnect" href="https://fonts.gstatic.com"></link>
             <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@900&display=swap" rel="stylesheet"></link>
             <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;400&display=swap" rel="stylesheet"></link>

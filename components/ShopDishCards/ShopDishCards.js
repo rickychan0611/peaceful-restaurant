@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import useTranslation from 'next-translate/useTranslation';
 import Image from 'next/image'
 
 import { useRecoilState } from 'recoil';
@@ -13,16 +11,11 @@ import { Button, Label } from 'semantic-ui-react';
 
 import { HOST_URL } from '../../env';
 import { shimmer, toBase64 } from '../../util/imageBlur';
-import { useEffect } from 'react';
 
 const ShopDishCards = ({ item }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
-  const { t } = useTranslation('home');
-
-  const [imageIsLoaded, setImageIsLoaded] = useState(false)
-  const [opacity, setOpacity] = useState(0.1)
+  const [currentShop, ] = useRecoilState(currentShopAtom);
 
   return (
     <>
@@ -46,6 +39,7 @@ const ShopDishCards = ({ item }) => {
                 placeholder="blur"
                 blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
                 quality={65}
+                alt={item.name}
               />
               {/* <Img src="/no-image.png" /> */}
 

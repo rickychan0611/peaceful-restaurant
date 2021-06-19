@@ -148,13 +148,11 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: 600px;
-  /* height: 100vh; */
 `;
 const Name = styled.div`
   margin: 10px 0 10px 0;
   font-size: 14px;
   font-weight: 600;
-  /* font-family: "'Noto Serif SC', serif"; */
   padding: 0 10px 0px 10px;
 `;
 const P = styled.p`

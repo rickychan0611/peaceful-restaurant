@@ -293,7 +293,7 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 const Header = styled.h1`
-  font-family: ${(p) => (!p.locale === 'eng' ? "'Spectral', serif" : "'Noto Serif SC', serif")};
+  font-family: ${(p) => (!p.locale === 'eng' ? "Spectral, serif" : "Noto Serif SC, serif")};
   font-size: ${(p) => (p.isMobile ? 30 : 40)};
   font-weight: 600;
   margin: 0 0 50px 0;
