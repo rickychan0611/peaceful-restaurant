@@ -144,9 +144,9 @@ function MyApp({ Component, pageProps }) {
             <title>Peaceful Mall Restaurant</title>
             <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
             <link rel="preconnect" href="https://fonts.gstatic.com"></link>
-            <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@900&display=swap" rel="stylesheet"></link>
-            <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;400&display=swap" rel="stylesheet"></link>
-            <link href='https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;600;700&display=swap' rel="stylesheet"></link>
+            <link rel="preload" href="https://fonts.googleapis.com/css2?family=Archivo:wght@900&display=swap" as="style"></link>
+            <link rel="preload" href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;400&display=swap" as="style"></link>
+            {/* <link rel="preload" href='https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;600;700&display=swap' as="style"></link> */}
           </Head>
           <TopBar />
           <div className="contents" style={{ paddingTop: 80, width: '100vw' }}>
