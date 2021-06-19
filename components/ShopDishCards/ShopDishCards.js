@@ -18,7 +18,11 @@ const ShopDishCards = ({ item }) => {
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
   const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
   const { t } = useTranslation('home');
-    
+  
+  const myLoader = ({ src, width, quality }) => {
+    return HOST_URL + '/storage/' +  src
+  }
+
   return (
     <>
       <Card
@@ -33,7 +37,8 @@ const ShopDishCards = ({ item }) => {
         <SpaceBetween>
           <div>
             {item.images && item.images[0] ? (
-              <Image src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
+              <Image src={JSON.parse(item.images)[0]}
+              loader={myLoader}
                 layout="responsive"
                 width={3}
                 height={2}
