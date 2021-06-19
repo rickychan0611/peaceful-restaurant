@@ -70,7 +70,7 @@ export default function Map({ addresses }) {
   const RenderMap = () => {
     return (
       <>
-        <h5>
+        <h5 style={{  cursor: "pointer"}}>
           <a onClick={() => {
             setMapLoaction()
             setShowLocations(addresses)}

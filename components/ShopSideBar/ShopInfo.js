@@ -117,6 +117,7 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
+  cursor: pointer;
 `;
 const OrderButton = styled.div`
   width: 80%;
@@ -136,6 +137,7 @@ const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  cursor: pointer;
 `;
 const Title = styled.h2`
   margin: 0 0 0 15px;

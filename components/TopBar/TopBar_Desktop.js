@@ -74,7 +74,7 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
             router.push('/location');
           }}>
           <Icon name="marker" size="large" />
-          <H4>{t('Our locations')}</H4>
+          <H4>{t('locations')}</H4>
         </Item>
         {!user ? (
           <>

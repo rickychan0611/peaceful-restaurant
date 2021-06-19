@@ -10,17 +10,7 @@ import useTranslation from 'next-translate/useTranslation';
 import {
   selectedLocation as selectedLocationAtom
 } from '../../data/atoms.js';
-
-const locations = [
-  { id: 1, name: 'Broadway' },
-  { id: 2, name: 'Kitsilano' },
-  { id: 3, name: 'Richmond' },
-  { id: 4, name: 'Port Coquitlam' },
-  { id: 5, name: 'Kingsway' },
-  { id: 6, name: 'Seymour' },
-  { id: 7, name: 'Newton' },
-  { id: 8, name: 'Mount Pleasant' }
-];
+import addresses from '../../addresses';
 
 const SidebarMenu = () => {
   const router = useRouter();
@@ -62,9 +52,9 @@ const SidebarMenu = () => {
       </Menu.Item>
 
       <Menu.Item>
-        <Menu.Header>Locations & Menus</Menu.Header>
+        <Menu.Header>Food Menus</Menu.Header>
         <Menu.Menu>
-          {locations.map((item, i) => {
+          {addresses.map((item, i) => {
             return (
               <Menu.Item key={i} 
               onClick={() => {
@@ -78,6 +68,11 @@ const SidebarMenu = () => {
             )
           })}
         </Menu.Menu>
+      </Menu.Item>
+
+      <Menu.Item onClick={() => handleClick('/location')}>
+        <Icon name="marker" size="large" />
+        <H4>{t('locations')}</H4>
       </Menu.Item>
 
       {!user ? (

@@ -156,11 +156,11 @@ const MessageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 40px;
+  /* height: 40px; */
 `;
 const Message = styled.div`
   color: red;
-  padding: 10px;
+  padding: 15px;
 `;
 
 export default shop;
