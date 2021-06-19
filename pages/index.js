@@ -10,12 +10,13 @@ import { Modal, Icon, Visibility } from 'semantic-ui-react';
 import CheckOutListPusher from '../components/CheckOutListPusher';
 import Map from '../components/Map';
 import addresses from '../addresses';
+import Image from 'next/image'
 
 const MapModal = ({ open, setOpen }) => {
   const { t } = useTranslation('home');
   return (
     <Modal open={open} closeIcon onClose={() => setOpen(false)}>
-      <Map addresses={addresses}/>
+      <Map addresses={addresses} />
     </Modal>
   );
 };
@@ -39,9 +40,9 @@ const Home = () => {
   //         resolve(result.data.data);
   //       });
   //     };
-    
+
   //     const promises = [];
-    
+
   //     addresses.forEach((address, i) => {
   //       promises.push(getSingleShop(address.id));
   //     });
@@ -135,7 +136,7 @@ const Home = () => {
 
             <Header>{t`AWARD`}</Header>
             <Article>
-              <div style={{ maxWidth: 500 }}>
+              <div style={{ maxWidth: 500, minWidth: 300, flex:1 }}>
                 <P style={{ fontSize: 20, textAlign: 'left', lineHeight: 'normal' }}>
                   <ul>
                     <li>
@@ -155,11 +156,21 @@ const Home = () => {
                   </ul>
                 </P>
               </div>
-              <FoodImage
+              <div style={{flex:1, minWidth: 300, marginTop: 20}}>
+              <Image
+                src="/storefront.jpg"
+                layout="responsive"
+                width={700}
+                height={475}
+                quality={65}
+                unsized
+              />
+              </div>
+              {/* <FoodImage
                 isMobile={isMobile}
                 src="/storefront.jpg"
                 style={{ width: 400, height: '100%' }}
-              />
+              /> */}
             </Article>
             <div style={{ height: isMobile ? 20 : 70 }}></div>
             <Row style={{ justifyContent: 'space-around' }}>
@@ -249,6 +260,7 @@ const Article = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
+  gap: 20px;
 `;
 const Button = styled.div`
   font-family: 'Spectral', serif;
@@ -299,11 +311,7 @@ const P = styled.h4`
   color: #000000;
   line-height: 180%;
 `;
-const Image = styled.img`
-  width: 100%;
-  height: 500px;
-  object-fit: cover;
-`;
+
 const Bar = styled.div`
   display: flex;
   align-items: center;

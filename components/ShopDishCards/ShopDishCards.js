@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
+import Image from 'next/image'
 
 import { useRecoilState } from 'recoil';
 import {
@@ -11,12 +12,14 @@ import { Button, Label } from 'semantic-ui-react';
 
 import { HOST_URL } from '../../env';
 
+import {shimmer, toBase64} from '../../util/imageBlur';
+
 const ShopDishCards = ({ item }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
   const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
   const { t } = useTranslation('home');
-
+    
   return (
     <>
       <Card
@@ -31,7 +34,14 @@ const ShopDishCards = ({ item }) => {
         <SpaceBetween>
           <div>
             {item.images && item.images[0] ? (
-              <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
+              <Image src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
+                layout="responsive"
+                width={3}
+                height={2}
+                placeholder="blur"
+                blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+                quality={65}
+              />
             ) : (
               <Img src="/no-image.png" />
             )}
@@ -101,6 +111,7 @@ const Name = styled.div`
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 8px;
 `;
 const Description = styled.div`
   font-size: 1rem;
