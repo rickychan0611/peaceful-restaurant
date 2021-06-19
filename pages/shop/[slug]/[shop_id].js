@@ -24,9 +24,9 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   const [, setCurrentShopProducts] = useRecoilState(currentShopProductsAtom);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
-  const isShopOpen = router && useIsShopOpen(addresses[index].open_hours);
-  const [shopStatus, setShopStatus] = useState(true);
+  // const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
+  // const isShopOpen = router && useIsShopOpen(addresses[index].open_hours);
+  const [isShopOpen, setIsShopOpen] = useState(true);
 
   useEffect(async () => {
     setCurrentShop(getSingleShop);
@@ -41,6 +41,14 @@ const shop = ({ getSingleShop, getShopProducts }) => {
     setCurrentShop(getShop.data.data);
   }, [getSingleShop]);
 
+
+  useEffect(() => {
+    //check if store open
+      const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
+      let open = useIsShopOpen(addresses[index].open_hours);
+      setIsShopOpen(open)
+  }, [router]);
+  
   return (
     <>
       {currentShop && currentShop.status === 4 && (
@@ -63,16 +71,16 @@ const shop = ({ getSingleShop, getShopProducts }) => {
         </div>
       )}
 
-      <div>
-        {!isShopOpen && (
-          <MessageContainer>
-            <div>
-              <Icon name="warning circle" />
-              This store is now closed. Open hours: Mon - Sun, 11am - 9pm
-            </div>
-          </MessageContainer>
-        )}
+      {!isShopOpen && (
+        <MessageContainer>
+          <Message>
+            <Icon name="warning circle" />
+            This store is now closed. Open hours: Mon - Sun, 11am - 9pm
+          </Message>
+        </MessageContainer>
+      )}
 
+      <div>
         <Head>
           <title>{currentShop && currentShop.name}</title>
         </Head>
@@ -142,14 +150,17 @@ export const getStaticPaths = async () => {
 };
 
 const MessageContainer = styled.div`
-  background-color: #eeee8a;
-  color: red;
   display: flex;
+  flex-flow: row nowrap;
+  background-color: #eeee8a;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  padding: 10px;
   height: 40px;
+`;
+const Message = styled.div`
+  color: red;
+  padding: 10px;
 `;
 
 export default shop;
