@@ -32,7 +32,7 @@ const ShopDishCards = ({ item }) => {
           <div>
             <>
               <Image
-                src={`${HOST_URL}/storage/${JSON.parse(item.images)[0]}`}
+                src={`${HOST_URL}/storage//products/shops/1/Beijing_Pork_Sauce_Noodles.jpg`}
                 layout="responsive"
                 width={3}
                 height={2}
