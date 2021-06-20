@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Image from 'next/image'
-
+import Image from 'next/image';
+import {useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import {
   currentShop as currentShopAtom,
@@ -16,9 +16,12 @@ const ShopDishCards = ({ item }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
   const [currentShop, ] = useRecoilState(currentShopAtom);
+  
+  let imgUrl = HOST_URL + "/storage" + JSON.parse(item.images)[0]
 
   return (
     <>
+    {/* <hr>{imgUrl.toString()}</hr> */}
       <Card
         onClick={() => {
           // when click, save item in selectedItem Atom and selectedStore Atom.
@@ -32,7 +35,7 @@ const ShopDishCards = ({ item }) => {
           <div>
             <>
               <Image
-                src={`${HOST_URL}/storage//products/shops/1/Beijing_Pork_Sauce_Noodles.jpg`}
+                src={imgUrl}
                 layout="responsive"
                 width={3}
                 height={2}
