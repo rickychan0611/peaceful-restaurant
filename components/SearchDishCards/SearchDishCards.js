@@ -1,8 +1,4 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
-import  { useIsMobile } from '../../util/useScreenSize';
-import _ from 'lodash';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -10,7 +6,6 @@ import { useRecoilState } from 'recoil';
 import {
   currentShop as currentShopAtom,
   currentItem as currentItemAtom,
-  currentCat as currentCatAtom
 } from '../../data/atoms.js';
 import { Button, Label } from 'semantic-ui-react';
 
@@ -19,30 +14,10 @@ import PlaceHolder_Card from '../PlaceHolder_Card';
 
 const SearchDishCards = ({products}) => {
   const router = useRouter();
-  const [dishes, setDishes] = useState([]);
-  const isMobile = useIsMobile();
-  const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
-  const [currentCat, setCurrentcat] = useRecoilState(currentCatAtom);
+  const [, setCurrentItem] = useRecoilState(currentItemAtom);
+  const [, setCurrentShop] = useRecoilState(currentShopAtom);
   // const [products, setProducts] = useState(null);
-  const [loading, setLoading] = useState(false);
   const { t } = useTranslation('home');
-
-  //get products from server when component is loaded
-  // useEffect(async () => {
-  //   setLoading(true);
-  //   // console.log('plat_category reload', currentCat ? currentCat.id : 'all');
-  //   const getProducts = await axios.get(HOST_URL + '/api/products', {
-  //     params: {
-  //       plat_category: currentCat ? currentCat.id : 'all',
-  //       type,
-  //       count: '20'
-  //     }
-  //   });
-  //   // console.log(products);
-  //   setProducts(getProducts.data.data);
-  //   setLoading(false);
-  // }, [currentCat]);
 
   return (
     <>

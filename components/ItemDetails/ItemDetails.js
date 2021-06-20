@@ -1,9 +1,5 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useIsMobile } from '../../util/useScreenSize';
-import { HOST_URL } from '../../env';
-import toSlug from '../../util/toSlug';
-import axios from 'axios';
 import Loader from '../Loader';
 
 import { useRecoilState } from 'recoil';
@@ -15,30 +11,27 @@ import {
 import { orderItems as orderItemsAtom } from '../../data/orderAtoms.js';
 
 import BottomAddBar from '../BottomAddBar';
-import BacktoShopButtom from '../BackToShopButton';
 import ItemDetailsContext from '../ItemDetailsContext';
-import _ from 'lodash';
 import { useEffect } from 'react';
 import { uid } from 'react-uid';
 import { Button, Modal } from 'semantic-ui-react';
 
-const ItemDetails = ({ setOpen, fromRestaurantPage }) => {
+const ItemDetails = ( ) => {
   const router = useRouter();
-  const isMobile = useIsMobile();
   const [orderItems, setOrderItems] = useRecoilState(orderItemsAtom);
-  const [item, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
-  const [loading, setLoading] = useState(true);
+  const [item] = useRecoilState(currentItemAtom);
+  const [currentShop] = useRecoilState(currentShopAtom);
+  const [loading] = useState(true);
   const [attributes, setAttributes] = useState([]);
   const [attributeTotal, setAttributeTotal] = useState(0);
   const [openWarning, setOpenWarning] = useState(false);
   const [quantity, setQty] = useState(1);
-  const [openCheckOutList, setOpenCheckOutList] = useRecoilState(openCheckOutListAtom);
+  const [, setOpenCheckOutList] = useRecoilState(openCheckOutListAtom);
 
   const replacePrevItems = () => {
     let updatedItems;
 
-    setOrderItems((prev) => {
+    setOrderItems(() => {
       updatedItems = [{ ...item, attributeTotal, quantity, shop: currentShop, uid: uid(item) }];
       localStorage.setItem('orderItems', JSON.stringify(updatedItems));
       return updatedItems;
@@ -51,7 +44,6 @@ const ItemDetails = ({ setOpen, fromRestaurantPage }) => {
   //function: addItem is called in <BottomAddBar>,
   //update orderItems and localstorage, and then redirect to store's page
   const addItem = () => {
-    let updatedItems;
     console.log('ItemDetails currentShop', currentShop);
     console.log('ItemDetails orderItems', orderItems);
     console.log('ItemDetails item.attributes!!!', item.attributes);

@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useIsMobile } from '../../util/useScreenSize';
-import _ from 'lodash';
 import styled from 'styled-components';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import SliderTitle from '../SliderTitle';
-import axios from 'axios';
 import { HOST_URL } from '../../env';
 import PlaceHolder_Card from '../PlaceHolder_Card/';
 import useTranslation from 'next-translate/useTranslation';
@@ -12,30 +9,13 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRecoilState } from 'recoil';
 import {
   currentCat as currentCatAtom,
-  sliderCats as sliderCatsAtom,
   catChange as scatChangeAtom
 } from '../../data/atoms.js';
 
-// const data = [
-//   { name: 'Cantonese', img: 'canton-thumb.jpg' },
-//   { name: 'Bubble Tea', img: 'bubble-thumb.jpg' },
-//   { name: 'Chinese BBQ', img: 'bbq-thumb.jpg' },
-//   { name: 'Fast Food', img: 'fastFood-thumb.jpg' },
-//   { name: 'Fried Chicken', img: 'friedChicken-thumb.jpg' },
-//   { name: 'Hong Kong', img: 'hongkong-thumb.jpg' },
-//   { name: 'Japanese', img: 'japanese-thumb.jpg' },
-//   { name: 'Korean', img: 'korean-thumb.jpg' },
-//   { name: 'Spicy', img: 'spicy-thumb.jpg' },
-//   { name: 'Ramen', img: 'ramen-thumb.jpg' },
-//   { name: 'Taiwanese', img: 'taiwan-thumb.jpg' },
-//   { name: 'Mexcian', img: 'mexcian-thumb.jpg' }
-// ];
-
-const CuisineSlider = ( {sliderCats, cacheDate} ) => {
+const CuisineSlider = ( {sliderCats } ) => {
   const isMobile = useIsMobile();
   const [currentCat, setCurrentCat] = useRecoilState(currentCatAtom);
-  // const [sliderCats, setSliderCats] = useRecoilState(sliderCatsAtom);
-  const [catChange, setCatChange] = useRecoilState(scatChangeAtom);
+  const [, setCatChange] = useRecoilState(scatChangeAtom);
   const { t } = useTranslation('home');
 
   return (

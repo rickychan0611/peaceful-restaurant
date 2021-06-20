@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import _ from 'lodash';
 import styled from 'styled-components';
 import { data } from '../../data/restaurants-old';
 import Link from 'next/link'

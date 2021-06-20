@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import  { useIsMobile } from '../../util/useScreenSize';
-import _ from 'lodash';
 import styled from 'styled-components';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -19,11 +17,9 @@ import PlaceHolder_Card from '../PlaceHolder_Card/';
 
 const DishCards = ({type}) => {
   const router = useRouter();
-  const [dishes, setDishes] = useState([]);
-  const isMobile = useIsMobile();
-  const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
-  const [currentCat, setCurrentcat] = useRecoilState(currentCatAtom);
+  const [, setCurrentItem] = useRecoilState(currentItemAtom);
+  const [, setCurrentShop] = useRecoilState(currentShopAtom);
+  const [currentCat] = useRecoilState(currentCatAtom);
   const [products, setProducts] = useState(null);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation('home');

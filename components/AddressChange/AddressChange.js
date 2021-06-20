@@ -6,7 +6,6 @@ import { useRecoilState } from 'recoil';
 import { user as userAtom } from '../../data/userAtom.js';
 import { useEffect } from 'react';
 import AddressNewForm from '../AddressNewForm';
-import { set } from 'lodash';
 
 const AddressChange = ({ setOpen }) => {
   const router = useRouter();

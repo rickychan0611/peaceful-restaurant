@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { useIsMobile } from '../../util/useScreenSize';
-import _ from 'lodash';
 import styled from 'styled-components';
 import toSlug from '../../util/toSlug';
 
 import { useRecoilState } from 'recoil';
 import {
   currentShop as currentShopAtom,
-  currentItem as currentItemAtom,
-  currentCat as currentCatAtom
 } from '../../data/atoms.js';
-import { Button, Label } from 'semantic-ui-react';
 import useTranslation from 'next-translate/useTranslation';
 
 import { HOST_URL } from '../../env';
@@ -21,15 +16,11 @@ import { currentPosition as currentPositionAtom } from '../../data/atoms';
 
 const NearShopsCards = () => {
   const router = useRouter();
-  const [dishes, setDishes] = useState([]);
-  const isMobile = useIsMobile();
-  const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
-  const [currentCat, setCurrentcat] = useRecoilState(currentCatAtom);
+  const [, setCurrentShop] = useRecoilState(currentShopAtom);
   const [shops, setShops] = useState(null);
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation('home');
-  const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionAtom);
+  const [currentPosition] = useRecoilState(currentPositionAtom);
 
   //get products from server when component is loaded
   useEffect(async () => {
