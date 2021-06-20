@@ -146,6 +146,7 @@ function MyApp({ Component, pageProps }) {
             <link rel="preconnect" href="https://fonts.gstatic.com"></link>
             <link rel="preload" href="https://fonts.googleapis.com/css2?family=Archivo:wght@900&display=swap" as="style"></link>
             <link rel="preload" href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;400&display=swap" as="style"></link>
+            <link rel="preload" href="https://fonts.googleapis.com/css2?family=Spectral:wght@200;400&display=swap" as="style"></link>
             {/* <link rel="preload" href='https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;600;700&display=swap' as="style"></link> */}
           </Head>
           <TopBar />
