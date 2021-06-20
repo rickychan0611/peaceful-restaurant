@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import  { useIsMobile } from '../../util/useScreenSize';
-import _ from 'lodash';
 import styled from 'styled-components';
 import toSlug from '../../util/toSlug';
 
 import { useRecoilState } from 'recoil';
 import {
   currentShop as currentShopAtom,
-  currentItem as currentItemAtom,
   currentCat as currentCatAtom
 } from '../../data/atoms.js';
-import { Button, Label } from 'semantic-ui-react';
 import useTranslation from 'next-translate/useTranslation';
 
 import { HOST_URL } from '../../env';
@@ -20,10 +16,7 @@ import PlaceHolder_Card from '../PlaceHolder_Card';
 
 const ShopCards = () => {
   const router = useRouter();
-  const [dishes, setDishes] = useState([]);
-  const isMobile = useIsMobile();
-  const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
+  const [, setCurrentShop] = useRecoilState(currentShopAtom);
   const [currentCat, setCurrentcat] = useRecoilState(currentCatAtom);
   const [shops, setShops] = useState(null);
   const [loading, setLoading] = useState(false);
