@@ -18,7 +18,8 @@ const ShopDishCards = ({ item }) => {
   const [currentShop, ] = useRecoilState(currentShopAtom);
   
   let imgUrl = (HOST_URL + "/storage" + JSON.parse(item.images)[0]).toString()
-  console.log(imgUrl)
+  imgUrl = imgUrl.replace(/\\/g, '/');
+  console.log("imgUrl" + imgUrl)
   return (
     <>
     {/* <hr>{imgUrl.toString()}</hr> */}
