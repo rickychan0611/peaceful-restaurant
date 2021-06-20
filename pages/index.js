@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import axios from 'axios';
-import { HOST_URL } from '../env';
-import { useIsDesktop } from '../util/useScreenSize';
 import { useIsMobile } from '../util/useScreenSize';
 import useTranslation from 'next-translate/useTranslation';
-import { Modal, Icon, Visibility } from 'semantic-ui-react';
+import { Modal, Icon } from 'semantic-ui-react';
 import CheckOutListPusher from '../components/CheckOutListPusher';
-import Map from '../components/Map';
 import addresses from '../addresses';
 import Image from 'next/image'
+import Location_Desktop from '../components/Location_Desktop';
+import Location_Mobile from '../components/Location_Mobile';
 
 const MapModal = ({ open, setOpen }) => {
-  const { t } = useTranslation('home');
+  const isMobile = useIsMobile();
+
   return (
     <Modal open={open} closeIcon onClose={() => setOpen(false)}>
-      <Map addresses={addresses} />
+      {isMobile ? <Location_Mobile /> : <Location_Desktop />}
     </Modal>
   );
 };
@@ -26,31 +25,7 @@ const Home = () => {
   const { t } = useTranslation('home');
   const [open, setOpen] = useState(false);
   const [cal, setCal] = useState({});
-  const isDesktop = useIsDesktop();
   const isMobile = useIsMobile();
-
-  ////Get all shops at once
-  // useEffect(() => {
-  //     const getSingleShop = (id) => {
-  //       return  new Promise(async (resolve) => {
-  //         const result = await axios.get(HOST_URL + '/api/singleshop', {
-  //           params: { shop_id: id }
-  //         });
-  //         // console.log('resultresult', result.data.data);
-  //         resolve(result.data.data);
-  //       });
-  //     };
-
-  //     const promises = [];
-
-  //     addresses.forEach((address, i) => {
-  //       promises.push(getSingleShop(address.id));
-  //     });
-  //     const allShops = Promise.all(promises).then((results) => {
-  //       console.log(results);
-  //       return allShops;
-  //     });
-  // }, []);
 
   return (
     <>
