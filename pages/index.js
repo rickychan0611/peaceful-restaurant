@@ -111,7 +111,7 @@ const Home = () => {
 
             <Header>{t`AWARD`}</Header>
             <Article>
-              <div style={{ maxWidth: 500, minWidth: 300, flex:1 }}>
+              <div style={{ maxWidth: 500 }}>
                 <P style={{ fontSize: 20, textAlign: 'left', lineHeight: 'normal' }}>
                   <ul>
                     <li>
@@ -131,20 +131,11 @@ const Home = () => {
                   </ul>
                 </P>
               </div>
-              <div style={{flex:1, minWidth: 300, marginTop: 20}}>
-              <Image
-                src="/storefront.jpg"
-                layout="responsive"
-                width={700}
-                height={475}
-                quality={65}
-              />
-              </div>
-              {/* <FoodImage
+              <FoodImage
                 isMobile={isMobile}
                 src="/storefront.jpg"
                 style={{ width: 400, height: '100%' }}
-              /> */}
+              />
             </Article>
             <div style={{ height: isMobile ? 20 : 70 }}></div>
             <Row style={{ justifyContent: 'space-around' }}>
@@ -155,7 +146,6 @@ const Home = () => {
               {/* <AwardImg src="/award-5.png" />
               <AwardImg src="/award-6.jpg" style={{ width: 140 }} /> */}
             </Row>
-
             <div style={{ height: isMobile ? 20 : 70 }}></div>
             <hr />
             <div style={{ height: isMobile ? 20 : 70 }}></div>
