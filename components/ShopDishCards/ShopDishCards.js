@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import useTranslation from 'next-translate/useTranslation';
 
 import { useRecoilState } from 'recoil';
 import {
@@ -11,17 +10,13 @@ import { Button, Label } from 'semantic-ui-react';
 
 import { HOST_URL } from '../../env';
 
-import { LazyLoadImage }
-  from 'react-lazy-load-image-component';
-import { useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const ShopDishCards = ({ item, scrollPosition }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
-  const { t } = useTranslation('home');
-
-  const [imgErr, setImgErr] = useState(false)
+  const [currentShop, ] = useRecoilState(currentShopAtom);
 
   return (
     <>
@@ -36,15 +31,15 @@ const ShopDishCards = ({ item, scrollPosition }) => {
         }}>
         <SpaceBetween>
           <div>
-            {item.images && item.images[0] || imgErr? (
-              <LazyLoadImage 
+            {item.images && item.images[0] ? (
+              <Img 
               key={item.name} 
               alt={item.name}
               src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
               effect="blur"
               scrollPosition={scrollPosition}
               width={"100%"}
-              height={150}
+              height={180}
               placeholderSrc="/no-image.png"
             />
             ) : (
@@ -106,9 +101,7 @@ const Card = styled.div`
   cursor: pointer;
   margin-bottom: 20px;
 `;
-const Img = styled.img`
-  width: 100%;
-  height: 180px;
+const Img = styled(LazyLoadImage)`
   object-fit: cover;
 `;
 const Name = styled.div`
