@@ -19,7 +19,6 @@ const ShopDishCards = ({ item }) => {
   
   let imgUrl = (HOST_URL + "/storage" + JSON.parse(item.images)[0]).toString()
   imgUrl = imgUrl.replace(/\\/g, '/');
-  console.log("imgUrl" + imgUrl)
   return (
     <>
     {/* <hr>{imgUrl.toString()}</hr> */}
@@ -28,8 +27,6 @@ const ShopDishCards = ({ item }) => {
           // when click, save item in selectedItem Atom and selectedStore Atom.
           // then open item's page by using item's id
           setCurrentItem(item);
-          console.log("ShopDishCards currentItem", currentItem)
-          console.log("ShopDishCards currentShop", currentShop)
           router.push('/item/' + item.id);
         }}>
         <SpaceBetween>
