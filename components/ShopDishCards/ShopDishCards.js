@@ -42,7 +42,14 @@ const ShopDishCards = ({ item, scrollPosition }) => {
               placeholderSrc="/no-image.png"
             />
             ) : (
-              <Img src="/no-image.png" />
+              <Img 
+              key={item.name} 
+              alt={item.name}
+              src="/no-image.png"
+              scrollPosition={scrollPosition}
+              width={"100%"}
+              height={180}
+            />
             )}
 
             <Name>{item.name}</Name>
