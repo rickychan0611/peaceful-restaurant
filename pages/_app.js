@@ -141,7 +141,7 @@ function MyApp({ Component, pageProps }) {
       <CookiesProvider>
         <InitApp>
           <Head>
-            <title>Peaceful Mall Restaurant</title>
+            <title>Peaceful Restaurant</title>
             <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
           </Head>
           <TopBar />
