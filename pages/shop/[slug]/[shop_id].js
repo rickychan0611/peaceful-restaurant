@@ -29,6 +29,9 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   const [isShopOpen, setIsShopOpen] = useState(true);
 
   useEffect(async () => {
+
+
+    
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
     console.log('Single shop', getSingleShop);
@@ -105,7 +108,8 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   );
 };
 
-export const getStaticProps = async (context) => {
+export const getServerProps = async (context) => {
+// export const getStaticProps = async (context) => {
   const getSingleShop = await axios.get(HOST_URL + '/api/singleshop', {
     params: { shop_id: context.params.shop_id }
   });
@@ -124,6 +128,7 @@ export const getStaticProps = async (context) => {
     }
   };
 };
+
 
 export const getStaticPaths = async () => {
   return {
