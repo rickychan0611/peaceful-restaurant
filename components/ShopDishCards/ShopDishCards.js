@@ -11,7 +11,6 @@ import { Button, Label } from 'semantic-ui-react';
 import { HOST_URL } from '../../env';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 const ShopDishCards = ({ item, scrollPosition }) => {
   const router = useRouter();
