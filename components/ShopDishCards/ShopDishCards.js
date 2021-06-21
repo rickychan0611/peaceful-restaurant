@@ -11,11 +11,17 @@ import { Button, Label } from 'semantic-ui-react';
 
 import { HOST_URL } from '../../env';
 
-const ShopDishCards = ({ item }) => {
+import { LazyLoadImage }
+  from 'react-lazy-load-image-component';
+import { useState } from 'react';
+
+const ShopDishCards = ({ item, scrollPosition }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
   const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
   const { t } = useTranslation('home');
+
+  const [imgErr, setImgErr] = useState(false)
 
   return (
     <>
@@ -30,8 +36,17 @@ const ShopDishCards = ({ item }) => {
         }}>
         <SpaceBetween>
           <div>
-            {item.images && item.images[0] ? (
-              <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
+            {item.images && item.images[0] || imgErr? (
+              <LazyLoadImage 
+              key={item.name} 
+              alt={item.name}
+              src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
+              effect="blur"
+              scrollPosition={scrollPosition}
+              width={"100%"}
+              height={150}
+              placeholderSrc="/no-image.png"
+            />
             ) : (
               <Img src="/no-image.png" />
             )}

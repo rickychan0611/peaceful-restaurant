@@ -14,7 +14,10 @@ import Slider from '../Slider/Slider.js';
 import { useIsMobile } from '../../util/useScreenSize.js';
 import { useIsDesktop } from '../../util/useScreenSize.js';
 
-const RestaurantMenu = ({ contextRef, t }) => {
+import { LazyLoadImage, trackWindowScroll }
+  from 'react-lazy-load-image-component';
+
+const RestaurantMenu = ({ contextRef, t, scrollPosition }) => {
   const router = useRouter();
   const isDesktop = useIsDesktop();
   const isMobile = useIsMobile();
@@ -152,4 +155,4 @@ const CatTitle = styled.div`
   padding-bottom: 10px;
   /* margin-top: 30px; */
 `;
-export default RestaurantMenu;
+export default trackWindowScroll(RestaurantMenu);
