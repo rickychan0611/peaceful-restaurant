@@ -35,7 +35,7 @@ const ShopDishCards = ({ item, scrollPosition }) => {
               key={item.name} 
               alt={item.name}
               src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
-              effect="opacity"
+              // effect="opacity"
               scrollPosition={scrollPosition}
               width={"100%"}
               height={180}
