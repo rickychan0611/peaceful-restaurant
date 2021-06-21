@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Image from 'next/image';
-import {useEffect } from 'react';
+import useTranslation from 'next-translate/useTranslation';
+
 import { useRecoilState } from 'recoil';
 import {
   currentShop as currentShopAtom,
@@ -10,41 +10,31 @@ import {
 import { Button, Label } from 'semantic-ui-react';
 
 import { HOST_URL } from '../../env';
-import { shimmer, toBase64 } from '../../util/imageBlur';
 
 const ShopDishCards = ({ item }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, ] = useRecoilState(currentShopAtom);
-  
-  let imgUrl = (HOST_URL + "/storage" + JSON.parse(item.images)[0]).toString()
-  imgUrl = imgUrl.replace(/\\/g, '/');
+  const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
+  const { t } = useTranslation('home');
+
   return (
     <>
-    {/* <hr>{imgUrl.toString()}</hr> */}
       <Card
         onClick={() => {
           // when click, save item in selectedItem Atom and selectedStore Atom.
           // then open item's page by using item's id
           setCurrentItem(item);
+          console.log("ShopDishCards currentItem", currentItem)
+          console.log("ShopDishCards currentShop", currentShop)
           router.push('/item/' + item.id);
         }}>
         <SpaceBetween>
           <div>
-            <>
-              <Image
-                src={imgUrl}
-                layout="responsive"
-                width={3}
-                height={2}
-                placeholder="blur"
-                blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-                quality={65}
-                alt={item.name}
-              />
-              {/* <Img src="/no-image.png" /> */}
-
-            </>
+            {item.images && item.images[0] ? (
+              <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
+            ) : (
+              <Img src="/no-image.png" />
+            )}
 
             <Name>{item.name}</Name>
             <Description>{item.description}</Description>
@@ -111,7 +101,6 @@ const Name = styled.div`
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 8px;
 `;
 const Description = styled.div`
   font-size: 1rem;
