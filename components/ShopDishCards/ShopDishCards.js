@@ -1,21 +1,24 @@
-import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import { useRouter } from "next/router";
+import styled from "styled-components";
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState } from "recoil";
 import {
   currentShop as currentShopAtom,
   currentItem as currentItemAtom,
-} from '../../data/atoms.js';
-import { Button, Label } from 'semantic-ui-react';
+} from "../../data/atoms.js";
+import { Button, Label } from "semantic-ui-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-
-
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+var stringToHTML = function (str) {
+  var dom = document.createElement("div");
+  dom.innerHTML = str;
+  return dom;
+};
 
 const ShopDishCards = ({ item, scrollPosition }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
-  const [currentShop, ] = useRecoilState(currentShopAtom);
+  const [currentShop] = useRecoilState(currentShopAtom);
 
   return (
     <>
@@ -24,50 +27,67 @@ const ShopDishCards = ({ item, scrollPosition }) => {
           // when click, save item in selectedItem Atom and selectedStore Atom.
           // then open item's page by using item's id
           setCurrentItem(item);
-          console.log("ShopDishCards currentItem", currentItem)
-          console.log("ShopDishCards currentShop", currentShop)
-          router.push('/item/' + item.id);
-        }}>
+          console.log("ShopDishCards currentItem", currentItem);
+          console.log("ShopDishCards currentShop", currentShop);
+          router.push("/item/" + item.id);
+        }}
+      >
         <SpaceBetween>
           <div>
             {item.images && item.images[0] ? (
-              <Img 
-              key={item.name} 
-              alt={item.name}
-              src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
-              // effect="opacity"
-              scrollPosition={scrollPosition}
-              width={"100%"}
-              height={180}
-              placeholderSrc="/no-image.png"
-            />
+              <Img
+                key={item.name}
+                alt={item.name}
+                src={
+                  process.env.NEXT_PUBLIC_HOST_URL +
+                  "/storage/" +
+                  JSON.parse(item.images)[0]
+                }
+                // effect="opacity"
+                scrollPosition={scrollPosition}
+                width={"100%"}
+                height={180}
+                placeholderSrc="/no-image.png"
+              />
             ) : (
-              <Img 
-              key={item.name} 
-              alt={item.name}
-              src="/no-image.png"
-              scrollPosition={scrollPosition}
-              width={"100%"}
-              height={180}
-            />
+              <Img
+                key={item.name}
+                alt={item.name}
+                src="/no-image.png"
+                scrollPosition={scrollPosition}
+                width={"100%"}
+                height={180}
+              />
             )}
-
-            <Name>{item.name}</Name>
+            <Row>
+              <Code>{item.code}</Code>
+              <Name>
+                {" "}
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: item.name.replace("|", "<br />"),
+                  }}
+                />
+              </Name>
+            </Row>
             <Description>{item.description}</Description>
             {!item.promotion_price ? (
               <Price>
-                <span style={{ marginRigth: 5, color: 'black' }}>${item.price}</span>
+                <span style={{ marginRigth: 5, color: "black" }}>
+                  ${item.price}
+                </span>
               </Price>
             ) : (
               <Price>
                 <span
                   style={{
-                    textDecoration: 'line-through',
+                    textDecoration: "line-through",
                     marginRigth: 5,
-                    color: 'black'
-                  }}>
+                    color: "black",
+                  }}
+                >
                   ${item.price}
-                </span>{' '}
+                </span>{" "}
                 ${item.promotion_price}
               </Price>
             )}
@@ -79,11 +99,12 @@ const ShopDishCards = ({ item, scrollPosition }) => {
             style={{
               marginTop: 20,
               padding: 10,
-              backgroundColor: '#9c0404',
-              color: 'white',
-              width: '100%',
-              borderRadius: 20
-            }}>
+              backgroundColor: "#9c0404",
+              color: "white",
+              width: "100%",
+              borderRadius: 20,
+            }}
+          >
             Add to Card
           </Button>
         </SpaceBetween>
@@ -92,6 +113,22 @@ const ShopDishCards = ({ item, scrollPosition }) => {
   );
 };
 
+const Row = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
+const Code = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #adc90f;
+  padding: 2px 4px 2px 4px;
+  font-size: 12px;
+  height: 22px;
+  width: 22px;
+  margin-right: 10px;
+`;
 const SpaceBetween = styled.div`
   display: flex;
   flex-flow: column nowrap;

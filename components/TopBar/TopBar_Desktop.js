@@ -102,7 +102,7 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
                   setOpenDropdownMenu('user');
                 }}>
                 <Icon name="user circle" size="large" />
-                <H4>Hi, {user.name}</H4>
+                <H4>Hi, {user.first_name}</H4>
               </Item>
 
               {openDropdownMenu === 'user' && (
