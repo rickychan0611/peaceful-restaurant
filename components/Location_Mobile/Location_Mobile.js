@@ -20,7 +20,7 @@ const Location_Mobile = () => {
         {addresses.map((shop, i) => {
           return (
             <>
-              <ShopInfo shop={shop} key={in}/>
+              <ShopInfo shop={shop} key={i}/>
             </>
           );
         })}
