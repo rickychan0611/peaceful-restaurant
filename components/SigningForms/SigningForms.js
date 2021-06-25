@@ -16,7 +16,7 @@ import validation from '../../util/validation';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
-import { HOST_URL } from '../../env';
+
 import InputMask from 'react-input-mask';
 
 import { useRecoilState } from 'recoil';
@@ -45,11 +45,11 @@ const SigningForms = ({ signUp }) => {
     setLoading(true);
     try {
       /*** Sign UP Query***/
-      const response = await axios.post(HOST_URL + '/api/user/register', inputs);
+      const response = await axios.post(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/register', inputs);
       console.log(response);
       if (response.data.code === 200) {
         setCookie('userToken', response.data.data, { path: '/', maxAge: 1000 * 60 * 24 * 3 }); //expires in 3 days
-        const getUser = await axios.get(HOST_URL + '/api/user/info', {
+        const getUser = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/info', {
           headers: { Authorization: response.data.data }
         });
         console.log('getUser.data.data', getUser.data.data);
@@ -76,7 +76,7 @@ const SigningForms = ({ signUp }) => {
     setLoading(true);
     try {
       /*** Sign UP Query***/
-      const response = await axios.post(HOST_URL + '/api/user/login', {
+      const response = await axios.post(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/login', {
         email: inputs.email,
         password: inputs.password
       });
@@ -84,7 +84,7 @@ const SigningForms = ({ signUp }) => {
       console.log(response.data.code);
       if (response.data.code === 200) {
         setCookie('userToken', response.data.data, { path: '/', maxAge: 1000 * 60 * 24 * 3 }); //expires in 3 days
-        const getUser = await axios.get(HOST_URL + '/api/user/info', {
+        const getUser = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/info', {
           headers: { Authorization: response.data.data }
         });
         localStorage.setItem('user', JSON.stringify(getUser.data.data));

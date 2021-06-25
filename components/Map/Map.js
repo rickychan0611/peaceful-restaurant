@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import Loader from '../../components/Loader';
-import { MAP_API } from '../../env';
+
 import router from 'next/router';
 import { useRecoilState } from 'recoil';
 import { mapLoaction as setMapLoactionAtom } from '../../data/atoms';
@@ -13,7 +13,7 @@ export default function Map({ addresses }) {
   const [showLocations, setShowLocations] = useState();
   const router = useRouter();
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: MAP_API // ,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_MAP_API // ,
     // ...otherOptions
   });
 

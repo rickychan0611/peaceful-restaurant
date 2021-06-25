@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container, Dimmer, Loader, Modal, Button, Header, Icon } from 'semantic-ui-react';
 import Head from 'next/head';
 import axios from 'axios';
-import { HOST_URL } from '../../../env';
+
 import { useIsDesktop } from '../../../util/useScreenSize';
 import styled from 'styled-components';
 import useIsShopOpen from '../../../util/useIsShopOpen';
@@ -38,7 +38,7 @@ const shop = ({ getSingleShop, getShopProducts }) => {
     console.log('getShopProducts', getShopProducts);
 
     //update shop status
-    const getShop = await axios.get(HOST_URL + '/api/singleshop', {
+    const getShop = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/singleshop', {
       params: { shop_id: getSingleShop.id }
     });
     setCurrentShop(getShop.data.data);
@@ -110,11 +110,11 @@ const shop = ({ getSingleShop, getShopProducts }) => {
 
 export const getServerSideProps = async (context) => {
 // export const getStaticProps = async (context) => {
-  const getSingleShop = await axios.get(HOST_URL + '/api/singleshop', {
+  const getSingleShop = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/singleshop', {
     params: { shop_id: context.params.shop_id }
   });
 
-  const getShopProducts = await axios.get(HOST_URL + '/api/shopproducts', {
+  const getShopProducts = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/shopproducts', {
     params: {
       shop_id: context.params.shop_id,
       category_id: 'all'

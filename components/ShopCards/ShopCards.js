@@ -11,7 +11,7 @@ import {
 } from '../../data/atoms.js';
 import useTranslation from 'next-translate/useTranslation';
 
-import { HOST_URL } from '../../env';
+
 import PlaceHolder_Card from '../PlaceHolder_Card';
 
 const ShopCards = () => {
@@ -26,7 +26,7 @@ const ShopCards = () => {
   useEffect(async () => {
     setLoading(true);
     console.log('plat_category reload', currentCat ? currentCat.id : 'all');
-    const getShops = await axios.get(HOST_URL + '/api/shops', {
+    const getShops = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/shops', {
       params: {
         type: 'all',
         shop_type: 'all',
@@ -57,7 +57,7 @@ const ShopCards = () => {
                   {/* <Img src={`/img/food (${Math.floor( Math.random() * (86 - 1) + 1 )}).jpg`} /> */}
                   
                   {shop.images && shop.images[0] ? (
-                    <Img src={HOST_URL + '/storage/' + JSON.parse(shop.images)[0]} />
+                    <Img src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(shop.images)[0]} />
                   ) : (
                     <Img src="/no-image.png" />
                   )}

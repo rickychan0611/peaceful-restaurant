@@ -9,7 +9,7 @@ import {
 } from '../../data/atoms.js';
 import { Button, Label } from 'semantic-ui-react';
 
-import { HOST_URL } from '../../env';
+
 import PlaceHolder_Card from '../PlaceHolder_Card';
 
 const SearchDishCards = ({products}) => {
@@ -48,7 +48,7 @@ const SearchDishCards = ({products}) => {
                   </Label>
 
                   {item.images && item.images[0] ? (
-                    <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
+                    <Img src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
                   ) : (
                     <Img src="/no-image.png" />
                   )}

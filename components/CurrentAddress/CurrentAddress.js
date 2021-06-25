@@ -18,7 +18,7 @@ import GooglePlacesAutocomplete, {
   getLatLng,
   geocodeByLatLng
 } from 'react-google-places-autocomplete';
-import { HOST_URL } from '../../env';
+
 import { useCookies } from 'react-cookie';
 import { user as userAtom } from '../../data/userAtom';
 
@@ -95,11 +95,11 @@ const CurrentAddress = () => {
       const body = await validateAddress(results[0].address_components, user);
       console.log('current address body:', body);
 
-      await axios.post(HOST_URL + '/api/user/address/set', body, {
+      await axios.post(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/address/set', body, {
         headers: { Authorization: cookies.userToken }
       });
 
-      const newAddresses = await axios.get(HOST_URL + '/api/user/address', {
+      const newAddresses = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/address', {
         headers: { Authorization: cookies.userToken }
       });
       setAddresses(newAddresses.data.data);

@@ -10,7 +10,7 @@ import {
 } from '../../data/atoms.js';
 import useTranslation from 'next-translate/useTranslation';
 
-import { HOST_URL } from '../../env';
+
 import PlaceHolder_Card from '../PlaceHolder_Card';
 import { currentPosition as currentPositionAtom } from '../../data/atoms';
 
@@ -26,7 +26,7 @@ const NearShopsCards = () => {
   useEffect(async () => {
     if (currentPosition && currentPosition.lat && currentPosition.lng) {
       setLoading(true);
-      const getShops = await axios.get(HOST_URL + '/api/shops/nearby', {
+      const getShops = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/shops/nearby', {
         params: {
           latitude: currentPosition.lat,
           longitude: currentPosition.lng,
@@ -61,7 +61,7 @@ const NearShopsCards = () => {
                   {/* <Img src={`/img/food (${Math.floor( Math.random() * (86 - 1) + 1 )}).jpg`} /> */}
 
                   {shop.images && shop.images[0] ? (
-                    <Img src={HOST_URL + '/storage/' + JSON.parse(shop.images)[0]} />
+                    <Img src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(shop.images)[0]} />
                   ) : (
                     <Img src="/no-image.png" />
                   )}

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { HOST_URL } from '../../env';
+
 import { useIsMobile } from '../../util/useScreenSize';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
@@ -29,7 +29,7 @@ const MenuItem = ({ item, smallCard }) => {
           }}>
           <Wrapper>
             <div>
-              {item.images && <H_Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />}
+              {item.images && <H_Img src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />}
               {/* <H_Img src={IMG_URL} /> */}
             </div>
             <div style={{ padding: '0px 10px' }}>
@@ -63,7 +63,7 @@ const MenuItem = ({ item, smallCard }) => {
         <VCardContainer onClick={() => route(item)}>
           <div>
             {item.images && item.images[0] ? (
-              <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
+              <Img src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
             ) : (
               <Img src="/no-image.png" />
             )}

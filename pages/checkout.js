@@ -15,7 +15,7 @@ import {
   loginPending as loginPendingAtom
 } from '../data/atoms';
 import { user as userAtom } from '../data/userAtom';
-import { HOST_URL } from '../env';
+
 import { useCookies } from 'react-cookie';
 import Map from '../components/Map';
 import OrderItem from '../components/OrderItem/';
@@ -83,7 +83,7 @@ const checkout = () => {
 
   const getAddressesQuery = async () => {
     try {
-      const result = await axios.get(HOST_URL + '/api/user/address', {
+      const result = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/address', {
         headers: { Authorization: cookies.userToken }
       });
       // const sorted = result.data.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -156,7 +156,7 @@ const checkout = () => {
                 shipping_method_id: orderDetails.shippingMethod.id
               };
         console.log('body', body);
-        const result = await axios.post(HOST_URL + '/api/user/order/create', body, {
+        const result = await axios.post(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/order/create', body, {
           headers: { Authorization: cookies.userToken }
         });
         console.log('create order respond', result.data);

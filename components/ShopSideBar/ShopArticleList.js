@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Grid, List, Header, Modal } from 'semantic-ui-react';
 
-import { HOST_URL } from '../../env';
+
 
 const ShopArticleList = ({ t }) => {
   const [open, setOpen] = useState(false);

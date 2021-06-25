@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 import { currentShop as currentShopAtom } from '../../data/atoms.js';
 import useTranslation from 'next-translate/useTranslation';
 
-import { HOST_URL } from '../../env';
+
 import PlaceHolder_Card from '../PlaceHolder_Card';
 
 const SearchShopCards = ({ shops }) => {
@@ -41,7 +41,7 @@ const SearchShopCards = ({ shops }) => {
                   {shop.images && shop.images[0] ? (
                     <Img
                       isMobile={isMobile}
-                      src={HOST_URL + '/storage/' + JSON.parse(shop.images)[0]}
+                      src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(shop.images)[0]}
                     />
                   ) : (
                     <Img isMobile={isMobile} src="/no-image.png" />

@@ -12,7 +12,7 @@ import {
   searchValue as searchValueAtom,
 } from '../../data/atoms.js';
 import axios from 'axios';
-import { HOST_URL } from '../../env';
+
 
 const topSearch = [
   "和平", "中西结合", "Dim Sum", "和平饭店", "Richmond", "Kitsilano"
@@ -40,7 +40,7 @@ const SearchBanner = ({cats}) => {
   }
 
   useEffect( async ()=>{
-    const getplatcat = await axios.get(HOST_URL + '/api/getplatcat');
+    const getplatcat = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/getplatcat');
     setSliderCats(getplatcat.data.data);
   },[] )
 
@@ -163,7 +163,7 @@ const Name = styled.div`
 export const getServerSideProps = async (context) => {
   context.res.setHeader('Cache-Control', 's-maxage=86400');
 
-  const getplatcat = await axios.get(HOST_URL + '/api/getplatcat');
+  const getplatcat = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/getplatcat');
 
   return {
     props: {

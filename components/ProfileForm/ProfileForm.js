@@ -7,7 +7,7 @@ import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import moment from 'moment';
 import validation from '../../util/validation';
 import InputMask from 'react-input-mask';
-import { HOST_URL } from '../../env';
+
 import { useCookies } from 'react-cookie';
 import { useRecoilState } from 'recoil';
 import { user as userAtom } from '../../data/userAtom';
@@ -55,7 +55,7 @@ const ProfileForm = () => {
     setErr(null);
     validation(editedUser)
       .then(async (res) => {
-        await axios.post(HOST_URL + '/api/user/edit', editedUser, {
+        await axios.post(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/edit', editedUser, {
           headers: { Authorization: cookies.userToken }
         });
         // if successful

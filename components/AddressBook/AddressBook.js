@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import AddressEditModal from '../AddressEditModal';
-import { HOST_URL } from '../../env';
+
 import { useCookies } from 'react-cookie';
 import { useIsMobile } from '../../util/useScreenSize';
 import useTranslation from 'next-translate/useTranslation';
@@ -25,7 +25,7 @@ const AddressBook = ({ selectedAddress, setSelectedAddress, getAddressesQuery })
   const query = async (body) => {
     setLoading(true);
     try {
-      await axios.post(HOST_URL + '/api/user/address/set', body, {
+      await axios.post(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/address/set', body, {
         headers: { Authorization: cookies.userToken }
       });
       await getAddressesQuery();

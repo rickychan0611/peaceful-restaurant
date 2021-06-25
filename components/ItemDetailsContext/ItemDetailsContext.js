@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { HOST_URL } from '../../env';
+
 import { useRecoilState } from 'recoil';
 import {
   currentItem as currentItemAtom,
@@ -62,7 +62,7 @@ const ItemDetailsContext = ({
           <Container>
              <h2>{item.name}</h2>
             {item.images && item.images[0] ? (
-              <Img src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
+              <Img src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(item.images)[0]} />
             ) : (
               <Img src="/no-image.png" />
             )}

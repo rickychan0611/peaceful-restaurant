@@ -19,7 +19,7 @@ const ReviewFeed = () => {
               <Feed.Event>
                 <Feed.Label>
                   <Image
-                    src={item.images ? HOST_URL + '/storage/' + item.images : '/avatar.jpg'}
+                    src={item.images ? process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + item.images : '/avatar.jpg'}
                     avatar
                     size="mini"
                   />

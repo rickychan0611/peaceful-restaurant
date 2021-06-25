@@ -2,7 +2,7 @@ import { useIsMobile } from '../../util/useScreenSize';
 import styled from 'styled-components';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import SliderTitle from '../SliderTitle';
-import { HOST_URL } from '../../env';
+
 import PlaceHolder_Card from '../PlaceHolder_Card/';
 import useTranslation from 'next-translate/useTranslation';
 

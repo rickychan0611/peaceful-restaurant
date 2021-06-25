@@ -9,7 +9,7 @@ import { user as userAtom } from '../../data/userAtom.js';
 import { useRouter } from 'next/router';
 import Loader from '../../components/Loader';
 import ReviewForm from '../../components/ReviewForm';
-import { HOST_URL } from '../../env';
+
 import axios from 'axios';
 import { CookiesProvider, useCookies } from 'react-cookie';
 
@@ -36,7 +36,7 @@ const Review = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(HOST_URL + '/api/user/review/create', 
+      const response = await axios.post(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/review/create', 
       {
         order_id: currentOrder.id,
         shop_id: currentOrder.shop_id,

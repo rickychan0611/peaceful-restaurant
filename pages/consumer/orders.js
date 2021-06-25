@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { HOST_URL } from '../../env';
+
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Divider, Button, Modal } from 'semantic-ui-react';
@@ -30,7 +30,7 @@ const orders = () => {
 
   useEffect(async () => {
     try {
-      const getOrders = await axios.get(HOST_URL + '/api/user/orders', {
+      const getOrders = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/orders', {
         headers: { Authorization: cookies.userToken }
       });
       getOrders.data.data !== 'no order found' && setOrders(getOrders.data.data);

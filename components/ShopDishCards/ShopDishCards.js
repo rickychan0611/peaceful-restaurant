@@ -8,7 +8,7 @@ import {
 } from '../../data/atoms.js';
 import { Button, Label } from 'semantic-ui-react';
 
-import { HOST_URL } from '../../env';
+
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -34,7 +34,7 @@ const ShopDishCards = ({ item, scrollPosition }) => {
               <Img 
               key={item.name} 
               alt={item.name}
-              src={HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
+              src={process.env.NEXT_PUBLIC_HOST_URL + '/storage/' + JSON.parse(item.images)[0]}
               // effect="opacity"
               scrollPosition={scrollPosition}
               width={"100%"}

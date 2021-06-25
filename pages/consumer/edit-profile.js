@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Divider, Icon } from 'semantic-ui-react';
 import { useRecoilState } from 'recoil';
 import { user as userAtom } from '../../data/userAtom';
-import { HOST_URL } from '../../env';
+
 import { useCookies } from 'react-cookie';
 import { useIsDesktop } from '../../util/useScreenSize';
 import ProfileForm from '../../components/ProfileForm';
@@ -24,7 +24,7 @@ const Profile = () => {
 
   const getAddressesQuery = async () => {
     try {
-      const result = await axios.get(HOST_URL + '/api/user/address', {
+      const result = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/user/address', {
         headers: { Authorization: cookies.userToken }
       });
       // const sorted = result.data.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
