@@ -98,7 +98,7 @@ const RestaurantMenu = ({ contextRef, t, scrollPosition }) => {
                 <CatTitle isMobile={isMobile}>
                   <div className="jumptarget">{cat.category_name}</div>
                 </CatTitle>
-                <Divider />
+                {!isEmpty && <Divider />}
                 {/* <hr/> */}
                 <CardContainer isMobile={isMobile}>
                   {currentShopProducts &&

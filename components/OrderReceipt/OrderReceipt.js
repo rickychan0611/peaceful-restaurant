@@ -1,6 +1,15 @@
-import { Container, Button, Header, Icon, Divider, Modal, Input, Form } from 'semantic-ui-react';
-import styled from 'styled-components';
-import { useRouter } from 'next/router';
+import {
+  Container,
+  Button,
+  Header,
+  Icon,
+  Divider,
+  Modal,
+  Input,
+  Form,
+} from "semantic-ui-react";
+import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const OrderReceipt = ({ order }) => {
   const router = useRouter();
@@ -9,29 +18,47 @@ const OrderReceipt = ({ order }) => {
     <>
       <OrdersContainer>
         <h4 style={{ margin: 0 }}>Order from</h4>
-        <a onClick={() => router.push('/shop/' + order.shop.name + '/' + order.shop.id)}>
-          <h2 style={{ margin: 0 }}>{order.shop.name}<Icon name="linkify" size="small"/></h2>
+        <a
+          onClick={() =>
+            router.push("/shop/" + order.shop.name + "/" + order.shop.id)
+          }
+        >
+          <h2 style={{ margin: 0 }}>
+            {order.shop.name}
+            <Icon name="linkify" size="small" />
+          </h2>
         </a>
         <Divider />
         <>
-          <H4>{order.receiver_name && 'Receiver: ' + order.receiver_name.toUpperCase()} </H4>
-          <H4>Your Address:</H4>
           <H4>
-            {order.receiver_detail_address},&nbsp;
-            {order.receiver_city},&nbsp;
-            {order.receiver_province},&nbsp;
-            {order.receiver_post_code},&nbsp;
-            {order.receiver_country} <br />
-            Tel: {order.receiver_phone}
-            <br />
+            {order.receiver_name &&
+              "Receiver: " + order.receiver_name.toUpperCase()}{" "}
           </H4>
+          {order.receiver_detail_address ? (
+            <>
+              <H4>Your Address:</H4>
+              <H4>
+                {order.receiver_detail_address},&nbsp;
+                {order.receiver_city},&nbsp;
+                {order.receiver_province},&nbsp;
+                {order.receiver_post_code},&nbsp;
+                {order.receiver_country} <br />
+                Tel: {order.receiver_phone}
+                <br />
+              </H4>
+            </>
+          ) : (
+            <H4> Tel: {order.receiver_phone}</H4>
+          )}
         </>
         <Header>Order Summary</Header>
         {order.order_items.map((item, i) => {
           return (
             <ItemContainer>
               <Qty>
-                <ItemText style={{ minWidth: '30px' }}>{item.product_quantity} x</ItemText>
+                <ItemText style={{ minWidth: "30px" }}>
+                  {item.product_quantity} x
+                </ItemText>
                 <div>
                   <ItemName>{item.product_name}</ItemName>
                   {JSON.parse(item.product_attr).map((att) => {
@@ -75,10 +102,10 @@ const OrderReceipt = ({ order }) => {
         <Divider />
         <TotalContainer>
           <Content>
-            <span style={{ color: 'black' }}>Total:</span>
+            <span style={{ color: "black" }}>Total:</span>
           </Content>
           <Price>
-            <span style={{ color: 'black' }}>${+order.pay_amount}</span>
+            <span style={{ color: "black" }}>${+order.pay_amount}</span>
           </Price>
         </TotalContainer>
       </OrdersContainer>
@@ -94,7 +121,7 @@ const TotalContainer = styled.div`
   padding: 7px 0;
 `;
 const Content = styled.div`
-  color: 'grey';
+  color: "grey";
   font-size: 14px;
 `;
 const Price = styled.div`

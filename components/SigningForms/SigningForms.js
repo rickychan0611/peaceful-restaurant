@@ -36,11 +36,8 @@ const SigningForms = ({ signUp }) => {
   const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
 
   const [inputs, setInputs] = useState({
-    // confirmPassword: 'Ricric61',
-    email: 'ric0611@gmail.com',
-    // name: 'Rickychan1',
-    password: '123456'
-    // phone: '1234567890'
+    email: '',
+    password: ''
   });
 
   const handleSignUp = async () => {

@@ -7,14 +7,14 @@ import {
 import {useIsDesktop} from '../../util/useScreenSize';
 
 const locations = [
-  { id: 1, name: 'Broadway' },
-  { id: 2, name: 'Kitsilano' },
-  { id: 3, name: 'Richmond' },
-  { id: 4, name: 'Port Coquitlam' },
-  { id: 5, name: 'Kingsway' },
-  { id: 6, name: 'Seymour' },
-  { id: 7, name: 'Newton' },
-  { id: 8, name: 'Mount Pleasant' }
+  { id: 2, name: 'Broadway' },
+  { id: 4, name: 'Kitsilano' },
+  { id: 9, name: 'Richmond' },
+  { id: 8, name: 'Port Coquitlam' },
+  { id: 7, name: 'Kingsway' },
+  { id: 5, name: 'Seymour' },
+  { id: 6, name: 'Newton' },
+  { id: 3, name: 'Mount Pleasant' }
 ];
 
 const LocationDropDownMenu = ( {setOpenDropdownMenu} ) => {
