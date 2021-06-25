@@ -71,6 +71,7 @@ const orders = () => {
                         <div key={order.id} style={{ width: '100%' }}>
                           <Row style={{ backgroundColor: '#eeeaea', padding: 5 }}>
                             <StoreName>Order location : {order.shop.name}</StoreName>
+                            <StoreName>Order# : {order.id}</StoreName>
                             {/* {order.reviews.length === 0 ? <StoreName
                               onClick={() => {
                                 router.push('/consumer/review');
@@ -102,7 +103,7 @@ const orders = () => {
                                 {' • '}
                                 {t(statusDecoder(order.status))} <br />
                               </P>
-                              <P>Total: ${parseInt(order.pay_amount).toFixed(2)}</P>
+                              <P>Total: ${order.pay_amount}</P>
                             </Row>
                           </div>
                         </div>

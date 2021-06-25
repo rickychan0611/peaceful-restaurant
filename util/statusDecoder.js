@@ -1,26 +1,20 @@
 const statusDecoder = (status) => {
   return status == 1
-    ? 'Order placed'
+    ? "Order placed"
     : status == 2
-    ? 'Paid'
+    ? "Pay upon delivery"
     : status == 3
-    ? 'Out for delivery'
+    ? "Paid"
     : status == 4
-    ? 'Order received'
+    ? "Order received"
     : status == 5
-    ? 'Reviewed'
+    ? "Order is ready"
     : status == 6
-    ? 'Cancel requested'
+    ? "Out for delivery"
     : status == 7
-    ? 'Cancel denied. You may try again'
+    ? "Completed"
     : status == 8
-    ? 'Cancel denied permanently'
-    : status == 9
-    ? 'Cancel accepted. Refund pending'
-    : status == 10
-    ? 'Refunded'
-    : status == 11
-    ? 'Cancelled'
+    ? "Reviewed"
     : null;
 };
 

@@ -1,5 +1,13 @@
 {
     "YourOrders" : "Your Orders",
     "PastOrders" : "Past Orders",
-    "ViewReceipt" : "View Receipt"
+    "ViewReceipt" : "View Receipt",
+    "Order placed" :"Order placed",
+    "Pay upon delivery" : "Pay upon delivery",
+    "Paid" : "Paid",
+    "Order received":"Order received",
+    "Order is ready": "Order is ready",
+    "Out for delivery" :  "Out for delivery" ,
+    "Completed" :"Completed",
+    "Reviewed" :  "Reviewed"
 }
