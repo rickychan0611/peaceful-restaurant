@@ -9,12 +9,6 @@ import {
 import { Button, Label } from "semantic-ui-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-var stringToHTML = function (str) {
-  var dom = document.createElement("div");
-  dom.innerHTML = str;
-  return dom;
-};
-
 const ShopDishCards = ({ item, scrollPosition }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
@@ -33,7 +27,8 @@ const ShopDishCards = ({ item, scrollPosition }) => {
         }}
       >
         <SpaceBetween>
-          <div>
+          <div style={{position: "relative"}}>
+          <Code>{item.code}</Code>
             {item.images && item.images[0] ? (
               <Img
                 key={item.name}
@@ -60,7 +55,6 @@ const ShopDishCards = ({ item, scrollPosition }) => {
               />
             )}
             <Row>
-              <Code>{item.code}</Code>
               <Name>
                 {" "}
                 <span
@@ -118,16 +112,19 @@ const Row = styled.div`
   flex-flow: row nowrap;
 `;
 const Code = styled.span`
+  position: absolute;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: #adc90f;
+  background-color:rgba(0,0,0,0.7);
   padding: 2px 4px 2px 4px;
-  font-size: 12px;
-  height: 22px;
-  width: 22px;
+  font-size: 15px;
+  height: 32px;
+  width: 32px;
   margin-right: 10px;
+  font-weight: 600;
 `;
 const SpaceBetween = styled.div`
   display: flex;

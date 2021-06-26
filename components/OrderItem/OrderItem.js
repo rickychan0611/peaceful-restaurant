@@ -118,16 +118,15 @@ const OrderItem = ({ item, index }) => {
         onClick={() => { setOpen(true) }}
         style={{ cursor: "pointer" }}>
         <Qty>
-          <ItemText style={{ minWidth: '30px', marginRight: 5 }}>
-            {item.quantity}
-            <Icon name="times" size="small" color="grey" />
-          </ItemText>
           <div>
-            <ItemName>{item.name}</ItemName>
+            <ItemName>{item.code + ". " + item.name}</ItemName>
             {item.option && item.option.value !== 0 && (
               <p>• {item.option.option + ' ' + '+$' + item.option.value}</p>
             )}
           </div>
+          <ItemText style={{ minWidth: '30px', marginRight: 5 }}>
+             Qty: {item.quantity}
+          </ItemText>
         </Qty>
         <ItemText>${getTotal()}</ItemText>
         {/* <ItemText>${item.attributeTotal + +item.price}</ItemText> */}
@@ -175,6 +174,7 @@ const Qty = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+  width: 80%;
 `;
 const ItemText = styled.p`
   margin: 0;
