@@ -1,22 +1,30 @@
-import { useEffect, useState } from 'react';
-import { Container, Dimmer, Loader, Modal, Button, Header, Icon } from 'semantic-ui-react';
-import Head from 'next/head';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import {
+  Container,
+  Dimmer,
+  Loader,
+  Modal,
+  Button,
+  Header,
+  Icon,
+} from "semantic-ui-react";
+import Head from "next/head";
+import axios from "axios";
 
-import { useIsDesktop } from '../../../util/useScreenSize';
-import styled from 'styled-components';
-import useIsShopOpen from '../../../util/useIsShopOpen';
-import addresses from '../../../addresses';
-import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useIsDesktop } from "../../../util/useScreenSize";
+import styled from "styled-components";
+import useIsShopOpen from "../../../util/useIsShopOpen";
+import addresses from "../../../addresses";
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
 import {
   currentShop as currentShopAtom,
-  currentShopProducts as currentShopProductsAtom
-} from '../../../data/atoms';
+  currentShopProducts as currentShopProductsAtom,
+} from "../../../data/atoms";
 
-import Shop_Desktop from '../../../components/Shop/Shop_Desktop';
-import Shop_Mobile from '../../../components/Shop/Shop_Mobile';
-import router from 'next/router';
+import Shop_Desktop from "../../../components/Shop/Shop_Desktop";
+import Shop_Mobile from "../../../components/Shop/Shop_Mobile";
+import router from "next/router";
 
 const shop = ({ getSingleShop, getShopProducts }) => {
   const isDesktop = useIsDesktop();
@@ -29,44 +37,56 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   const [isShopOpen, setIsShopOpen] = useState(true);
 
   useEffect(async () => {
-
-
-    
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
-    console.log('Single shop', getSingleShop);
-    console.log('getShopProducts', getShopProducts);
+    console.log("Single shop", getSingleShop);
+    console.log("getShopProducts", getShopProducts);
 
     //update shop status
-    const getShop = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/singleshop', {
-      params: { shop_id: getSingleShop.id }
-    });
+    const getShop = await axios.get(
+      process.env.NEXT_PUBLIC_HOST_URL + "/api/singleshop",
+      {
+        params: { shop_id: getSingleShop.id },
+      }
+    );
     setCurrentShop(getShop.data.data);
   }, [getSingleShop]);
 
-
   useEffect(() => {
     //check if store open
-      const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
-      let open = useIsShopOpen(addresses[index].open_hours);
-      setIsShopOpen(open)
+    const index = addresses.findIndex(
+      (item) => +item.id === +router.query.shop_id
+    );
+    let open = useIsShopOpen(addresses[index].open_hours);
+    setIsShopOpen(open);
   }, [router]);
-  
+
   return (
     <>
       {currentShop && currentShop.status === 4 && (
-        <div style={{ position: 'fixed', top: 0, width: '100%', height: '100vh', zIndex: 1000 }}>
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            width: "100%",
+            height: "100vh",
+            zIndex: 1000,
+          }}
+        >
           <Dimmer active={currentShop && currentShop.status === 4}>
             <Header icon>
               <h1 style={{ fontSize: 50, marginBottom: 30 }}>😅</h1>
-              <h4 style={{ color: 'white' }}>Sorry, this location is temporarily closed.</h4>
+              <h4 style={{ color: "white" }}>
+                Sorry, this location is temporarily closed.
+              </h4>
               <Button
                 color="green"
                 inverted
                 style={{ marginTop: 60 }}
                 onClick={() => {
-                  router.push('/');
-                }}>
+                  router.push("/");
+                }}
+              >
                 Back to home
               </Button>
             </Header>
@@ -88,8 +108,8 @@ const shop = ({ getSingleShop, getShopProducts }) => {
           <title>{currentShop && currentShop.name}</title>
         </Head>
         <Container>
-          {!currentShop || currentShop === 'not found' ? (
-            <div style={{ height: '80vh' }}>
+          {!currentShop || currentShop === "not found" ? (
+            <div style={{ height: "80vh" }}>
               <Dimmer inverted active={!currentShop}>
                 <Loader active content="Loading" />
               </Dimmer>
@@ -109,26 +129,33 @@ const shop = ({ getSingleShop, getShopProducts }) => {
 };
 
 export const getServerSideProps = async (context) => {
-// export const getStaticProps = async (context) => {
-  const getSingleShop = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/singleshop', {
-    params: { shop_id: context.params.shop_id }
-  });
+  context.res.setHeader("Cache-Control", "s-maxage=300"); // last 1 hr
 
-  const getShopProducts = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/shopproducts', {
-    params: {
-      shop_id: context.params.shop_id,
-      category_id: 'all'
+  // export const getStaticProps = async (context) => {
+  const getSingleShop = await axios.get(
+    process.env.NEXT_PUBLIC_HOST_URL + "/api/singleshop",
+    {
+      params: { shop_id: context.params.shop_id },
     }
-  });
+  );
+
+  const getShopProducts = await axios.get(
+    process.env.NEXT_PUBLIC_HOST_URL + "/api/shopproducts",
+    {
+      params: {
+        shop_id: context.params.shop_id,
+        category_id: "all",
+      },
+    }
+  );
 
   return {
     props: {
       getSingleShop: getSingleShop.data.data,
-      getShopProducts: getShopProducts.data.data
-    }
+      getShopProducts: getShopProducts.data.data,
+    },
   };
 };
-
 
 // export const getStaticPaths = async () => {
 //   return {
