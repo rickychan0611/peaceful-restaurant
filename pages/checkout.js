@@ -217,55 +217,6 @@ const checkout = () => {
     setReload(reload + 1);
   }, [orderDetails]);
 
-  const [mapResponse, setMapResponse] = useState();
-  const [destination, setDestination] = useState();
-  const [orgin, setOrigin] = useState();
-  const [runDirectionsService, setRunDirectionsService] = useState(false);
-
-  // const LntLng = (address, name) => {
-  //   console.log('addressaddressaddress', address);
-  //   return geocodeByAddress(address)
-  //     .then((results) => {
-  //       return getLatLng(results[0]);
-  //     })
-  //     .then(({ lat, lng }) => {
-  //       name === 'origin' && setOrigin({ lat, lng });
-  //       name === 'defaultAddress' && setDestination({ lat, lng });
-  //       setRunDirectionsService(true);
-  //     })
-  //     .catch((error) => console.error(error));
-  // };
-
-  // useEffect(() => {
-  //   orderDetails &&
-  //     orderDetails.shop &&
-  //     LntLng(
-  //       `${orderDetails.shop.name},
-  //     ${orderDetails.shop.address_line},
-  //     ${orderDetails.shop.address_city},
-  //     ${orderDetails.shop.address_province},
-  //     ${orderDetails.shop.address_post_code}`,
-  //       'origin'
-  //     );
-  // }, [orderDetails]);
-
-  // useEffect(() => {
-  //   console.log('defaultAddress', defaultAddress);
-  //   console.log('destination', destination);
-  //   if (!orderDetails.shippingMethod.shipping_type === 2) {
-  //     setDestination();
-  //   } else {
-  //     defaultAddress &&
-  //       LntLng(
-  //         `${defaultAddress.detail_address},
-  //           ${defaultAddress.city},
-  //           ${defaultAddress.province},
-  //           ${defaultAddress.country}`,
-  //         'defaultAddress'
-  //       );
-  //   }
-  // }, [addresses]);
-
   useEffect(() => {
     if (orderDetails.shippingMethod.id !== 1) {
       if (orderDetails.subtotal <= 40) {
@@ -307,22 +258,8 @@ const checkout = () => {
               {orderDetails.shop && orderDetails.shop.name}
             </h2>
             <Divider />
-            {/* <Map
-              setLoading={setLoading}
-              origin={orgin}
-              mapResponse={mapResponse}
-              setMapResponse={setMapResponse}
-              destination={destination}
-              shipping={orderDetails.shippingMethod.shipping_type === 2}
-              runDirectionsService={runDirectionsService}
-              setRunDirectionsService={setRunDirectionsService}
-            />
-            <Divider /> */}
             <Header>
               Delivery or Pick-up?
-              {/* {orderDetails.subtotal >= 40 && orderDetails.shop && orderDetails.shop.shipping_methods
-                ? 'Delivery or Pick-up?'
-                : 'Shipping method is not provided'}{' '} */}
             </Header>
             <PickupContainer>
               <Row
@@ -364,28 +301,6 @@ const checkout = () => {
                 </Column>
               </Row>
               <div style={{ color: "red" }}>{err}</div>
-
-              {/* {orderDetails &&
-                orderDetails.shop &&
-                orderDetails.shop.shipping_methods &&
-                orderDetails.shop.shipping_methods.map((item, i) => {
-                  return (
-                    <Row
-                      key={i}
-                      onClick={() => setShippingMethod(item)}
-                      style={{ marginRight: 10, marginBottom: 10 }}>
-                      <RadioButton
-                        readOnly
-                        type="radio"
-                        value={item.name}
-                        checked={orderDetails.shippingMethod.id === item.id}
-                      />
-                      <Column>
-                        <H4>{item.name + ' - $' + item.fee}</H4>
-                      </Column>
-                    </Row>
-                  );
-                })} */}
             </PickupContainer>
             {orderDetails.shippingMethod.id !== 2 && (
               <>
