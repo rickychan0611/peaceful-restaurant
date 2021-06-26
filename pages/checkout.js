@@ -458,43 +458,6 @@ const checkout = () => {
                   )}
                 </H4>
                 <Form>
-                  {/* <Form.Group widths="equal">
-                    <Form.Input
-                      fluid
-                      required
-                      label="Phone number"
-                      error={err && err.phone}
-                      value={pickUpInfo.phone}
-                      children={
-                        <InputMask
-                          mask="999-999-9999"
-                          maskChar="_"
-                          alwaysShowMask
-                          placeholder="Phone number"
-                          value={defaultAddress && defaultAddress.phone}
-                          onChange={(e) => {
-                            handlePickupChange(
-                              e.target.value,
-                              "phone",
-                              defaultAddress.id
-                            );
-                          }}
-                        />
-                      }
-                    />
-                    <Form.Input
-                      label="Apt / Unit Number"
-                      placeholder="Apt / Unit Number"
-                      value={defaultAddress ? defaultAddress.unit_number : ""}
-                      onChange={(e) => {
-                        handleChange(
-                          e.target.value,
-                          "unit_number",
-                          defaultAddress.id
-                        );
-                      }}
-                    />
-                  </Form.Group> */}
                   <Form.Group widths="equal">
                     <Form.Input
                       label="Note / Delivery insturctions"
