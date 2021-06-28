@@ -228,6 +228,7 @@ const Qty = styled.div`
   flex-wrap: nowrap;
   justify-content: space-between;
   width: 80%;
+  padding-top: 2px;
 `;
 const ItemText = styled.p`
   margin: 0;

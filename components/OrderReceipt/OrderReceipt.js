@@ -164,6 +164,7 @@ const Qty = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  /* padding-top: 2px; */
 `;
 const ItemText = styled.p`
   margin: 0;
