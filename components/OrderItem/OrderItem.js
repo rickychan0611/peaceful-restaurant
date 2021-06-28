@@ -63,10 +63,7 @@ const OrderItem = ({ item, index }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem(
-      "orderItems",
-      JSON.stringify(orderItems)
-    );
+    localStorage.setItem("orderItems", JSON.stringify(orderItems));
   }, [orderItems]);
 
   const getTotal = () => {
@@ -147,11 +144,14 @@ const OrderItem = ({ item, index }) => {
         }}
         style={{ cursor: "pointer" }}
       >
-        <Code>{item.code}</Code>
-
         <Qty>
           <div>
-            <ItemName>{item.name}</ItemName>
+            <Row>
+                <Code>{item.code}</Code>
+              <ItemName>
+                {item.name}
+              </ItemName>
+            </Row>
             {item.option && item.option.value !== 0 && (
               <p>• {item.option.option + " " + "+$" + item.option.value}</p>
             )}
@@ -208,19 +208,13 @@ const OrderItem = ({ item, index }) => {
   );
 };
 
-const Code = styled.div`
-  border: 1px solid lightgray;
-  margin-right: 10px;
-  padding: 2px 3px 2px 3px;
-  font-size: 14px;
-  height: 100%;
-`;
+
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  padding-top: 2px;
+  /* padding-top: 2px; */
 `;
 const Qty = styled.div`
   display: flex;
@@ -233,6 +227,13 @@ const ItemText = styled.p`
   margin: 0;
   font-size: 16px;
 `;
+const Code = styled.span`
+  border: 1px solid lightgray;
+  margin-right: 10px;
+  padding: 2px 3px 2px 3px;
+  font-size: 13px;
+  height: 100%;
+`;
 const ItemName = styled.p`
   margin: 0;
   font-size: 16px;
@@ -241,7 +242,7 @@ const ItemName = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  margin: 10px 0 10px 0;
+  /* margin: 0px 0 10px 0; */
 `;
 const Remove = styled.p`
   margin: 0 0 0 25px;
