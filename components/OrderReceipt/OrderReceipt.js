@@ -56,25 +56,28 @@ const OrderReceipt = ({ order }) => {
           return (
             <ItemContainer>
               <Qty>
-                <ItemText style={{ minWidth: "30px" }}>
-                  {item.product_quantity} x
-                </ItemText>
-                <div>
-                  <ItemName>{item.product_name}</ItemName>
-                  {JSON.parse(item.product_attr).map((att) => {
-                    console.log(att);
-                    return (
-                      att.options[0] &&
-                      att.options.map((opt) => (
-                        <p>
-                          {att.name} : {opt.name}
-                        </p>
-                      ))
-                    );
-                  })}
-                </div>
+                <ItemName>
+                  {item.product_code + ". " + item.product_name}
+                </ItemName>
               </Qty>
-              <ItemText>${item.sub_total_amount}</ItemText>
+
+              <ItemText style={{ minWidth: "40px", marginRight: 5 }}>
+                &nbsp;&nbsp; x {item.product_quantity}
+              </ItemText>
+              <div>
+                {JSON.parse(item.product_attr).map((att) => {
+                  console.log(att);
+                  return (
+                    att.options[0] &&
+                    att.options.map((opt) => (
+                      <p>
+                        {att.name} : {opt.name}
+                      </p>
+                    ))
+                  );
+                })}
+              </div>
+              <ItemText style={{minWidth: 70}}>${item.sub_total_amount}</ItemText>
             </ItemContainer>
           );
         })}
@@ -150,10 +153,12 @@ const Qty = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+  width: 100%;
 `;
 const ItemText = styled.p`
   margin: 0;
   font-size: 16px;
+  text-align: right;
 `;
 const ItemName = styled.p`
   margin: 0;

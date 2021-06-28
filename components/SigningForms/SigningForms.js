@@ -102,6 +102,7 @@ const SigningForms = ({ signUp }) => {
     } catch (err) {
       console.log(err);
       setLoading(false);
+      setErr({message: err.message})
     }
   };
 

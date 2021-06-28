@@ -61,7 +61,7 @@ const OrderItem = ({ item, index }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('orderItems', JSON.stringify(orderItems));
+    localStorage.setItem('orderItems', JSON.stringify({...orderItems, updateAt: new Date()}));
   }, [orderItems]);
 
   const getTotal = () => {
@@ -124,8 +124,8 @@ const OrderItem = ({ item, index }) => {
               <p>• {item.option.option + ' ' + '+$' + item.option.value}</p>
             )}
           </div>
-          <ItemText style={{ minWidth: '30px', marginRight: 5 }}>
-             Qty: {item.quantity}
+          <ItemText style={{ minWidth: '40px', marginRight: 5 }}>
+          &nbsp;&nbsp; x  {item.quantity}
           </ItemText>
         </Qty>
         <ItemText>${getTotal()}</ItemText>
