@@ -1,31 +1,25 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { Divider, Button, Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 import { useRecoilState } from 'recoil';
 import {
-  openSideMenu as openSideMenuAtom,
   currentOrder as currentOrderAtom
 } from '../../data/atoms.js';
-import { CookiesProvider, useCookies } from 'react-cookie';
+import {  useCookies } from 'react-cookie';
 import Loader from '../../components/Loader';
 import moment from 'moment';
 import useTranslation from 'next-translate/useTranslation';
 import statusDecoder from '../../util/statusDecoder';
 import OrderReceipt from '../../components/OrderReceipt';
-import { Icon } from 'semantic-ui-react';
 
 const orders = () => {
   const { t } = useTranslation('orders');
-  const router = useRouter();
-  const [openSideMenu, setOpenSideMenu] = useRecoilState(openSideMenuAtom);
   const [loading, setLoading] = useState(true);
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies] = useCookies();
   const [orders, setOrders] = useState();
   const [open, setOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState();
   const [currentOrder, setCurrentOrder] = useRecoilState(currentOrderAtom);
 
   useEffect(async () => {
@@ -70,24 +64,13 @@ const orders = () => {
                       <Row>
                         <div key={order.id} style={{ width: '100%' }}>
                           <Row style={{ backgroundColor: '#eeeaea', padding: 5 }}>
-                            <StoreName>Order location : {order.shop.name}</StoreName>
-                            <StoreName>Order# : {order.id}</StoreName>
-                            {/* {order.reviews.length === 0 ? <StoreName
-                              onClick={() => {
-                                router.push('/consumer/review');
-                                setCurrentOrder(order);
-                              }}>
-                              <a>
-                                <Icon name="edit" />
-                                Write a review
-                              </a>
-                            </StoreName> : <StoreName>Review submitted</StoreName>} */}
+                            <StoreName>{t`Order location`} : {order.shop.name}</StoreName>
+                            <StoreName>{t`Order#`} : {order.id}</StoreName>
                           </Row>
                           <div
                             style={{ padding: 5 }}
                             onClick={() => {
                               setOpen(true);
-                              // setSelectedOrder(order);
                               setCurrentOrder(order);
                             }}>
                             <Name>

@@ -9,5 +9,7 @@
     "Order is ready": "菜品已准备好",
     "Out for delivery" : "已发货",
     "Completed" : "订单完成",
-    "Reviewed" : "已评价"
+    "Reviewed" : "已评价",
+    "Order location" : "下单地点",
+    "Order#" : "单号#"
 }

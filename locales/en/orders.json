@@ -9,5 +9,7 @@
     "Order is ready": "Order is ready",
     "Out for delivery" :  "Out for delivery" ,
     "Completed" :"Completed",
-    "Reviewed" :  "Reviewed"
+    "Reviewed" :  "Reviewed",
+    "Order location" : "Order location",
+    "Order#" : "Order#"
 }
