@@ -55,10 +55,9 @@ const OrderReceipt = ({ order }) => {
         {order.order_items.map((item, i) => {
           return (
             <ItemContainer>
+              <Code>{item.product_code}</Code>
               <Qty>
-                <ItemName>
-                  {item.product_code + ". " + item.product_name}
-                </ItemName>
+                <ItemName>{item.product_name}</ItemName>
               </Qty>
 
               <ItemText style={{ minWidth: "40px", marginRight: 5 }}>
@@ -77,7 +76,9 @@ const OrderReceipt = ({ order }) => {
                   );
                 })}
               </div>
-              <ItemText style={{minWidth: 70}}>${item.sub_total_amount}</ItemText>
+              <ItemText style={{ minWidth: 70 }}>
+                ${item.sub_total_amount}
+              </ItemText>
             </ItemContainer>
           );
         })}
@@ -116,6 +117,14 @@ const OrderReceipt = ({ order }) => {
   );
 };
 
+const Code = styled.div`
+  border: 1px solid lightgray;
+  margin-right: 10px;
+  padding: 2px 3px 2px 3px;
+  font-size: 14px;
+  height: 100%;
+  /* border-radius: 3px; */
+`;
 const TotalContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -153,6 +162,7 @@ const Qty = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 `;
 const ItemText = styled.p`
@@ -166,8 +176,8 @@ const ItemName = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  margin: 10px 0 10px 0;
+  /* margin: 10px 0 10px 0; */
 `;
 export default OrderReceipt;
