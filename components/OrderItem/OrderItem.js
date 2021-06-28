@@ -65,7 +65,7 @@ const OrderItem = ({ item, index }) => {
   useEffect(() => {
     localStorage.setItem(
       "orderItems",
-      JSON.stringify({ ...orderItems, updateAt: new Date() })
+      JSON.stringify(orderItems)
     );
   }, [orderItems]);
 
@@ -220,7 +220,7 @@ const Row = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  /* padding: 5px 0; */
+  padding-top: 2px;
 `;
 const Qty = styled.div`
   display: flex;
@@ -228,7 +228,6 @@ const Qty = styled.div`
   flex-wrap: nowrap;
   justify-content: space-between;
   width: 80%;
-  padding-top: 2px;
 `;
 const ItemText = styled.p`
   margin: 0;
