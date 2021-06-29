@@ -115,6 +115,11 @@ export const mapLoaction = atom({
   default: null
 });
 
+export const scrollTop = atom({
+  key: 'scrollTop',
+  default: 0
+});
+
 
 export const defaultAddress = selector({
   key: 'defaultAddress',

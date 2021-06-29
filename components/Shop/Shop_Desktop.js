@@ -1,11 +1,12 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
 import { useRecoilState } from 'recoil';
 import {
   currentShop as currentShopAtom,
-  currentShopProducts as currentShopProductsAtom
+  currentShopProducts as currentShopProductsAtom,
+  scrollTop as scrollTopAtom
 } from '../../data/atoms';
 
 import { Divider, Ref, Icon } from 'semantic-ui-react';
@@ -16,7 +17,13 @@ const Shop_Desktop = () => {
   const { t } = useTranslation('shop');
   const router = useRouter();
   const [currentShop] = useRecoilState(currentShopAtom);
+  const [scrollTop, setScrollTop] = useRecoilState(scrollTopAtom);
   const contextRef = useRef();
+  const menuRef = useRef();
+
+  useEffect(() => {
+    menuRef.current.scrollTop = scrollTop
+  },[])
 
   return (
     <div>
@@ -47,7 +54,7 @@ const Shop_Desktop = () => {
           </CatWrapper>
         </Left>
 
-        <Right>
+        <Right ref={menuRef} onClick={()=> setScrollTop(menuRef.current.scrollTop)}>
           <RestaurantMenu t={t} contextRef={contextRef} />
         </Right>
 
