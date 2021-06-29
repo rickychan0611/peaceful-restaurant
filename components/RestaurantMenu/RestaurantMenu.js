@@ -93,7 +93,7 @@ const RestaurantMenu = ({ contextRef, t, scrollPosition }) => {
                 {/* Anchor point for desktop and non desktop */}
                 {/* {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>} */}
                 {isDesktop ? <div id={cat.id} style={{ paddingTop: 1}} /> :
-                  <div id={cat.id} style={{ paddingTop: 150, marginTop: -150 }} />}
+                  <div id={cat.id} style={{ paddingTop: 170, marginTop: -170 }} />}
 
                 <CatTitle isMobile={isMobile}>
                   <div className="jumptarget">{cat.category_name}</div>
