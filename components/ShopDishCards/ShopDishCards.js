@@ -122,7 +122,7 @@ const Code = styled.span`
   padding: 2px 4px 2px 4px;
   font-size: 15px;
   height: 32px;
-  width: 32px;
+  min-width: 32px;
   margin-right: 10px;
   font-weight: 600;
 `;
