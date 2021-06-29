@@ -109,7 +109,7 @@ const OrderReceipt = ({ order }) => {
             <span style={{ color: "black" }}>Total:</span>
           </Content>
           <Price>
-            <span style={{ color: "black" }}>${+order.pay_amount}</span>
+            <span style={{ color: "black" }}>${order.pay_amount}</span>
           </Price>
         </TotalContainer>
       </OrdersContainer>

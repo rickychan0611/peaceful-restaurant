@@ -164,7 +164,7 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
                 backgroundColor: '#adc90f',
                 marginRight: 10,
                 color: '#9c0404',
-                width: 80,
+                width: 90,
                 borderRadius: 30
               }}
               onClick={() => setOpenCheckOutList(!openCheckOutList)}>
