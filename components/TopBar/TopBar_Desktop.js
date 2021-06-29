@@ -28,7 +28,18 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
   const { t } = useTranslation('home');
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies();
+  const [qty, setQty] = useState(0);
 
+  useEffect(() => {
+    if (orderItems && orderItems.length !== 0) {
+      let q = 0;
+      orderItems.forEach((item) => {
+        q = q + item.quantity;
+      });
+      setQty(q);
+    }
+    else setQty(0)
+  },[orderItems]);
   useEffect(() => {
     setJiggle(!jiggle);
   }, [orderItems]);
@@ -168,7 +179,7 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
                 borderRadius: 30
               }}
               onClick={() => setOpenCheckOutList(!openCheckOutList)}>
-              <Icon name="shop" /> {orderItems && orderItems.length}
+              <Icon name="shop" /> {" "} {qty}
             </Button>
           )}
         </Transition>
