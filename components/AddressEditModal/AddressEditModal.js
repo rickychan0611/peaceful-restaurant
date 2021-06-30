@@ -19,8 +19,13 @@ const AddressEditModal = ({
 
   const formItems = [
     {
-      label: t`Receiver's name`,
-      key: 'name',
+      label: t`FirstName`,
+      key: 'first_name',
+      required: true
+    },
+    {
+      label: t`LastName`,
+      key: 'last_name',
       required: true
     },
     {

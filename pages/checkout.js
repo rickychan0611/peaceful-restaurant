@@ -156,7 +156,8 @@ const checkout = () => {
             ? {
                 shop_id: orderDetails.shop.id,
                 items: orderDetails.orderItems,
-                receiver_name: pickUpInfo.name,
+                receiver_first_name: pickUpInfo.first_name,
+                receiver_last_name: pickUpInfo.last_name,
                 receiver_phone: pickUpInfo.phone,
                 tips_amount: tips_amount.tips,
                 shipping_amount: orderDetails.shippingMethod.fee,
@@ -165,7 +166,8 @@ const checkout = () => {
             : {
                 shop_id: orderDetails.shop.id,
                 items: orderDetails.orderItems,
-                receiver_name: defaultAddress.name,
+                receiver_first_name: defaultAddress.first_name,
+                receiver_last_name: defaultAddress.last_name,
                 receiver_phone: defaultAddress.phone,
                 receiver_post_code: defaultAddress.post_code,
                 receiver_country: defaultAddress.country,
@@ -335,11 +337,20 @@ const checkout = () => {
                     />
                     <Form.Input
                       required
-                      label="Your Name"
-                      placeholder="Your Name"
-                      value={pickUpInfo.name}
+                      label="Your First Name"
+                      placeholder="Your First Name"
+                      value={pickUpInfo.first_name}
                       onChange={(e) => {
-                        handlePickupChange(e.target.value, "name");
+                        handlePickupChange(e.target.value, "first_name");
+                      }}
+                    />
+                    <Form.Input
+                      required
+                      label="Your Last Name"
+                      placeholder="Your Last Name"
+                      value={pickUpInfo.last_name}
+                      onChange={(e) => {
+                        handlePickupChange(e.target.value, "last_name");
                       }}
                     />
                   </Form.Group>
