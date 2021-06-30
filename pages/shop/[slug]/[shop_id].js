@@ -3,7 +3,6 @@ import {
   Container,
   Dimmer,
   Loader,
-  Modal,
   Button,
   Header,
   Icon,
@@ -20,17 +19,19 @@ import { useRecoilState } from "recoil";
 import {
   currentShop as currentShopAtom,
   currentShopProducts as currentShopProductsAtom,
+  currentShopPoplularProducts as currentShopPoplularProductsAtom,
 } from "../../../data/atoms";
 
 import Shop_Desktop from "../../../components/Shop/Shop_Desktop";
 import Shop_Mobile from "../../../components/Shop/Shop_Mobile";
-import router from "next/router";
 
-const shop = ({ getSingleShop, getShopProducts }) => {
+const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
   const isDesktop = useIsDesktop();
   const [currentShop, setCurrentShop] = useRecoilState(currentShopAtom);
   const [, setCurrentShopProducts] = useRecoilState(currentShopProductsAtom);
-  const [open, setOpen] = useState(false);
+  const [, setCurrentShopPoplularProducts] = useRecoilState(
+    currentShopPoplularProductsAtom
+  );
   const router = useRouter();
   // const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
   // const isShopOpen = router && useIsShopOpen(addresses[index].open_hours);
@@ -39,8 +40,10 @@ const shop = ({ getSingleShop, getShopProducts }) => {
   useEffect(async () => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
+    setCurrentShopPoplularProducts(getPopProducts);
     console.log("Single shop", getSingleShop);
     console.log("getShopProducts", getShopProducts);
+    console.log("Popular", getPopProducts);
 
     //update shop status
     const getShop = await axios.get(
@@ -149,10 +152,21 @@ export const getStaticProps = async (context) => {
     }
   );
 
+  const getPopProducts = await axios.get(
+    process.env.NEXT_PUBLIC_HOST_URL + "/api/shopproducts",
+    {
+      params: {
+        shop_id: context.params.shop_id,
+        category_id: "popular",
+      },
+    }
+  );
+
   return {
     props: {
       getSingleShop: getSingleShop.data.data,
       getShopProducts: getShopProducts.data.data,
+      getPopProducts: getPopProducts.data.data,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in

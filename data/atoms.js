@@ -50,6 +50,11 @@ export const currentShopProducts = atom({
   default: null
 });
 
+export const currentShopPoplularProducts = atom({
+  key: 'currentShopPoplularProducts',
+  default: null
+});
+
 export const currentCat = atom({
   key: 'currentCat',
   default: null

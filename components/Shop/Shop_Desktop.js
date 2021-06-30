@@ -32,6 +32,15 @@ const Shop_Desktop = () => {
       <Container>
         <Left>
           <CatWrapper>
+          <CatName
+            onClick={() => {
+              router.push(
+                "/shop/" + router.query.slug + "/" + router.query.shop_id + '#popular'
+              );
+            }}>
+            <Icon name="chevron right" style={{ color: 'red' }} size="small" />
+            <Name>Most Popular | 本店最热</Name>
+          </CatName>
             {currentShop &&
               currentShop.shop_categories &&
               currentShop.shop_categories[0] &&
