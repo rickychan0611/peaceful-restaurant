@@ -31,8 +31,8 @@ const OrderReceipt = ({ order }) => {
         <Divider />
         <>
           <H4>
-            {order.receiver_name &&
-              "Receiver: " + order.receiver_name.toUpperCase()}{" "}
+            {order.receiver_first_name &&
+              "Receiver: " + order.receiver_first_name.toUpperCase()  + " " + order.receiver_last_name.toUpperCase()}
           </H4>
           {order.receiver_detail_address ? (
             <>

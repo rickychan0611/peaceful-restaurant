@@ -91,7 +91,7 @@ const AddressBook = ({ selectedAddress, setSelectedAddress, getAddressesQuery })
             return (
               <AddressCard default={address.default_status} key={i} isMobile={isMobile}>
                 <h4 style={{margin: 0}}>
-                  {address.name ? address.name : <span style={{color: "red"}}>No Name entered. Please edit</span>}
+                  {address.first_name && address.last_name ? address.first_name + " " + address.last_name : <span style={{color: "red"}}>No Name entered. Please edit</span>}
                   <br />
                   {address.detail_address ? address.detail_address : <span style={{color: "red"}}>*No address entered. Please edit</span>}
                 </h4>

@@ -376,7 +376,7 @@ const checkout = () => {
                       {defaultAddress.province},&nbsp;
                       {defaultAddress.country}
                       <br /><br />
-                      <Icon name="user" /> {defaultAddress.name.toUpperCase()} <br /><br />
+                      <Icon name="user" /> {defaultAddress.first_name.toUpperCase() + " " + defaultAddress.last_name.toUpperCase()} <br /><br />
                       <Icon name="phone" /> {defaultAddress.phone}<br /><br />
                     </>
                   ) : (
