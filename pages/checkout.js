@@ -73,7 +73,8 @@ const checkout = () => {
   useEffect(() => {
     user &&
       setPickupInfo({
-        name: user.first_name + " " + user.last_name,
+        first_name: user.first_name,
+        last_name: user.last_name,
         phone: user.phone,
       });
   }, [user]);
@@ -147,7 +148,7 @@ const checkout = () => {
       }
       if (
         orderDetails.shippingMethod.id == 1 &&
-        (!pickUpInfo.name || !pickUpInfo.phone)
+        (!pickUpInfo.first_name || !pickUpInfo.phone)
       ) {
         throw new Error("Name and phone number are required");
       } else {

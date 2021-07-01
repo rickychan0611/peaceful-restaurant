@@ -15,7 +15,7 @@ const statusDecoder = (status) => {
     ? "Completed"
     : status == 8
     ? "Reviewed"
-    : null;
+    : "";
 };
 
 export default statusDecoder;
