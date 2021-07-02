@@ -74,11 +74,13 @@ const orders = () => {
                               setCurrentOrder(order);
                             }}>
                             <Name>
+                              <ul>
                               {order.order_items.map((item, i) => {
                                 return (
-                                  <span key={i}>{(i === 0 ? '' : ', ') + item.product_name}</span>
+                                  <li key={i}>{item.product_name + " x " + item.product_quantity}</li>
                                 );
                               })}
+                              </ul>
                             </Name>
                             <Row>
                               <P>
