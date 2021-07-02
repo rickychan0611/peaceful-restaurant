@@ -168,11 +168,12 @@ const RestaurantMenu = ({ contextRef, t }) => {
 
 const LabelContainer = styled.div({
   margin: 5,
-  padding: "8px 15px",
+  padding: "6px 15px",
   cursor: "pointer",
   textAlign: "left",
   borderRadius: 25,
-  fontSize: 14,
+  fontSize: 12,
+  fontWeight: "bold",
   backgroundColor: "#e8ebe9",
   color: "black"
 });
