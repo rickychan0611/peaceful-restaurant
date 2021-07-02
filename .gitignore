@@ -98,3 +98,4 @@ typings/
 
 # static build folder
 out/
+.env.local
