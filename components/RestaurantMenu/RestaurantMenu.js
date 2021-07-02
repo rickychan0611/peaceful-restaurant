@@ -42,18 +42,10 @@ const RestaurantMenu = ({ contextRef, t }) => {
       {!isDesktop && (
         <Sticky offset={isMobile ? 80 : 70} context={contextRef}>
           <div>
-            <Slider topic={t && t`FullMenu`} hideViewAll>
+            <Slider topic={t && t`FullMenu`} hideViewAll hideScrollbar>
               <CatWrapper>
-                <Label
+                <LabelContainer
                   color="black"
-                  style={{
-                    margin: 5,
-                    padding: "5px 10px 5px 10px",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    borderRadius: 25,
-                    fontSize: 11,
-                  }}
                   onClick={() => {
                     router.push(
                       "/shop/" +
@@ -65,24 +57,16 @@ const RestaurantMenu = ({ contextRef, t }) => {
                   }}
                 >
                   Most Popular | 本店最热
-                </Label>
+                </LabelContainer>
                 {currentShop &&
                   currentShop.shop_categories &&
                   currentShop.shop_categories[0] &&
                   currentShop.shop_categories.map((item, i) => {
                     if (item.category_name !== "Popular Items") {
                       return (
-                        <Label
+                        <LabelContainer
                           color="black"
                           key={item.id}
-                          style={{
-                            margin: 5,
-                            padding: "5px 10px 5px 10px",
-                            cursor: "pointer",
-                            textAlign: "left",
-                            borderRadius: 25,
-                            fontSize: 11,
-                          }}
                           onClick={() => {
                             router.push(
                               "/shop/" +
@@ -95,7 +79,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
                           }}
                         >
                           {item.category_name}
-                        </Label>
+                        </LabelContainer>
                       );
                     }
                   })}
@@ -182,6 +166,27 @@ const RestaurantMenu = ({ contextRef, t }) => {
   );
 };
 
+const LabelContainer = styled.div({
+  margin: 5,
+  padding: "8px 15px",
+  cursor: "pointer",
+  textAlign: "left",
+  borderRadius: 25,
+  fontSize: 14,
+  backgroundColor: "#e8ebe9",
+  color: "black"
+});
+const CatWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  min-width: 100px;
+  background-color: white;
+  padding: 20px 0 8px 0;
+  max-height: 140px;
+  s
+`;
 const CardContainer = styled.div`
   padding-bottom: 30px;
   display: grid;
@@ -201,16 +206,6 @@ const Anchor = styled.div`
 `;
 const MenuContainer = styled.div`
   margin-bottom: 30px;
-`;
-const CatWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 100%;
-  min-width: 100px;
-  background-color: white;
-  padding: 20px 0 10px 0;
-  max-height: 104px;
 `;
 const CatTitle = styled.div`
   font-size: 24px;
