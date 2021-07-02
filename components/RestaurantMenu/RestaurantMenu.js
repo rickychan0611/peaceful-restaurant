@@ -185,7 +185,6 @@ const CatWrapper = styled.div`
   background-color: white;
   padding: 20px 0 8px 0;
   max-height: 140px;
-  s
 `;
 const CardContainer = styled.div`
   padding-bottom: 30px;
