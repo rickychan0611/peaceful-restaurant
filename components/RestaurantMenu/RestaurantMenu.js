@@ -97,7 +97,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
         {isDesktop ? (
           <div id="popular" style={{ paddingTop: 1 }} />
         ) : (
-          <div id="popular" style={{ paddingTop: 180, marginTop: -180 }} />
+          <div id="popular" style={{ paddingTop: 190, marginTop: -190 }} />
         )}
 
         <CatTitle isMobile={isMobile}>
@@ -128,7 +128,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
                 ) : (
                   <div
                     id={cat.id}
-                    style={{ paddingTop: 180, marginTop: -180 }}
+                    style={{ paddingTop: 190, marginTop: -190 }}
                   />
                 )}
 
