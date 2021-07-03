@@ -44,7 +44,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
           <div>
             <Slider topic={t && t`FullMenu`} hideViewAll hideScrollbar>
               <CatWrapper>
-                <LabelContainer
+                {/* <LabelContainer
                   color="black"
                   onClick={() => {
                     router.push(
@@ -57,7 +57,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
                   }}
                 >
                   Most Popular | 本店最热
-                </LabelContainer>
+                </LabelContainer> */}
                 {currentShop &&
                   currentShop.shop_categories &&
                   currentShop.shop_categories[0] &&
@@ -90,10 +90,10 @@ const RestaurantMenu = ({ contextRef, t }) => {
       )}
 
       {/* Menu cards*/}
-
-      <MenuContainer>
-        {/* Anchor point for desktop and non desktop */}
-        {/* {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>} */}
+      {/* Anchor point for desktop and non desktop */}
+      {/* {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>} */}
+      {/* !!!!!!popular items */}
+      {/* <MenuContainer>
         {isDesktop ? (
           <div id="popular" style={{ paddingTop: 1 }} />
         ) : (
@@ -111,7 +111,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
             })}
           {!currentShopPoplularProducts[0] && <div>No item found.</div>}
         </CardContainer>
-      </MenuContainer>
+      </MenuContainer> */}
 
       {currentShop &&
         currentShop.shop_categories &&
@@ -175,7 +175,7 @@ const LabelContainer = styled.div({
   fontSize: 12,
   fontWeight: "bold",
   backgroundColor: "#e8ebe9",
-  color: "black"
+  color: "black",
 });
 const CatWrapper = styled.div`
   display: flex;

@@ -40,10 +40,10 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
   useEffect(async () => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
-    setCurrentShopPoplularProducts(getPopProducts);
+    // setCurrentShopPoplularProducts(getPopProducts);
     console.log("Single shop", getSingleShop);
     console.log("getShopProducts", getShopProducts);
-    console.log("Popular", getPopProducts);
+    // console.log("Popular", getPopProducts);
 
     //update shop status
     const getShop = await axios.get(
@@ -152,21 +152,21 @@ export const getStaticProps = async (context) => {
     }
   );
 
-  const getPopProducts = await axios.get(
-    process.env.NEXT_PUBLIC_HOST_URL + "/api/shopproducts",
-    {
-      params: {
-        shop_id: context.params.shop_id,
-        category_id: "popular",
-      },
-    }
-  );
+  // const getPopProducts = await axios.get(
+  //   process.env.NEXT_PUBLIC_HOST_URL + "/api/shopproducts",
+  //   {
+  //     params: {
+  //       shop_id: context.params.shop_id,
+  //       category_id: "popular",
+  //     },
+  //   }
+  // );
 
   return {
     props: {
       getSingleShop: getSingleShop.data.data,
       getShopProducts: getShopProducts.data.data,
-      getPopProducts: getPopProducts.data.data,
+      // getPopProducts: getPopProducts.data.data,
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
