@@ -56,6 +56,8 @@ const TotalAmountList = ({ orderDetails, setTips, tips_amount }) => {
         <Content>Taxes:</Content>
         <Price>${(+orderDetails.taxTotal).toFixed(2)}</Price>
       </TotalContainer>
+
+      {/* **** TIPS ******
       <TotalContainer>
         <Content>
           <Row>
@@ -92,7 +94,8 @@ const TotalAmountList = ({ orderDetails, setTips, tips_amount }) => {
           </Row>
         </Content>
         <Price>${(tips_amount.tips ? tips_amount.tips : 0).toFixed(2)}</Price>
-      </TotalContainer>
+      </TotalContainer> */}
+
       <TotalContainer>
         <Content>
           <span style={{ color: 'black' }}>Total:</span>
