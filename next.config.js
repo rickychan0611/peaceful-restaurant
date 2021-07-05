@@ -10,7 +10,7 @@ module.exports = nextTranslate({
     webpack5: false
   },
   images: {
-    domains: ['restaurantdem.com']
+    domains: ['admin.peacefulmallrestaurant.com']
   },
   eslint: {
     ignoreDuringBuilds: true
