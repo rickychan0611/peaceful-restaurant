@@ -89,7 +89,7 @@ const OrderReceipt = ({ order }) => {
         </TotalContainer>
         <TotalContainer>
           <Content>Discount:</Content>
-          <Price>-${order.discount ? order.discount : 0}</Price>
+          <Price>-${order.admin_discount_amount ? order.admin_discount_amount : 0}</Price>
         </TotalContainer>
         <TotalContainer>
           <Content>Shipping fee:</Content>
