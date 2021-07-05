@@ -8,7 +8,7 @@ const address_linees = [
     lat: 49.2629367,
     lng: -123.1182306,
     open_hours: {
-      monday: { open: '11:00am', close: '9:00pm' },
+      monday: { open: '9:00am', close: '9:00pm' },
       tuesday: { open: '11:00am', close: '9:00pm' },
       wednesday: { open: '11:00am', close: '9:00pm' },
       thursday: { open: '11:00am', close: '9:00pm' },
