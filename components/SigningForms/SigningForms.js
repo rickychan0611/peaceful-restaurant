@@ -277,10 +277,13 @@ const SigningForms = ({ signUp }) => {
             <Link href="/sign-in">{t('LogInAccount')}</Link>{' '}
           </Message>
         ) : (
+          <>
           <Message>
             {t('NewtoPeacefulMall')}
-            <Link href="/sign-up">{t('signUPAccount')}</Link>{' '}
+            <Link href="/sign-up">{t('signUPAccount')}</Link><br />
+            <a target="_blank" href={process.env.NEXT_PUBLIC_HOST_URL + "/password/reset"}>{t('Forgot Password?')}</a>{' '}
           </Message>
+        </>
         )}
       </Grid.Column>
     </Grid>
