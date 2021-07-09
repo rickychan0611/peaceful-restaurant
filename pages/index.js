@@ -6,7 +6,6 @@ import useTranslation from 'next-translate/useTranslation';
 import { Modal, Icon } from 'semantic-ui-react';
 import CheckOutListPusher from '../components/CheckOutListPusher';
 import addresses from '../addresses';
-import Image from 'next/image'
 import Location_Desktop from '../components/Location_Desktop';
 import Location_Mobile from '../components/Location_Mobile';
 
