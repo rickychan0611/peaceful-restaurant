@@ -9,7 +9,7 @@ import {
 } from '../../data/atoms.js';
 import axios from 'axios';
 
-const SearchBar = ({ currentShop }) => {
+const SearchBar = ({ currentShop, setShowSearch }) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useRecoilState(searchValueAtom);
   const [searchResults, setSearchResults] = useRecoilState(searchResultsAtom);
@@ -42,7 +42,7 @@ const SearchBar = ({ currentShop }) => {
 
   return (
     <Form onSubmit={() => keyword && handleSubmit()}>
-      <InputWrapper style={{ backgroundColor: '#c4c3c3', border: '1px solid #c4c3c3', minWidth: 300 }}>
+      <InputWrapper style={{ backgroundColor: '#c4c3c3', border: '1px solid #c4c3c3', width: "90vw", maxWidth: 400 }}>
         <InputWrapper style={{ backgroundColor: 'white', borderRadius: '5px 0px 0px 5px' }}>
           <input
             style={{ margin: 0, width: '100%', border: 0 }}
@@ -52,16 +52,15 @@ const SearchBar = ({ currentShop }) => {
             value={keyword}
             onChange={handleChange}
           />
-          {keyword && (
-            <Icon
-              name="times"
-              style={{ margin: '0 10px', color: '#c4c3c3' }}
-              onClick={() => {
-                setKeyword('');
-                setSearchResults()
-              }}
-            />
-          )}
+          <Icon
+            name="times"
+            style={{ margin: '0 10px', color: '#c4c3c3' }}
+            onClick={() => {
+              setKeyword('');
+              setSearchResults()
+              setShowSearch(true)
+            }}
+          />
         </InputWrapper>
         <SearchButton type="submit">
           <Icon

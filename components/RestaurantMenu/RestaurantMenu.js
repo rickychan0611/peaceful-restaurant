@@ -240,6 +240,7 @@ const MenuContainer = styled.div`
 const CatTitle = styled.div`
       font-size: 24px;
       font-weight: bold;
+      line-height: normal;
       /* scroll-margin-top: 160px;
       scroll-snap-margin-top: 160px; */
       padding-bottom: 10px;
