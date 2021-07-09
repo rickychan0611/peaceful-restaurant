@@ -79,8 +79,8 @@ const Home = () => {
                     <AddressHeader>{item.name}</AddressHeader>
                     <P>
                       {item.address_line} <br />
-                      {item.city} <br />
-                      {item.phone}
+                      {item.address_city} <br />
+                      {item.phone.map((item, i) => <div key={i}>{item}</div>)}
                     </P>
                   </AddressContainer>
                 );

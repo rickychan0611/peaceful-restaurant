@@ -2,16 +2,11 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Icon, List } from 'semantic-ui-react';
 import useTranslation from 'next-translate/useTranslation';
-import { useIsDesktop } from '../../util/useScreenSize';
-import { useRecoilState } from 'recoil';
-import { mapLoaction as setMapLoactionAtom } from '../../data/atoms';
 import router from 'next/router';
 
 const ShopInfo = ({ shop }) => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation('shop');
-  const isDesktop = useIsDesktop();
-  const [mapLoaction, setMapLoaction] = useRecoilState(setMapLoactionAtom);
   const open_hours = shop.open_hours;
 
   return (
@@ -46,7 +41,11 @@ const ShopInfo = ({ shop }) => {
               <List.Icon name="phone" />
               <List.Content>
                 <List.Header as="h4">{t`Phone`}</List.Header>
-                <List.Description>(604) 879-9878</List.Description>
+                <List.Description>{shop.phone.map((item, i)=>{
+                  return (
+                    <div>{item}</div>
+                  )
+                })}</List.Description>
               </List.Content>
             </List.Item>
             <br />
