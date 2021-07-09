@@ -120,6 +120,11 @@ export const mapLoaction = atom({
   default: null
 });
 
+export const searchResults = atom({
+  key: 'searchResults',
+  default: null
+});
+
 export const scrollTop = atom({
   key: 'scrollTop',
   default: 0

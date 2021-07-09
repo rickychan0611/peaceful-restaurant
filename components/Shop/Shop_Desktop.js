@@ -1,16 +1,14 @@
 import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-
 import { useRecoilState } from 'recoil';
 import {
   currentShop as currentShopAtom,
-  currentShopProducts as currentShopProductsAtom,
   scrollTop as scrollTopAtom
 } from '../../data/atoms';
-
 import { Divider, Ref, Icon } from 'semantic-ui-react';
 import RestaurantMenu from '../RestaurantMenu';
+import SearchBar from '../SearchBar';
 import useTranslation from 'next-translate/useTranslation';
 
 const Shop_Desktop = () => {
@@ -23,24 +21,27 @@ const Shop_Desktop = () => {
 
   useEffect(() => {
     menuRef.current.scrollTop = scrollTop
-  },[])
+  }, [])
 
   return (
     <div>
-      <Title>{currentShop.name}</Title>
+      <Row>
+        <Title>{currentShop.name}</Title>
+        <SearchBar currentShop={currentShop}/>
+      </Row>
       <Divider />
       <Container>
         <Left>
           <CatWrapper>
-          <CatName
-            onClick={() => {
-              router.push(
-                "/shop/" + router.query.slug + "/" + router.query.shop_id + '#popular'
-              );
-            }}>
-            <Icon name="chevron right" style={{ color: 'red' }} size="small" />
-            <Name>Most Popular | 本店最热</Name>
-          </CatName>
+            <CatName
+              onClick={() => {
+                router.push(
+                  "/shop/" + router.query.slug + "/" + router.query.shop_id + '#popular'
+                );
+              }}>
+              <Icon name="chevron right" style={{ color: 'red' }} size="small" />
+              <Name>Most Popular | 本店最热</Name>
+            </CatName>
             {currentShop &&
               currentShop.shop_categories &&
               currentShop.shop_categories[0] &&
@@ -48,7 +49,7 @@ const Shop_Desktop = () => {
                 if (item.category_name !== 'Popular Items') {
                   return (
                     <CatName
-                    key={i}
+                      key={i}
                       onClick={() => {
                         router.push(
                           '/shop/' + router.query.slug + '/' + router.query.shop_id + '#' + item.id
@@ -63,7 +64,7 @@ const Shop_Desktop = () => {
           </CatWrapper>
         </Left>
 
-        <Right ref={menuRef} onClick={()=> setScrollTop(menuRef.current.scrollTop)}>
+        <Right ref={menuRef} onClick={() => setScrollTop(menuRef.current.scrollTop)}>
           <RestaurantMenu t={t} contextRef={contextRef} />
         </Right>
 
@@ -75,7 +76,12 @@ const Shop_Desktop = () => {
 const Container = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  /* margin-top: -100px; */
+`;
+const Row = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding-top: 20px;
 `;
 const Left = styled.div`
   flex: 2;
@@ -89,7 +95,6 @@ const Right = styled.div`
   overflow-y: auto;
   padding: 10px 10px;
 `;
-
 const CatName = styled.div({
   display: 'flex',
   flexFlow: 'row nowrap',
@@ -112,42 +117,10 @@ const CatWrapper = styled.div`
   background-color: white;
   padding: 10px 0 30px 0;
 `;
-const Section = styled.div`
-  /* scroll-margin-top: 240px; */
-  :before {
-    content: '';
-    display: block;
-    height: 240px; /* fixed header height*/
-    margin: -240px 0 0; /* negative fixed header height */
-  }
-`;
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-`;
-const Avatar = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  border: solid 2px white;
-  height: 60px;
-  width: 60px;
-  object-fit: contain;
-  box-shadow: 0px 0px 5px#a5a5a5;
-  margin-right: 20px;
-`;
 const Title = styled.h1`
   font-size: 28px;
   margin: 0;
-  padding-top: 20px;
   color: #9c0404;
   padding-left: 10px;
-`;
-const Description = styled.div`
-  font-size: 1rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 export default Shop_Desktop;
