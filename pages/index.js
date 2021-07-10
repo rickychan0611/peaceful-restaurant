@@ -47,9 +47,8 @@ const Home = () => {
               }}>{t`PEACEFUL RESTAURANT`}</Header>
             <Header isMobile={isMobile} style={{ margin: 0 }}>{t`Serving`}</Header>
             <div style={{ height: 40 }}></div>
-            <P style={{ fontSize: 20, textAlign: isMobile && 'left' }}>
-              {t`intro-1`} <br />
-              {t`intro-1-1`}
+            <P style={{ fontSize: 22, textAlign: isMobile && 'left' }}>
+              {t`intro-1`} 
               <br />
               <br />
               {t`intro-2`}
