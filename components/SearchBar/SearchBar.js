@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Input, Icon, Button } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import {
@@ -8,67 +8,77 @@ import {
   searchResults as searchResultsAtom,
 } from '../../data/atoms.js';
 import axios from 'axios';
+import Loader from '../Loader';
 
 const SearchBar = ({ currentShop, setShowSearch }) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useRecoilState(searchValueAtom);
   const [searchResults, setSearchResults] = useRecoilState(searchResultsAtom);
   const [keyword, setKeyword] = useState();
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     setKeyword(e.target.value);
   };
 
   const handleSubmit = async () => {
-    console.log(keyword)
-   if (keyword) {setSearchValue(keyword);
-    const results = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/search', {
-      params: {
-        keyword
+    if (keyword) {
+      setLoading(true)
+      setSearchValue(keyword);
+      const results = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/search', {
+        params: {
+          keyword
+        }
+      });
+      console.log("results", results.data.data)
+      const products = results.data.data.products.filter(item => item.shop_id === currentShop.id)
+      console.log("products", products)
+      if (products.length === 0) {
+        alert('No result found for "' + keyword + '"')
+        setSearchResults()
+        setLoading(false)
       }
-    });
-    console.log("results", results.data.data)
-    const products = results.data.data.products.filter(item => item.shop_id === currentShop.id)
-    console.log("products", products)
-    if (products.length === 0) {
-      alert('No result found for "' + keyword + '"')
-      setSearchResults()
+      else {
+        setSearchResults(products)
+        router.push('/shop/' + currentShop.name + "/" + currentShop.id + "#result")
+        setLoading(false)
+      }
     }
-    else {
-      setSearchResults(products)
-      router.push('/shop/' + currentShop.name + "/" + currentShop.id + "#result")
-    }}
   };
 
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault()
-      handleSubmit()}}>
-      <Row>
-        <InputIconWrap>
-          <SearchInput
-            placeholder={"Search food in " + currentShop.name}
-            value={keyword}
-            onChange={handleChange}
-          />
-          <Icon
-            name="times"
-            style={{ margin: '0 10px', color: '#c4c3c3' }}
-            onClick={() => {
-              setKeyword('');
-              setSearchResults()
-              setShowSearch(true)
-            }}
-          />
-        </InputIconWrap>
-        <SearchButton type="submit">
-          <Icon
-            name="search"
-          />
-        </SearchButton>
-      </Row>
-    </form>
+    <>
+      <form onSubmit={(e) => {
+        e.preventDefault()
+        handleSubmit()
+      }}>
+        <Row>
+          <InputIconWrap>
+            <SearchInput
+              placeholder={"Search food in " + currentShop.name}
+              value={keyword}
+              onChange={handleChange}
+            />
+            <Icon
+              name="times"
+              style={{ margin: '0 10px', color: '#c4c3c3' }}
+              onClick={() => {
+                setKeyword('');
+                setSearchResults()
+                setShowSearch(true)
+              }}
+            />
+          </InputIconWrap>
+          <SearchButton type="submit">
+            {loading ? 
+            <Icon loading name="spinner" /> :
+            <Icon name="search" /> 
+            }
+          </SearchButton>
+        </Row>
+      </form>
+    </>
   );
 };
 
