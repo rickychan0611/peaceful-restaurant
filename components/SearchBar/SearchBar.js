@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Form, Icon, Button } from 'semantic-ui-react';
+import { Input, Icon, Button } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import {
@@ -20,7 +20,8 @@ const SearchBar = ({ currentShop, setShowSearch }) => {
   };
 
   const handleSubmit = async () => {
-    setSearchValue(keyword);
+    console.log(keyword)
+   if (keyword) {setSearchValue(keyword);
     const results = await axios.get(process.env.NEXT_PUBLIC_HOST_URL + '/api/search', {
       params: {
         keyword
@@ -36,19 +37,18 @@ const SearchBar = ({ currentShop, setShowSearch }) => {
     else {
       setSearchResults(products)
       router.push('/shop/' + currentShop.name + "/" + currentShop.id + "#result")
-    }
+    }}
   };
 
 
   return (
-    <Form onSubmit={() => keyword && handleSubmit()}>
-      <InputWrapper style={{ backgroundColor: '#c4c3c3', border: '1px solid #c4c3c3', width: "90vw", maxWidth: 400 }}>
-        <InputWrapper style={{ backgroundColor: 'white', borderRadius: '5px 0px 0px 5px' }}>
-          <input
-            style={{ margin: 0, width: '100%', border: 0 }}
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      handleSubmit()}}>
+      <Row>
+        <Row style={{border: 0}}>
+          <SearchInput
             placeholder={"Search food in " + currentShop.name}
-            icon="search"
-            iconPosition="left"
             value={keyword}
             onChange={handleChange}
           />
@@ -61,30 +61,41 @@ const SearchBar = ({ currentShop, setShowSearch }) => {
               setShowSearch(true)
             }}
           />
-        </InputWrapper>
+        </Row>
         <SearchButton type="submit">
           <Icon
             name="search"
           />
         </SearchButton>
-      </InputWrapper>
-    </Form>
+      </Row>
+    </form>
   );
 };
 
-const InputWrapper = styled.div`
+const Row = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;  
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-left: 5px;
+    background-color: white;
+    width: 90vw;
+    max-width: 500px;
+  `;
+const SearchInput = styled.input`
+  padding: 6px;
+  border: 0;
   width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-`;
+  outline: none;
+  `;
 const SearchButton = styled.button`
- width: 50px;
  background-color: #c4c3c3;
  outline: 0;
  border: 0;
- color: grey'
+ color: grey;
+ height: 35px;
+ padding-left: 10px;
 `;
 export default SearchBar;

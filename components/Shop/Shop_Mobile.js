@@ -41,7 +41,6 @@ const Shop_Mobile = () => {
         }}
           onClick={() => {
             setShowSearch(!showSearch)
-            // router.push("/shop/" + currentShop.name + "/" + currentShop.id + "/#result")
           }}>
           <SeachIcon name="search" size="large" />
         </div> :

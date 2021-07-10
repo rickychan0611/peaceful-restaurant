@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
@@ -6,7 +6,7 @@ import {
   currentShop as currentShopAtom,
   scrollTop as scrollTopAtom
 } from '../../data/atoms';
-import { Divider, Ref, Icon } from 'semantic-ui-react';
+import { Divider, Form, Icon } from 'semantic-ui-react';
 import RestaurantMenu from '../RestaurantMenu';
 import SearchBar from '../SearchBar';
 import useTranslation from 'next-translate/useTranslation';
@@ -18,6 +18,7 @@ const Shop_Desktop = () => {
   const [scrollTop, setScrollTop] = useRecoilState(scrollTopAtom);
   const contextRef = useRef();
   const menuRef = useRef();
+  const [showSearch, setShowSearch] = useState(true);
 
   useEffect(() => {
     menuRef.current.scrollTop = scrollTop
@@ -27,7 +28,7 @@ const Shop_Desktop = () => {
     <div>
       <Row>
         <Title>{currentShop.name}</Title>
-        <SearchBar currentShop={currentShop}/>
+        <SearchBar currentShop={currentShop} setShowSearch={setShowSearch}/>
       </Row>
       <Divider />
       <Container>
@@ -79,7 +80,8 @@ const Container = styled.div`
 `;
 const Row = styled.div`
   display: flex;
-  flex-flow: row nowrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: space-between;
   padding-top: 20px;
 `;
