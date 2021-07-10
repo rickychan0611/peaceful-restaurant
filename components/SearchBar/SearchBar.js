@@ -46,7 +46,7 @@ const SearchBar = ({ currentShop, setShowSearch }) => {
       e.preventDefault()
       handleSubmit()}}>
       <Row>
-        <Row style={{border: 0}}>
+        <InputIconWrap>
           <SearchInput
             placeholder={"Search food in " + currentShop.name}
             value={keyword}
@@ -61,7 +61,7 @@ const SearchBar = ({ currentShop, setShowSearch }) => {
               setShowSearch(true)
             }}
           />
-        </Row>
+        </InputIconWrap>
         <SearchButton type="submit">
           <Icon
             name="search"
@@ -83,6 +83,18 @@ const Row = styled.div`
     background-color: white;
     width: 90vw;
     max-width: 500px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  `;
+const InputIconWrap = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;  
+    border-radius: 5px;
+    padding-left: 5px;
+    background-color: white;
+    width: 90vw;
+    max-width: 500px;
   `;
 const SearchInput = styled.input`
   padding: 6px;
@@ -95,7 +107,7 @@ const SearchButton = styled.button`
  outline: 0;
  border: 0;
  color: grey;
- height: 35px;
- padding-left: 10px;
+ padding: 13px;
+ padding-left: 15px;
 `;
 export default SearchBar;
