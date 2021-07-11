@@ -109,7 +109,7 @@ const InputIconWrap = styled.div`
 const SearchInput = styled.input`
   padding: 6px;
   border: 0;
-  width: 100%;
+  width: 80%;
   outline: none;
   `;
 const SearchButton = styled.button`
