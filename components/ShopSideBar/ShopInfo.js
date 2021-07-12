@@ -28,6 +28,7 @@ const ShopInfo = ({ shop }) => {
             <List.Item
               onClick={() => {
                 setMapLoaction(shop);
+                router.push("/location#map")
                 // setOpen(true)
               }}>
               <List.Icon name="map marker alternate" style={{ margiTop: 30 }} />

@@ -6,7 +6,7 @@ const Shop_Desktop = () => {
   const isDesktop = useIsDesktop();
 
   return (
-		<>{isDesktop ? <Location_Desktop /> : <Location_Mobile />}</>
+		<div id="map">{isDesktop ? <Location_Desktop /> : <Location_Mobile />}</div>
   );
 };
 
