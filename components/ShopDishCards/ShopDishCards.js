@@ -99,7 +99,7 @@ const ShopDishCards = ({ item, scrollPosition }) => {
               borderRadius: 20,
             }}
           >
-            Add to Card
+            Add to Cart
           </Button>
         </SpaceBetween>
       </Card>
