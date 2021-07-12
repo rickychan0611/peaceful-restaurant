@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Icon, List } from 'semantic-ui-react';
 import useTranslation from 'next-translate/useTranslation';
+import { useRecoilState } from 'recoil';
+import { mapLoaction as setMapLoactionAtom } from '../../data/atoms';
 import router from 'next/router';
 
 const ShopInfo = ({ shop }) => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation('shop');
+  const [mapLoaction, setMapLoaction] = useRecoilState(setMapLoactionAtom);
   const open_hours = shop.open_hours;
+
 
   return (
     <ListContainer>
@@ -41,7 +45,7 @@ const ShopInfo = ({ shop }) => {
               <List.Icon name="phone" />
               <List.Content>
                 <List.Header as="h4">{t`Phone`}</List.Header>
-                <List.Description>{shop.phone.map((item, i)=>{
+                <List.Description>{shop.phone.map((item, i) => {
                   return (
                     <div>{item}</div>
                   )
@@ -55,7 +59,7 @@ const ShopInfo = ({ shop }) => {
                 <List.Header as="h4">{t`Hours`}</List.Header>
                 <List.Description>
                   {shop.status === 4 ? (
-                    <h5 style={{color: "red"}}>Temporarily closed</h5>
+                    <h5 style={{ color: "red" }}>Temporarily closed</h5>
                   ) : (
                     <table style={{ marginLeft: -4 }}>
                       <tbody>
