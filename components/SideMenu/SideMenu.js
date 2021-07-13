@@ -52,7 +52,7 @@ const SidebarMenu = () => {
       </Menu.Item>
 
       <Menu.Item>
-        <Menu.Header>Food Menus</Menu.Header>
+        {/* <Menu.Header>Food Menus</Menu.Header> */}
         <Menu.Menu>
           {addresses.map((item, i) => {
             return (
