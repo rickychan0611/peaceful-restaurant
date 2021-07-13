@@ -8,27 +8,53 @@ import {
 } from "../../data/atoms.js";
 import { Button, Label } from "semantic-ui-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import moment from 'moment';
 
-const ShopDishCards = ({ item, scrollPosition }) => {
+const ShopDishCards = ({ item, scrollPosition, catName }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
   const [currentShop] = useRecoilState(currentShopAtom);
+
+  const isLunchTime = () => {
+    const format = 'HH:mm'
+    const now = moment();
+
+    // const START = moment("2021-07-19 11:00", 'YYYY-MM-DD hh:mm');
+    // const END = moment("2021-07-19 14:00", 'YYYY-MM-DD hh:mm');
+    const START = moment("12:00", format);
+    const END = moment("14:45", format);
+    const WEEK = now.format("ddd")
+    console.log(WEEK)
+    
+    if (now.isBetween(START, END)) {
+      if (WEEK === "Sat" || WEEK === "Sun") {
+        console.log("weekend")
+        return false
+      }
+      return true
+    }
+    return false
+  }
 
   return (
     <>
       <Card
         onClick={() => {
-          // when click, save item in selectedItem Atom and selectedStore Atom.
-          // then open item's page by using item's id
-          setCurrentItem(item);
-          console.log("ShopDishCards currentItem", currentItem);
-          console.log("ShopDishCards currentShop", currentShop);
-          router.push("/item/" + item.id);
+          if (catName === "Lunch Special | 特價午餐" && !isLunchTime()) {
+            alert("Lunch Special is available from 11am - 2:45pm (Mon. - Fri.)")
+            return;
+          }
+          else {
+            setCurrentItem(item);
+            console.log("ShopDishCards currentItem", currentItem);
+            console.log("ShopDishCards currentShop", currentShop);
+            router.push("/item/" + item.id);
+          }
         }}
       >
         <SpaceBetween>
-          <div style={{position: "relative"}}>
-          <Code>{item.code}</Code>
+          <div style={{ position: "relative" }}>
+            <Code>{item.code}</Code>
             {item.images && item.images[0] ? (
               <Img
                 key={item.name}
@@ -87,26 +113,24 @@ const ShopDishCards = ({ item, scrollPosition }) => {
             )}
             {/* <Description>by: {item.shop.name}</Description> */}
           </div>
-          <Button
-            basic
-            size="tiny"
-            style={{
-              marginTop: 20,
-              padding: 10,
-              backgroundColor: "#9c0404",
-              color: "white",
-              width: "100%",
-              borderRadius: 20,
-            }}
-          >
-            Add to Cart
-          </Button>
+          {catName === "Lunch Special | 特價午餐" ?
+            <AddButton isLunchTime={!isLunchTime()}>Add to Cart</AddButton> :
+            <AddButton>Add to Cart</AddButton>}
         </SpaceBetween>
       </Card>
     </>
   );
 };
 
+const AddButton = styled.div({
+  textAlign: "center",
+  marginTop: 20,
+  padding: 8,
+  backgroundColor: p => p.isLunchTime ? "#c7c0c0" : "#9c0404",
+  color: "white",
+  width: "100%",
+  borderRadius: 20,
+});
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
