@@ -176,7 +176,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
                       ) {
                         isEmpty = false;
                         return (
-                          <ShopDishCards item={product} key={product.id} />
+                          <ShopDishCards item={product} key={product.id} catName={cat.category_name}/>
                         );
                       }
                     })}
