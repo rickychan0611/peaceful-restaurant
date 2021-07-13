@@ -137,7 +137,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
             currentShopPoplularProducts.map((product) => {
               return <ShopDishCards item={product} key={product.id} />;
             })}
-          {!currentShopPoplularProducts[0] && <div>No item found.</div>}
+          {!currentShopPoplularProducts && !currentShopPoplularProducts[0] && <div>No item found.</div>}
         </CardContainer>
       </MenuContainer>
 

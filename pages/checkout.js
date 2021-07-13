@@ -155,34 +155,34 @@ const checkout = () => {
         const body =
           orderDetails.shippingMethod.id === 1
             ? {
-                shop_id: orderDetails.shop.id,
-                items: orderDetails.orderItems,
-                receiver_first_name: pickUpInfo.first_name,
-                receiver_last_name: pickUpInfo.last_name,
-                receiver_phone: pickUpInfo.phone,
-                receiver_email: user.email,
-                tips_amount: tips_amount.tips,
-                shipping_amount: orderDetails.shippingMethod.fee,
-                shipping_method_id: orderDetails.shippingMethod.id,
-              }
+              shop_id: orderDetails.shop.id,
+              items: orderDetails.orderItems,
+              receiver_first_name: pickUpInfo.first_name,
+              receiver_last_name: pickUpInfo.last_name,
+              receiver_phone: pickUpInfo.phone,
+              receiver_email: user.email,
+              tips_amount: tips_amount.tips,
+              shipping_amount: orderDetails.shippingMethod.fee,
+              shipping_method_id: orderDetails.shippingMethod.id,
+            }
             : {
-                shop_id: orderDetails.shop.id,
-                items: orderDetails.orderItems,
-                receiver_first_name: defaultAddress.first_name,
-                receiver_last_name: defaultAddress.last_name,
-                receiver_phone: defaultAddress.phone,
-                receiver_email: user.email,
-                receiver_post_code: defaultAddress.post_code,
-                receiver_country: defaultAddress.country,
-                receiver_province: defaultAddress.province,
-                receiver_city: defaultAddress.city,
-                receiver_detail_address: defaultAddress.detail_address,
-                receiver_unit_number: defaultAddress.unit_number,
-                receiver_note: defaultAddress.note,
-                tips_amount: tips_amount.tips,
-                shipping_amount: orderDetails.shippingMethod.fee,
-                shipping_method_id: orderDetails.shippingMethod.id,
-              };
+              shop_id: orderDetails.shop.id,
+              items: orderDetails.orderItems,
+              receiver_first_name: defaultAddress.first_name,
+              receiver_last_name: defaultAddress.last_name,
+              receiver_phone: defaultAddress.phone,
+              receiver_email: user.email,
+              receiver_post_code: defaultAddress.post_code,
+              receiver_country: defaultAddress.country,
+              receiver_province: defaultAddress.province,
+              receiver_city: defaultAddress.city,
+              receiver_detail_address: defaultAddress.detail_address,
+              receiver_unit_number: defaultAddress.unit_number,
+              receiver_note: defaultAddress.note,
+              tips_amount: tips_amount.tips,
+              shipping_amount: orderDetails.shippingMethod.fee,
+              shipping_method_id: orderDetails.shippingMethod.id,
+            };
         console.log("body", body);
         const result = await axios.post(
           process.env.NEXT_PUBLIC_HOST_URL + "/api/user/order/create",
@@ -263,50 +263,58 @@ const checkout = () => {
               {orderDetails.shop && orderDetails.shop.name}
             </h2>
             <Divider />
-            <Header>
-              Delivery or Pick-up?
-            </Header>
-            <PickupContainer>
-              <Row
-                onClick={() => {
-                  setErr();
-                  setShippingMethod({ id: 1, fee: 0 });
-                }}
-                style={{ marginRight: 10, marginBottom: 10 }}
-              >
-                <RadioButton
-                  readOnly
-                  type="radio"
-                  // value={item.name}
-                  checked={orderDetails.shippingMethod.id === 1}
-                />
-                <Column>
-                  <H4>Self pick-up</H4>
-                </Column>
-              </Row>
+            {/* //delivery only avaiable at broadway#2, kingsway#7, , prt.coq#8 */}
+            {currentShop && !(currentShop.id === 2 || currentShop.id === 7 || currentShop.id === 8) ?
+              <Header style={{color: "red"}}>
+                <Icon name="warning" circular size="small"/>This location is for pick-up only.
+              </Header>
+              : <>
+                <Header>
+                  Delivery or Pick-up?
+                </Header>
+                <PickupContainer>
+                  <Row
+                    onClick={() => {
+                      setErr();
+                      setShippingMethod({ id: 1, fee: 0 });
+                    }}
+                    style={{ marginRight: 10, marginBottom: 10 }}
+                  >
+                    <RadioButton
+                      readOnly
+                      type="radio"
+                      // value={item.name}
+                      checked={orderDetails.shippingMethod.id === 1}
+                    />
+                    <Column>
+                      <H4>Self pick-up</H4>
+                    </Column>
+                  </Row>
 
-              <Row
-                onClick={() => {
-                  setErr();
-                  orderDetails.subtotal < 40 &&
-                    setErr("Sorry, your total amount is less than $40.");
-                  orderDetails.subtotal >= 40 &&
-                    setShippingMethod({ id: 2, fee: 0 });
-                }}
-                style={{ marginRight: 10, marginBottom: 10 }}
-              >
-                <RadioButton
-                  readOnly
-                  type="radio"
-                  // value={item.name}
-                  checked={orderDetails.shippingMethod.id === 2}
-                />
-                <Column>
-                  <H4>Free delivery for order over $40</H4>
-                </Column>
-              </Row>
-              <div style={{ color: "red" }}>{err}</div>
-            </PickupContainer>
+                  <Row
+                    onClick={() => {
+                      setErr();
+                      orderDetails.subtotal < 40 &&
+                        setErr("Sorry, your total amount is less than $40.");
+                      orderDetails.subtotal >= 40 &&
+                        setShippingMethod({ id: 2, fee: 0 });
+                    }}
+                    style={{ marginRight: 10, marginBottom: 10 }}
+                  >
+                    <RadioButton
+                      readOnly
+                      type="radio"
+                      // value={item.name}
+                      checked={orderDetails.shippingMethod.id === 2}
+                    />
+                    <Column>
+                      <H4>Free delivery for order over $40</H4>
+                    </Column>
+                  </Row>
+                  <div style={{ color: "red" }}>{err}</div>
+                </PickupContainer>
+              </>}
+
             {orderDetails.shippingMethod.id !== 2 && (
               <>
                 <H4>Pick Up Address:</H4>
@@ -414,10 +422,10 @@ const checkout = () => {
               onClick={() =>
                 router.push(
                   "/shop/" +
-                    orderDetails.shop.name +
-                    "/" +
-                    orderDetails.shop.id +
-                    "#fullMenu"
+                  orderDetails.shop.name +
+                  "/" +
+                  orderDetails.shop.id +
+                  "#fullMenu"
                 )
               }
             >
