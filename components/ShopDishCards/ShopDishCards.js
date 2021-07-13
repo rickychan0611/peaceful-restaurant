@@ -21,7 +21,7 @@ const ShopDishCards = ({ item, scrollPosition, catName }) => {
 
     // const START = moment("2021-07-19 11:00", 'YYYY-MM-DD hh:mm');
     // const END = moment("2021-07-19 14:00", 'YYYY-MM-DD hh:mm');
-    const START = moment("12:00", format);
+    const START = moment("11:00", format);
     const END = moment("14:45", format);
     const WEEK = now.format("ddd")
     console.log(WEEK)
