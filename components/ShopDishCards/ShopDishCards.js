@@ -24,7 +24,6 @@ const ShopDishCards = ({ item, scrollPosition, catName }) => {
     const START = moment("11:00", format);
     const END = moment("14:45", format);
     const WEEK = now.format("ddd")
-    console.log(WEEK)
     
     if (now.isBetween(START, END)) {
       if (WEEK === "Sat" || WEEK === "Sun") {

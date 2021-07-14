@@ -5,6 +5,11 @@ export const appReady = atom({
   default: false
 });
 
+export const currentTime = atom({
+  key: 'currentTime',
+  default: new Date()
+});
+
 export const selections = atom({
   key: 'selections',
   default: {cuisine: "all", category: "", restaurant: ""}

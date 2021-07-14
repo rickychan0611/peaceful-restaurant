@@ -11,18 +11,20 @@ import { appReady as appReadyAtom } from '../data/atoms';
 import { user as userAtom, userdata } from '../data/userAtom';
 import { orderItems as orderItemsAtom } from '../data/orderAtoms.js';
 import { currentPosition as currentPositionAtom, addresses as addressAtom } from '../data/atoms';
+import { currentTime as currentTimeAtom } from '../data/atoms.js';
 
 import SideMenu from '../components/SideMenu';
 import CheckOutListPusher from '../components/CheckOutListPusher';
 import TopBar from '../components/TopBar';
 import GooglePlacesAutocomplete, { geocodeByLatLng } from 'react-google-places-autocomplete';
 
-
 import { validateAddress } from '../components/CurrentAddress/CurrentAddress';
 
 import Router from 'next/router';
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css'; //styles of nprogress
+
+import useCurrentTime from '../util/useCurrentTime';
 
 //Binding events for NProgress bar //
 NProgress.configure({ showSpinner: false });
@@ -38,6 +40,7 @@ const InitApp = ({ children }) => {
   const [, setOrderItems] = useRecoilState(orderItemsAtom);
   const [addresses, setAddresses] = useRecoilState(addressAtom);
   const [currentPosition, setCurrentPosition] = useRecoilState(currentPositionAtom);
+  // const [currentTime, setCurrentTime] = useRecoilState(currentTimeAtom);
 
   const initialUser = async () => {
     //check user cookie

@@ -33,10 +33,9 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
     currentShopPoplularProductsAtom
   );
   const router = useRouter();
-  // const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
-  // const isShopOpen = router && useIsShopOpen(addresses[index].open_hours);
-  const [isShopOpen, setIsShopOpen] = useState(true);
-
+  const index = addresses.findIndex(item => +item.id === +router.query.shop_id );
+  const isShopOpen = useIsShopOpen(addresses[index].open_hours);
+ 
   useEffect(async () => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
@@ -54,15 +53,6 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
     );
     setCurrentShop(getShop.data.data);
   }, [getSingleShop]);
-
-  useEffect(() => {
-    //check if store open
-    const index = addresses.findIndex(
-      (item) => +item.id === +router.query.shop_id
-    );
-    let open = useIsShopOpen(addresses[index].open_hours);
-    setIsShopOpen(open);
-  }, [router]);
 
   return (
     <>
@@ -96,7 +86,7 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
           </Dimmer>
         </div>
       )}
-
+{console.log("!!!!!!!!!!!!!!!!" , isShopOpen)}
       {!isShopOpen && (
         <MessageContainer>
           <Message>
