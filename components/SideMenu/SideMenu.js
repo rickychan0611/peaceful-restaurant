@@ -7,10 +7,11 @@ import { user as userAtom } from '../../data/userAtom.js';
 import { useCookies } from 'react-cookie';
 import { locales, changeLocale } from '../TopBar/TopBar';
 import useTranslation from 'next-translate/useTranslation';
-import {
-  selectedLocation as selectedLocationAtom
-} from '../../data/atoms.js';
+import { selectedLocation as selectedLocationAtom } from '../../data/atoms.js';
+import { openSwitchLocationModal as openSwitchLocationModalAtom } from '../../data/atoms.js';
+import { orderItems as orderItemsAtom } from "../../data/orderAtoms.js";
 import addresses from '../../addresses';
+import SwitchLocationModal from "../SwitchLocationModal";
 
 const SidebarMenu = () => {
   const router = useRouter();
@@ -19,6 +20,8 @@ const SidebarMenu = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const { t } = useTranslation('home');
   const [selectedLocation, setSelectedLocation] = useRecoilState(selectedLocationAtom);
+  const [, setOpenSwitchLocationModal] = useRecoilState(openSwitchLocationModalAtom);
+  const [orderItems, setOrderItems] = useRecoilState(orderItemsAtom);
 
   const handleClick = (name) => {
     router.push(name);
@@ -56,15 +59,23 @@ const SidebarMenu = () => {
         <Menu.Menu>
           {addresses.map((item, i) => {
             return (
-              <Menu.Item key={i} 
-              onClick={() => {
-                router.push('/shop/' + item.name + '/' + item.id);
-                setOpenSideMenu(false)
-                setSelectedLocation(item);
-              }}>
-              <Icon name="chevron right" size="large" />
-              <H4>{item.name}</H4>
-            </Menu.Item>
+              <Menu.Item key={i}
+                onClick={() => {
+                  if (
+                    orderItems.length === 0 ||
+                    (orderItems[0] && orderItems[0].shop.id) === item.id
+                  ) {
+                    router.push('/shop/' + item.name + '/' + item.id);
+                    setOpenSideMenu(false)
+                    setSelectedLocation(item);
+                  }
+                  else {
+                    setOpenSwitchLocationModal({open: true, item})
+                  }
+                }}>
+                <Icon name="chevron right" size="large" />
+                <H4>{item.name}</H4>
+              </Menu.Item>
             )
           })}
         </Menu.Menu>
@@ -138,6 +149,7 @@ const SideMenu = ({ children }) => {
   return (
     <>
       <Sidebar.Pushable style={{ transform: 'none', overflow: 'hidden' }}>
+      <SwitchLocationModal/>
         <SidebarMenu />
         <Sidebar.Pusher dimmed={openSideMenu}>{children}</Sidebar.Pusher>
       </Sidebar.Pushable>

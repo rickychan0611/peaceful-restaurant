@@ -56,13 +56,6 @@ const CheckOutList = () => {
             }}
           />
         </div>
-        <a
-          onClick={() => {
-            setOpenCheckOutList(false);
-            setOpenSideMenu(true);
-          }}>
-          Switch Location
-        </a>
       </Row>
       {orderItems && orderItems[0] ? (
         <OrdersContainer>

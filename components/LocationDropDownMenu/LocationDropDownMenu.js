@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import {
-  selectedLocation as selectedLocationAtom
-} from '../../data/atoms.js';
-import {useIsDesktop} from '../../util/useScreenSize';
+import { selectedLocation as selectedLocationAtom } from '../../data/atoms.js';
+import { openSwitchLocationModal as openSwitchLocationModalAtom } from '../../data/atoms.js';
+import { orderItems as orderItemsAtom } from "../../data/orderAtoms.js";
+import { useIsDesktop } from '../../util/useScreenSize';
+import SwitchLocationModal from "../SwitchLocationModal";
 
 const locations = [
   { id: 2, name: 'Broadway' },
@@ -17,14 +18,18 @@ const locations = [
   { id: 3, name: 'Mount Pleasant' }
 ];
 
-const LocationDropDownMenu = ( {setOpenDropdownMenu} ) => {
+const LocationDropDownMenu = ({ setOpenDropdownMenu }) => {
   const router = useRouter();
   const [selectedLocation, setSelectedLocation] = useRecoilState(selectedLocationAtom);
+  const [, setOpenSwitchLocationModal] = useRecoilState(openSwitchLocationModalAtom);
+  const [orderItems, setOrderItems] = useRecoilState(orderItemsAtom);
   const isDesktop = useIsDesktop();
 
   return (
     <>
-      <DropDownContainer  isDesktop={isDesktop}>
+      <SwitchLocationModal/>
+
+      <DropDownContainer isDesktop={isDesktop}>
         <DropDownMenu>
           {locations.map((item, i) => {
             return (
@@ -33,9 +38,17 @@ const LocationDropDownMenu = ( {setOpenDropdownMenu} ) => {
                 last={i === locations.length - 1}
                 className={i === locations.length - 1 ? 'last' : 'front'}
                 onClick={() => {
-                  router.push('/shop/' + item.name + '/' + item.id);
-                  setOpenDropdownMenu(false);
-                  setSelectedLocation(item);
+                  if (
+                    orderItems.length === 0 ||
+                    (orderItems[0] && orderItems[0].shop.id) === item.id
+                  ) {
+                    router.push('/shop/' + item.name + '/' + item.id);
+                    setOpenDropdownMenu(false);
+                    setSelectedLocation(item);
+                  }
+                  else {
+                    setOpenSwitchLocationModal({open: true, item})
+                  }
                 }}>
                 {item.name}
               </MenuItem>

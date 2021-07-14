@@ -257,11 +257,10 @@ const checkout = () => {
       {orderDetails.shop && orderDetails.shippingMethod && (
         <Container>
           <OrdersContainer>
-            <h4 style={{ margin: 0 }}>Order from</h4>
-            <h2 style={{ margin: 0 }}>
-              Peaceful Restaurant @{" "}
+            <h4 style={{ margin: 0 }}>You are ordering from</h4>
+            <h1 style={{ marginTop: 10 }}>
               {orderDetails.shop && orderDetails.shop.name}
-            </h2>
+            </h1>
             <Divider />
             {/* //delivery only avaiable at broadway#2, kingsway#7, , prt.coq#8 */}
             {currentShop && !(currentShop.id === 2 || currentShop.id === 7 || currentShop.id === 8) ?

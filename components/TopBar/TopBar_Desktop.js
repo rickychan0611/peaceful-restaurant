@@ -7,7 +7,8 @@ import {
   openSideMenu as openSideMenuAtom,
   openCheckOutList as openCheckOutListAtom,
   showCheckoutButton as showCheckoutButtonAtom,
-  selectedLocation as selectedLocationAtom
+  selectedLocation as selectedLocationAtom,
+  openDropdownMenu as openDropdownMenuAtom
 } from '../../data/atoms.js';
 import { user as userAtom } from '../../data/userAtom';
 import { orderItems as orderItemsAtom } from '../../data/orderAtoms.js';
@@ -24,9 +25,9 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
   const [openSideMenu, setOpenSideMenu] = useRecoilState(openSideMenuAtom);
   const [openCheckOutList, setOpenCheckOutList] = useRecoilState(openCheckOutListAtom);
   const [selectedLocation, setSelectedLocation] = useRecoilState(selectedLocationAtom);
+  const [openDropdownMenu, setOpenDropdownMenu] = useRecoilState(openDropdownMenuAtom);
   const [jiggle, setJiggle] = useState(false);
   const { t } = useTranslation('home');
-  const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies();
   const [qty, setQty] = useState(0);
 
@@ -70,7 +71,7 @@ const TopBar_Desktop = ({ locales, changeLocale }) => {
         <div style={{ position: 'relative' }}>
           <Item
             onClick={() => {
-              setOpenDropdownMenu('menu');
+              !openDropdownMenu ? setOpenDropdownMenu('menu') : setOpenDropdownMenu(false);
             }}>
             <Icon name="bars" size="large" />
             <H4>{t('Menu')}</H4>

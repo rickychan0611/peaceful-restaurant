@@ -15,6 +15,16 @@ export const selectedLocation = atom({
   default: null
 });
 
+export const openDropdownMenu = atom({
+  key: 'openDropdownMenu',
+  default: false
+});
+
+export const openSwitchLocationModal = atom({
+  key: 'openSwitchLocationModal',
+  default: {open: false, item: {name: ""}}
+});
+
 export const openSideMenu = atom({
   key: 'openSideMenu',
   default: false
