@@ -3,15 +3,20 @@ import styled from 'styled-components';
 import { Icon, List } from 'semantic-ui-react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRecoilState } from 'recoil';
+import { selectedLocation as selectedLocationAtom } from '../../data/atoms.js';
+import { openSwitchLocationModal as openSwitchLocationModalAtom } from '../../data/atoms.js';
+import { orderItems as orderItemsAtom } from "../../data/orderAtoms.js";
 import { mapLoaction as setMapLoactionAtom } from '../../data/atoms';
 import router from 'next/router';
 
 const ShopInfo = ({ shop }) => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation('shop');
-  const [mapLoaction, setMapLoaction] = useRecoilState(setMapLoactionAtom);
   const open_hours = shop.open_hours;
-
+  const [mapLoaction, setMapLoaction] = useRecoilState(setMapLoactionAtom);
+  const [selectedLocation, setSelectedLocation] = useRecoilState(selectedLocationAtom);
+  const [, setOpenSwitchLocationModal] = useRecoilState(openSwitchLocationModalAtom);
+  const [orderItems, setOrderItems] = useRecoilState(orderItemsAtom);
 
   return (
     <ListContainer>
@@ -102,7 +107,13 @@ const ShopInfo = ({ shop }) => {
           {shop.status !== 4 && <ButtonWrapper>
             <OrderButton
               onClick={() => {
-                router.push('/shop/' + shop.name + '/' + shop.id);
+                if ( orderItems.length === 0 ) {
+                  router.push('/shop/' + shop.name + '/' + shop.id);
+                  setSelectedLocation(shop);
+                }
+                else {
+                  setOpenSwitchLocationModal({ open: true, item: shop })
+                }
               }}>
               <Icon name="food" />
               Order here now
