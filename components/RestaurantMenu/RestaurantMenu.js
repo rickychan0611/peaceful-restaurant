@@ -47,20 +47,21 @@ const RestaurantMenu = ({ contextRef, t }) => {
 
   //SET LUNCH TIME
   useEffect(() => {
-    if (currentTime ) {
-      console.log("lunchtime" , currentTime)
-    const format = 'HH:mm'
-    const now = moment(currentTime.format(format), format)
-    const START = moment("11:00", format);
-    const END = moment("14:45", format);
-    const WEEK = currentTime.format("ddd")
-    if (now.isBetween(START, END)) {
-      if (WEEK === "Sat" || WEEK === "Sun") {
-        setIsLunchTime(false)
+    if (currentTime) {
+      console.log("lunchtime", currentTime)
+      const format = 'HH:mm'
+      const now = moment(currentTime.format(format), format)
+      const START = moment("11:00", format);
+      const END = moment("14:45", format);
+      const WEEK = currentTime.format("ddd")
+      if (now.isBetween(START, END)) {
+        if (WEEK === "Sat" || WEEK === "Sun") {
+          setIsLunchTime(false)
+        }
+        else setIsLunchTime(true)
       }
-      else setIsLunchTime(true)
+      else setIsLunchTime(false)
     }
-    else setIsLunchTime(false)}
   }, [currentTime])
 
   return (
@@ -134,7 +135,8 @@ const RestaurantMenu = ({ contextRef, t }) => {
             <CardContainer isMobile={isMobile}>
               {searchResults ?
                 searchResults.map((product) => {
-                  return <ShopDishCards item={product} key={product.id} isLunchTime={isLunchTime}/>;
+                  console.log("result", product)
+                  return <ShopDishCards item={product} key={product.id} catName={product.category_name} isLunchTime={isLunchTime} />
                 }) :
                 <div>No result found.</div>
               }
@@ -157,7 +159,8 @@ const RestaurantMenu = ({ contextRef, t }) => {
         <CardContainer isMobile={isMobile}>
           {currentShopPoplularProducts &&
             currentShopPoplularProducts.map((product) => {
-              return <ShopDishCards item={product} key={product.id} />;
+              return <ShopDishCards item={product} key={product.id} catName={product.category_name} isLunchTime={isLunchTime} />
+
             })}
           {!currentShopPoplularProducts && !currentShopPoplularProducts[0] && <div>No item found.</div>}
         </CardContainer>
@@ -197,7 +200,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
                       ) {
                         isEmpty = false;
                         return (
-                          <ShopDishCards item={product} key={product.id} catName={cat.category_name} isLunchTime={isLunchTime}/>
+                          <ShopDishCards item={product} key={product.id} catName={cat.category_name} isLunchTime={isLunchTime} />
                         );
                       }
                     })}
