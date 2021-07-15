@@ -136,7 +136,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
               {searchResults ?
                 searchResults.map((product) => {
                   console.log("result", product)
-                  return <ShopDishCards item={product} key={product.id} catName={product.category_name} isLunchTime={isLunchTime} />
+                  return <ShopDishCards item={product} key={product.id} catName={product.shop_categories[0].category_name} isLunchTime={isLunchTime} />
                 }) :
                 <div>No result found.</div>
               }
@@ -159,7 +159,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
         <CardContainer isMobile={isMobile}>
           {currentShopPoplularProducts &&
             currentShopPoplularProducts.map((product) => {
-              return <ShopDishCards item={product} key={product.id} catName={product.category_name} isLunchTime={isLunchTime} />
+              return <ShopDishCards item={product} key={product.id} catName={product.shop_categories[0].category_name} isLunchTime={isLunchTime} />
 
             })}
           {!currentShopPoplularProducts && !currentShopPoplularProducts[0] && <div>No item found.</div>}

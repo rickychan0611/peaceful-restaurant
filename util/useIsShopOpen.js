@@ -3,8 +3,6 @@ import moment from 'moment';
 import useCurrentTime from './useCurrentTime';
 import { useRouter } from 'next/router';
 import addresses from '../addresses';
-import { useRecoilState } from "recoil";
-import { selectedLocation as selectedLocationAtom } from "../data/atoms";
 
 const useIsShopOpen = (locationId) => {
   const router = useRouter();
