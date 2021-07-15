@@ -291,7 +291,7 @@ const checkout = () => {
                   <Row
                     onClick={() => {
                       setErr();
-                      orderDetails.subtotal < 40 &&
+                      orderDetails.subtotal < 40 && deliveryNow() &&
                         setErr("Sorry, your total amount is less than $40.");
                       orderDetails.subtotal >= 40 && deliveryNow() && 
                         setShippingMethod({ id: 2, fee: 0 });
