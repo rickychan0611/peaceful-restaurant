@@ -6,40 +6,17 @@ import {
   currentShop as currentShopAtom,
   currentItem as currentItemAtom,
 } from "../../data/atoms.js";
-import { Button, Label } from "semantic-ui-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import moment from 'moment';
 
-const ShopDishCards = ({ item, scrollPosition, catName }) => {
+const ShopDishCards = ({ item, scrollPosition, catName, isLunchTime }) => {
   const router = useRouter();
   const [currentItem, setCurrentItem] = useRecoilState(currentItemAtom);
   const [currentShop] = useRecoilState(currentShopAtom);
-
-  const isLunchTime = () => {
-    const format = 'HH:mm'
-    const now = moment();
-
-    // const START = moment("2021-07-19 11:00", 'YYYY-MM-DD hh:mm');
-    // const END = moment("2021-07-19 14:00", 'YYYY-MM-DD hh:mm');
-    const START = moment("11:00", format);
-    const END = moment("14:45", format);
-    const WEEK = now.format("ddd")
-    
-    if (now.isBetween(START, END)) {
-      if (WEEK === "Sat" || WEEK === "Sun") {
-        console.log("weekend")
-        return false
-      }
-      return true
-    }
-    return false
-  }
-
   return (
     <>
       <Card
         onClick={() => {
-          if (catName === "Lunch Special | 特價午餐" && !isLunchTime()) {
+          if (catName === "Lunch Special | 特價午餐" && !isLunchTime) {
             alert("Lunch Special is available from 11am - 2:45pm (Mon. - Fri.)")
             return;
           }
@@ -113,7 +90,7 @@ const ShopDishCards = ({ item, scrollPosition, catName }) => {
             {/* <Description>by: {item.shop.name}</Description> */}
           </div>
           {catName === "Lunch Special | 特價午餐" ?
-            <AddButton isLunchTime={!isLunchTime()}>Add to Cart</AddButton> :
+            <AddButton isLunchTime={!isLunchTime}>Add to Cart</AddButton> :
             <AddButton>Add to Cart</AddButton>}
         </SpaceBetween>
       </Card>

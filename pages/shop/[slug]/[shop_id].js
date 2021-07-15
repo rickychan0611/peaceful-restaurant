@@ -33,9 +33,11 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
     currentShopPoplularProductsAtom
   );
   const router = useRouter();
-  const index = addresses.findIndex(item => +item.id === +router.query.shop_id );
-  const isShopOpen = useIsShopOpen(addresses[index].open_hours);
- 
+  // const index = addresses.findIndex((item) => +item.id === +router.query.shop_id);
+  // const isShopOpen = router && useIsShopOpen(addresses[index].open_hours);
+  // const [isShopOpen, setIsShopOpen] = useState(true);
+  const isShopOpen = useIsShopOpen(+router.query.shop_id);
+
   useEffect(async () => {
     setCurrentShop(getSingleShop);
     setCurrentShopProducts(getShopProducts);
@@ -44,7 +46,7 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
     console.log("getShopProducts", getShopProducts);
     console.log("Popular", getPopProducts);
 
-    //update shop status
+    //update shop status`
     const getShop = await axios.get(
       process.env.NEXT_PUBLIC_HOST_URL + "/api/singleshop",
       {
@@ -53,6 +55,15 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
     );
     setCurrentShop(getShop.data.data);
   }, [getSingleShop]);
+
+  // useEffect(() => {
+  //   //check if store open
+  //   const index = addresses.findIndex(
+  //     (item) => +item.id === +router.query.shop_id
+  //   );
+  //   let open = useIsShopOpen(addresses[index].open_hours);
+  //   setIsShopOpen(open);
+  // }, [router]);
 
   return (
     <>
@@ -86,7 +97,7 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
           </Dimmer>
         </div>
       )}
-{console.log("!!!!!!!!!!!!!!!!" , isShopOpen)}
+
       {!isShopOpen && (
         <MessageContainer>
           <Message>

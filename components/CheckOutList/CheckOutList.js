@@ -27,16 +27,7 @@ const CheckOutList = () => {
   const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
   const user = useRecoilValue(userAtom);
   const [openSideMenu, setOpenSideMenu] = useRecoilState(openSideMenuAtom);
-
-  const [isShopOpen, setIsShopOpen] = useState(false);
-
-  useEffect(() => {
-    if (orderDetails.shop) {
-      const index = addresses.findIndex((item) => +item.id === +orderDetails.shop.id);
-      const open = useIsShopOpen(addresses[index].open_hours)
-      setIsShopOpen(open)
-    }
-  }, [orderDetails])
+  const isShopOpen = useIsShopOpen(orderDetails.shop && orderDetails.shop.id);
 
   return (
     <SidebarContainer
@@ -69,22 +60,28 @@ const CheckOutList = () => {
             <Icon name="linkify" />
           </H4>
 
-         { isShopOpen ? 
-         <CheckoutButton
-            onClick={() => {
-              if (!user) {
-                setLoginPending(true);
-                router.push('/sign-in');
-              } else router.push('/checkout');
-              setOpenCheckOutList(!openCheckOutList);
-            }}>
-            <H4>Checkout</H4>
-            <H4>${orderDetails.subtotal.toFixed(2)}</H4>
-          </CheckoutButton> 
-          :
-          <h5 style={{color: "red"}}><Icon name="warning circle" />
-          This Store is now closed. <br/>
-          Open hours: 11am - 9pm</h5>}
+          {isShopOpen ?
+            <CheckoutButton
+              onClick={() => {
+                if (!user) {
+                  setLoginPending(true);
+                  router.push('/sign-in');
+                } else router.push('/checkout');
+                setOpenCheckOutList(!openCheckOutList);
+              }}>
+              <H4>Checkout</H4>
+              <H4>${orderDetails.subtotal.toFixed(2)}</H4>
+            </CheckoutButton>
+            :
+            <>
+              <CheckoutButton style={{backgroundColor: "lightgray", cursor: "not-allowed"}}>
+                <H4>Checkout</H4>
+                <H4>${orderDetails.subtotal.toFixed(2)}</H4>
+              </CheckoutButton>
+              <div style={{ color: "red", textAlign: "center" }}><Icon name="warning circle" />
+                This Store is now closed. <br />
+                Open hours: 11am - 9pm</div>
+            </>}
 
           {orderItems[0] &&
             orderItems.map((item, i) => {

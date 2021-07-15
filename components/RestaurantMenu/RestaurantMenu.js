@@ -16,6 +16,8 @@ import ShopDishCards from "../../components/ShopDishCards";
 import Slider from "../Slider/Slider.js";
 import { useIsMobile } from "../../util/useScreenSize.js";
 import { useIsDesktop } from "../../util/useScreenSize.js";
+import useCurrentTime from "../../util/useCurrentTime.js";
+import moment from 'moment';
 
 import { trackWindowScroll } from "react-lazy-load-image-component";
 
@@ -31,6 +33,8 @@ const RestaurantMenu = ({ contextRef, t }) => {
   );
   const [searchResults, setSearchResults] = useRecoilState(searchResultsAtom);
   const [searchValue] = useRecoilState(searchValueAtom);
+  const [isLunchTime, setIsLunchTime] = useState(false);
+  const currentTime = useCurrentTime();
 
   useEffect(() => {
     try {
@@ -40,6 +44,27 @@ const RestaurantMenu = ({ contextRef, t }) => {
     }
     return () => setSearchResults()
   }, [currentShop]);
+
+  //SET LUNCH TIME
+  useEffect(() => {
+    if (currentTime ) {
+      console.log("lunchtime" , currentTime)
+    const format = 'HH:mm'
+    const now = currentTime
+    const START = moment("11:00", format);
+    const END = moment("14:45", format);
+
+    const WEEK = now.format("ddd")
+    console.log("weekend", WEEK)
+
+    if (now.isBetween(START, END)) {
+      if (WEEK === "Sat" || WEEK === "Sun") {
+        setIsLunchTime(false)
+      }
+      setIsLunchTime(true)
+    }
+    setIsLunchTime(false)}
+  }, [currentTime])
 
   return (
     <div style={{ position: "relative" }}>
@@ -112,7 +137,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
             <CardContainer isMobile={isMobile}>
               {searchResults ?
                 searchResults.map((product) => {
-                  return <ShopDishCards item={product} key={product.id} />;
+                  return <ShopDishCards item={product} key={product.id} isLunchTime={isLunchTime}/>;
                 }) :
                 <div>No result found.</div>
               }
@@ -176,7 +201,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
                       ) {
                         isEmpty = false;
                         return (
-                          <ShopDishCards item={product} key={product.id} catName={cat.category_name}/>
+                          <ShopDishCards item={product} key={product.id} catName={cat.category_name} isLunchTime={isLunchTime}/>
                         );
                       }
                     })}

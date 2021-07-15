@@ -26,16 +26,15 @@ import {
 import { user as userAtom } from "../data/userAtom";
 
 import { useCookies } from "react-cookie";
-import Map from "../components/Map";
 import OrderItem from "../components/OrderItem/";
 import TotalAmountList from "../components/TotalAmountList/";
 import AddressBook from "../components/AddressBook";
 import { useIsDesktop } from "../util/useScreenSize";
 import useTranslation from "next-translate/useTranslation";
-// import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import InputMask from "react-input-mask";
 import useIsShopOpen from "../util/useIsShopOpen.js";
-import * as shopsAddresses from "../addresses";
+import useCurrentTime from "../util/useCurrentTime";
+import moment from 'moment';
 
 const checkout = () => {
   const router = useRouter();
@@ -58,19 +57,17 @@ const checkout = () => {
   const [tips_amount, setTips_amount] = useState({ tips: 0 });
   const [pickUpInfo, setPickupInfo] = useState({ name: "", phone: "" });
   const [loginPending, setLoginPending] = useRecoilState(loginPendingAtom);
+  const isShopOpen = useIsShopOpen(orderDetails.shop && orderDetails.shop.id);
+  const currentTime = useCurrentTime();
 
-  useEffect(() => {
-    //check if store open
-    if (orderDetails.shop) {
-      const index = shopsAddresses.default.findIndex(
-        (item) => +item.id === +orderDetails.shop.id
-      );
-      let open = useIsShopOpen(shopsAddresses.default[index].open_hours);
-      if (!open) router.push("/");
-    }
-  }, [orderDetails]);
+  const deliveryNow = () => {
+    return (currentTime && currentTime.isBetween(
+      moment("16:00", 'HH:mm'), 
+      moment("21:00", 'HH:mm')
+    ))
+  }
 
-  useEffect(() => {
+   useEffect(() => {
     user &&
       setPickupInfo({
         first_name: user.first_name,
@@ -231,6 +228,7 @@ const checkout = () => {
     }
   }, [orderDetails]);
 
+
   return (
     <>
       <Modal closeIcon open={open} onClose={() => setOpen(false)}>
@@ -264,8 +262,8 @@ const checkout = () => {
             <Divider />
             {/* //delivery only avaiable at broadway#2, kingsway#7, , prt.coq#8 */}
             {currentShop && !(currentShop.id === 2 || currentShop.id === 7 || currentShop.id === 8) ?
-              <Header style={{color: "red"}}>
-                <Icon name="warning" circular size="small"/>This location is for pick-up only.
+              <Header style={{ color: "red" }}>
+                <Icon name="warning" circular size="small" />This location is for pick-up only.
               </Header>
               : <>
                 <Header>
@@ -295,7 +293,7 @@ const checkout = () => {
                       setErr();
                       orderDetails.subtotal < 40 &&
                         setErr("Sorry, your total amount is less than $40.");
-                      orderDetails.subtotal >= 40 &&
+                      orderDetails.subtotal >= 40 && deliveryNow() && 
                         setShippingMethod({ id: 2, fee: 0 });
                     }}
                     style={{ marginRight: 10, marginBottom: 10 }}
@@ -307,7 +305,7 @@ const checkout = () => {
                       checked={orderDetails.shippingMethod.id === 2}
                     />
                     <Column>
-                      <H4>Free delivery for order over $40</H4>
+                      <H4 style={{color: !deliveryNow() && "lightgrey"}}>Free delivery for order over $40 after 4:00pm</H4>
                     </Column>
                   </Row>
                   <div style={{ color: "red" }}>{err}</div>
@@ -439,9 +437,15 @@ const checkout = () => {
             <Divider />
             {/* <Header>Payment method</Header>
             <Divider /> */}
-            <CheckoutButton
+            <CheckoutButton isShopOpen={isShopOpen}
               onClick={() => {
-                !loading && createOrderQuery();
+                if (isShopOpen) {
+                  !loading && createOrderQuery();
+                }
+                else {
+                  alert("Sorry, we have been closed. Your order cannot be placed at this moment. Our business hours are from 11am - 9pm, 7 days a week. Please come black later. ")
+                  setErr("We are now closed. Order cannot be placed. Business hours: 11am - 9pm")
+                }
               }}
             >
               {!loading ? (
@@ -481,7 +485,7 @@ const Edit = styled.a`
   margin-left: 10px;
 `;
 const CheckoutButton = styled.div`
-  background-color: black;
+  background-color: ${p => p.isShopOpen ? "black" : "lightgray"};
   margin-top: 20px;
   margin-bottom: 10px;
   color: white;
