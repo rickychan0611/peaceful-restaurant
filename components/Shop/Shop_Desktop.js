@@ -77,6 +77,7 @@ const Shop_Desktop = () => {
 const Container = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  height: calc(100vh - 200px);
 `;
 const Row = styled.div`
   display: flex;
@@ -87,13 +88,13 @@ const Row = styled.div`
 `;
 const Left = styled.div`
   flex: 2;
-  height: calc(100vh - 170px);
+  height: 100%;
   overflow-y: auto;
   padding: 0 10px;
 `;
 const Right = styled.div`
   flex: 7;
-  height: calc(100vh - 170px);
+  height: 100%;
   overflow-y: auto;
   padding: 10px 10px;
 `;
