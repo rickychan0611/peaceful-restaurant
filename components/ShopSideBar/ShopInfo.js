@@ -107,7 +107,8 @@ const ShopInfo = ({ shop }) => {
           {shop.status !== 4 && <ButtonWrapper>
             <OrderButton
               onClick={() => {
-                if ( orderItems.length === 0 ) {
+                if ( orderItems.length === 0 ||
+                  (orderItems[0] && orderItems[0].shop.id) === shop.id) {
                   router.push('/shop/' + shop.name + '/' + shop.id);
                   setSelectedLocation(shop);
                 }
