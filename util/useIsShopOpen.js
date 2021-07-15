@@ -31,8 +31,6 @@ const useIsShopOpen = (locationId) => {
       else setIsOpen(false)
     }
   }, [currentTime, index])
-
-  console.log(isOpen ? "Shop is opened" : "Shop is closed" )
    if (isOpen) return true
    return false
 };
