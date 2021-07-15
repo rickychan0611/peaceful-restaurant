@@ -15,6 +15,8 @@ const statusDecoder = (status) => {
     ? "Completed"
     : status == 8
     ? "Reviewed"
+    : status == 101
+    ? "Order Cancelled"
     : "";
 };
 
