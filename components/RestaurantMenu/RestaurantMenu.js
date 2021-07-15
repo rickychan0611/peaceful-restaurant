@@ -50,20 +50,17 @@ const RestaurantMenu = ({ contextRef, t }) => {
     if (currentTime ) {
       console.log("lunchtime" , currentTime)
     const format = 'HH:mm'
-    const now = currentTime
+    const now = moment(currentTime.format(format), format)
     const START = moment("11:00", format);
     const END = moment("14:45", format);
-
-    const WEEK = now.format("ddd")
-    console.log("weekend", WEEK)
-
+    const WEEK = currentTime.format("ddd")
     if (now.isBetween(START, END)) {
       if (WEEK === "Sat" || WEEK === "Sun") {
         setIsLunchTime(false)
       }
-      setIsLunchTime(true)
+      else setIsLunchTime(true)
     }
-    setIsLunchTime(false)}
+    else setIsLunchTime(false)}
   }, [currentTime])
 
   return (
@@ -119,7 +116,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
         </Sticky>
       )}
 
-      {/* Menu cards*/}
+      {/* Menu has 3 sections. search result, popular items and full menu*/}
       {/******** Search Results| 搜索结果 ********/}
       {isDesktop ? (
         <div id="result" style={{ paddingTop: 1 }} />
@@ -166,6 +163,7 @@ const RestaurantMenu = ({ contextRef, t }) => {
         </CardContainer>
       </MenuContainer>
 
+      {/******** Full Menu ********/}
       {
         currentShop &&
         currentShop.shop_categories &&
@@ -175,8 +173,6 @@ const RestaurantMenu = ({ contextRef, t }) => {
           if (cat.category_name !== "Popular Items") {
             return (
               <MenuContainer key={i}>
-                {/* Anchor point for desktop and non desktop */}
-                {/* {isDesktop && <Anchor id={cat.id} isDesktop={isDesktop}></Anchor>} */}
                 {isDesktop ? (
                   <div id={cat.id} style={{ paddingTop: 1 }} />
                 ) : (

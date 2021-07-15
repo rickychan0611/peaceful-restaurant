@@ -327,7 +327,7 @@ const checkout = () => {
                     <Form.Input
                       fluid
                       required
-                      label="Your phone number"
+                      label="Your Phone Number"
                       error={err && err.phone}
                       value={pickUpInfo.phone}
                       children={
@@ -335,7 +335,7 @@ const checkout = () => {
                           mask="999-999-9999"
                           maskChar="_"
                           alwaysShowMask
-                          placeholder="Your phone number"
+                          placeholder="Your Phone Number"
                           value={pickUpInfo.phone}
                           onChange={(e) => {
                             handlePickupChange(e.target.value, "phone");

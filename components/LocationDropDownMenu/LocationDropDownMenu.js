@@ -27,13 +27,14 @@ const LocationDropDownMenu = ({ setOpenDropdownMenu }) => {
 
   return (
     <>
-      <SwitchLocationModal/>
+      <SwitchLocationModal />
 
       <DropDownContainer isDesktop={isDesktop}>
         <DropDownMenu>
           {locations.map((item, i) => {
             return (
               <MenuItem
+                key={i}
                 selected={selectedLocation && selectedLocation.id === item.id}
                 last={i === locations.length - 1}
                 className={i === locations.length - 1 ? 'last' : 'front'}
@@ -47,7 +48,7 @@ const LocationDropDownMenu = ({ setOpenDropdownMenu }) => {
                     setSelectedLocation(item);
                   }
                   else {
-                    setOpenSwitchLocationModal({open: true, item})
+                    setOpenSwitchLocationModal({ open: true, item })
                   }
                 }}>
                 {item.name}
