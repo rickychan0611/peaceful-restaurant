@@ -80,7 +80,7 @@ const CheckOutList = () => {
               </CheckoutButton>
               <div style={{ color: "red", textAlign: "center" }}><Icon name="warning circle" />
                 This Store is now closed. <br />
-                Open hours: 11am - 9pm</div>
+                Business hours: 11am - 9pm</div>
             </>}
 
           {orderItems[0] &&

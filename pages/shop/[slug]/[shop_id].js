@@ -102,7 +102,7 @@ const shop = ({ getSingleShop, getShopProducts, getPopProducts }) => {
         <MessageContainer>
           <Message>
             <Icon name="warning circle" />
-            This store is now closed. Open hours: Mon - Sun, 11am - 9pm
+            This store is now closed. Business hours: 11am - 9pm, Mon - Sun
           </Message>
         </MessageContainer>
       )}
