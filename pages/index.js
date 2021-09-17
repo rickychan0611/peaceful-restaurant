@@ -31,12 +31,8 @@ const Home = () => {
     <>
       <MapModal open={open} setOpen={setOpen} />
       <CheckOutListPusher>
-<<<<<<< HEAD
         {/* <BackgroundImage src="/Chinese-Dishes.jpg" style={{ top: cal / -3 + 75 }} /> */}
         <FrontBanner/>
-=======
-        <BackgroundImage src="/Chinese-Dishes.jpg" style={{ top: cal / -3 + 75 }} />
->>>>>>> d73c82206647e451e3b4c564683948ff5271ce7a
         <Bar />
         <div style={{ backgroundColor: 'white' }}>
           <Container>
