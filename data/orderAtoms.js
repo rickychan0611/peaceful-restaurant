@@ -13,6 +13,11 @@ export const shippingMethod = atom({
   default: {id: 1, fee: 0}
 });
 
+export const paymentMethodAtom = atom({
+  key: 'paymentMethodAtom',
+  default: null
+});
+
 export const orderDetails = selector({
   key: 'orderDetails',
   get: ({ get }) => {

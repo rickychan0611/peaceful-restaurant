@@ -8,6 +8,7 @@ import CheckOutListPusher from '../components/CheckOutListPusher';
 import addresses from '../addresses';
 import Location_Desktop from '../components/Location_Desktop';
 import Location_Mobile from '../components/Location_Mobile';
+import FrontBanner from '../components/FrontBanner';
 
 const MapModal = ({ open, setOpen }) => {
   const isMobile = useIsMobile();
@@ -30,10 +31,8 @@ const Home = () => {
     <>
       <MapModal open={open} setOpen={setOpen} />
       <CheckOutListPusher>
-        <BackgroundImage src="/Chinese-Dishes.jpg" style={{ top: cal / -3 + 75 }} />
-        {/* <Visibility onUpdate={handleUpdate}>
-          <div style={{ height: 470  }}></div>
-        </Visibility> */}
+        {/* <BackgroundImage src="/Chinese-Dishes.jpg" style={{ top: cal / -3 + 75 }} /> */}
+        <FrontBanner/>
         <Bar />
         <div style={{ backgroundColor: 'white' }}>
           <Container>

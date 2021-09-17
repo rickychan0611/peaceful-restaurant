@@ -189,8 +189,11 @@ const checkout = () => {
           }
         );
         console.log("create order respond", result.data);
-        if (result.data.message === "Order create success") {
-          router.push("/consumer/order-success");
+        if (result.data.code === 200) {
+          router.push({
+            pathname: '/consumer/payselect',
+            query: { orderid: result.data.data.id }
+          });
         } else {
           throw new Error("Order failed. Please try again");
         }
